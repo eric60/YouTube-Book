@@ -19,6 +19,6 @@ Our 2 main components will be the Youtube video category and the user inputted d
 Data processed: 
 * Users' video lists
 * Video category
-* Video title, video label, video notes, and video bookmark timestamps
+* Video title, video label, video notes, and video bookmark timestamps with notes attached e.g. (1:23 - Important part discussing integrals)
 
   
