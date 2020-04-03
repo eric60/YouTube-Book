@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#addVideo').click(function() {
+    $('#addVideoBtn').click(function() {
         alert('popup modal add video')
     })
 })

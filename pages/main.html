@@ -21,15 +21,15 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category List
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Education</a></li>
-                    <li><a href="#">Science & Technology</a></li>
+                    <li><a href="#educationCat">Education</a></li>
+                    <li><a href="#scienceCat">Science & Technology</a></li>
                   </ul>
                 </li>
               </ul>
 
               <ul class="nav navbar-nav navbar-right">
                 <li>
-                  <button class="btn btn-success" id="addVideo" type="submit">Add Video+</button>
+                  <button class="btn btn-success" id="addVideoBtn" type="submit">Add Video+</button>
                 </li>
                 <li><a href="login.html" id="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
               </ul>
@@ -37,7 +37,19 @@
         </nav>
         
         <div class="container">
-            <h1>Youtube Study</h1>
+            <div class="videoBox" id="#educationCat">
+              <h1>Education</h1>
+              <h3>Calc 3</h2>
+              <div class="panel-group">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">1. Integrals</div>
+                  <div class="panel-body">Panel Content</div>
+              </div>
+         
+            </div>
+            <div class="videoBox" id="scienceCat">
+              <h1>Science & Technology</h1>
+            </div>
         </div>
         
     </body>
