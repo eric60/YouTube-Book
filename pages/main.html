@@ -4,8 +4,11 @@
         <title>Youtube Book</title>
         <link rel="stylesheet" href="../styles.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
         <script src="../js/main.js"></script>
     </head>
     <body>
@@ -37,12 +40,11 @@
         </nav>
         
         <div class="container">
+         
           <button type="button" class="collapsibleBtn catBtn">Education</button>
-
-            <div class="collapsibleCategoryBox" id="#educationCat">
-                
-              <button type="button" class="collapsibleBtn labelBtn">Calc 3</button>
-                <div class="collapsibleLabelBox">
+            <div class="collapsibleCategoryBox" id="Category-Education">              
+              <button type="button" class="collapsibleBtn labelBtn" >Calc 3</button>
+                <div class="collapsibleLabelBox" id="Label-Calc3">
                   <div class="panel-group">
                     <div class="panel-panel-primary-education">
                       <div class="panel-heading">1. Integrals</div>
@@ -61,9 +63,7 @@
                     </div>
                   </div>
                 </div>
-
-                <button type="button" class="collapsibleBtn labelBtn">Calc 3</button>
-                <div class="collapsibleLabelBox">
+                
                   <div class="panel-group">
                     <div class="panel-panel-primary-education">
                       <div class="panel-heading" id = "EducationHeading">2. Partial Derivatives</div>

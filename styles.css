@@ -16,16 +16,21 @@
     padding:0!important;
     cursor:pointer;
 }
+
 .catBtn {
-    font-size: 30px;
+    font-size: 35px;
+    border:inherit;
+    font-style: bold;
 }
+
 .labelBtn {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .collapsibleBtn:hover{
     text-decoration:underline;
 }
+/* Buttons end */
 
 #logintitle{
     font-weight: bolder;
@@ -128,12 +133,6 @@ input:focus{
     height: 100%;
     float: left;
     margin-right: 0;
-}
-
-.bookmark-title, .notes-title{
-    font-style: bold;
-    font-size: 16px;
-    margin-bottom: 10px;
 }
 
 .bookmarks-section, .notes-section{
