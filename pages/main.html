@@ -12,7 +12,7 @@
         <nav class="navbar navbar-light ">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a class="navbar-brand" href="#">YouTube Book</a>
+                <a class="navbar-brand" id="YtBookBrand" href="#">YouTube Book</a>
               </div>
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
@@ -37,15 +37,20 @@
         </nav>
         
         <div class="container">
-            <div class="videoBox" id="#educationCat">
-                <h1>Education</h1>
-                <h3>Calc 3</h2>
-                <div class="panel-group">
-                  <div class="panel panel-primary">
-                    <div class="panel-heading">1. Integrals</div>
-                    <div class="panel-body">Panel Content</div>
+          <button type="button" class="collapsibleBtn catBtn">Education</button>
+
+            <div class="collapsibleCategoryBox" id="#educationCat">
+                
+              <button type="button" class="collapsibleBtn labelBtn">Calc 3</button>
+                <div class="collapsibleLabelBox">
+                  <div class="panel-group">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">1. Integrals</div>
+                      <div class="panel-body">Panel Content</div>
+                    </div>
                   </div>
                 </div>
+               
               <div class="videoBox" id="scienceCat">
                 <h1>Science & Technology</h1>
               </div>
@@ -61,10 +66,12 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+
               <div class="modal-body">
                 <label for="ytUrlInput">Enter your YouTube Url</label>
                 <input id="ytUrlInput" type="text">
               </div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" id="addYtBook" class="btn btn-primary">Add</button>

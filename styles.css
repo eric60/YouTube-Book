@@ -10,6 +10,23 @@
     text-align: center;
 }
 
+.collapsibleBtn {
+    background:none!important;
+    border:none; 
+    padding:0!important;
+    cursor:pointer;
+}
+.catBtn {
+    font-size: 30px;
+}
+.labelBtn {
+    font-size: 25px;
+}
+
+.collapsibleBtn:hover{
+    text-decoration:underline;
+}
+
 #logintitle{
     font-weight: bolder;
 }
@@ -54,6 +71,14 @@ input:focus{
     text-align: center;
     font-size: 20px;
     font-weight: 700;
+}
+
+#YtBookBrand {
+    /* color:#FF0000;
+    font-style: bold;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700; */
 }
 
 .row{
