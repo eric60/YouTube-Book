@@ -28,7 +28,8 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li>
-                  <button class="btn btn-success" id="addVideoBtn" type="submit">Add Video+</button>
+                  <button class="btn btn-success" id="addVideoBtn" 
+                  data-toggle="modal" data-target="#modal" type="submit">Add Video＋</button>
                 </li>
                 <li><a href="login.html" id="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
               </ul>
@@ -37,18 +38,39 @@
         
         <div class="container">
             <div class="videoBox" id="#educationCat">
-              <h1>Education</h1>
-              <h3>Calc 3</h2>
-              <div class="panel-group">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">1. Integrals</div>
-                  <div class="panel-body">Panel Content</div>
+                <h1>Education</h1>
+                <h3>Calc 3</h2>
+                <div class="panel-group">
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">1. Integrals</div>
+                    <div class="panel-body">Panel Content</div>
+                  </div>
+                </div>
+              <div class="videoBox" id="scienceCat">
+                <h1>Science & Technology</h1>
               </div>
-         
             </div>
-            <div class="videoBox" id="scienceCat">
-              <h1>Science & Technology</h1>
+        </div>
+  
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Add YouTube Book</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <label for="ytUrlInput">Enter your YouTube Url</label>
+                <input id="ytUrlInput" type="text">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="addYtBook" class="btn btn-primary">Add</button>
+              </div>
             </div>
+          </div>
         </div>
         
     </body>

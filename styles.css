@@ -48,6 +48,14 @@ input:focus{
     color: #5d5c61;
 }
 
+#modalTitle {
+    color:#FF0000;
+    font-style: bold;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .row{
     font-size: 14pt;
 }
