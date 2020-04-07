@@ -83,12 +83,14 @@ input:focus{
 
 .row{
     font-size: 14pt;
+    padding-bottom: 10px;
 }
 
 .container{
-    height: 10%px;
+    height: 10%;
     width: 100%;
     border: 1px;
+    font-family: 'Segoe UI';
 }
 .navbar {
     background-color: #e3f2fd;
@@ -101,6 +103,45 @@ input:focus{
     font-size: 18px;
 }
 
-.row {
-    padding-bottom: 10px;
+.panel-panel-primary-education{
+    background-color: #47a88a;
+    border-radius: 10px;
+}
+
+.panel-panel-primary-technology{
+    background-color: #ff8b2c;
+    border-radius: 10px;
+}
+
+.panel-heading{
+    color: white;
+}
+
+.panel-body{
+    overflow: hidden;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+.video-section{
+    width: 33%;
+    height: 100%;
+    float: left;
+    margin-right: 0;
+}
+
+.bookmark-title, .notes-title{
+    font-style: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.bookmarks-section, .notes-section{
+    width: 30%;
+    height: 90%;
+    border: solid #968a8a 2px;
+    border-radius: 10px;
+    float: left;
+    margin-right: 2%;
+    word-wrap: break-word;
 }
