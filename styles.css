@@ -10,22 +10,30 @@
     text-align: center;
 }
 
+/* Buttons */
 .collapsibleBtn {
-    background:none!important;
-    border:none; 
-    padding:0!important;
-    cursor:pointer;
-}
-.catBtn {
-    font-size: 30px;
-}
-.labelBtn {
-    font-size: 25px;
+    background: none!important;
+    border: none; 
+    padding: 0!important;
+    cursor: pointer;
 }
 
-.collapsibleBtn:hover{
+.collapsibleBtn:hover, .collapsibleBtn:active  {
     text-decoration:underline;
+    outline: 0;
+    border: none;
 }
+
+.catBtn {
+    font-size: 30px;
+    border:inherit;
+}
+
+.labelBtn {
+    font-size: 25px;
+    border:inherit;
+}
+/* Buttons end */
 
 #logintitle{
     font-weight: bolder;
