@@ -1,3 +1,12 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#icon {
+    width:120px;
+    height: 90px;
+}
+
 #loginBody, #signupBody{
     padding: 10px;
     text-align: center;
@@ -70,12 +79,27 @@ input:focus{
     color: #5d5c61;
 }
 
+input[type="text"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+input[type="text"]:focus {
+    -webkit-box-shadow: none;
+    border-bottom: 1px solid blue;
+    box-shadow: none;
+    outline: none;
+}
+
 #modalTitle {
     color:#FF0000;
     font-style: bold;
     text-align: center;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 25px;
 }
 
 .container{
@@ -136,24 +160,24 @@ input:focus{
     border-radius: 10px;
 }
 
-.panel-heading{
+.panel-heading {
     color: white;
 }
 
-.panel-body{
+.panel-body {
     overflow: hidden;
     background-color: #f2f2f2;
     border-radius: 10px;
 }
 
-.video-section{
+.video-section {
     width: 33%;
     height: 100%;
     float: left;
     margin-right: 0;
 }
 
-.bookmarks-section, .notes-section{
+.bookmarks-section, .notes-section {
     width: 30%;
     height: 90%;
     border: solid #c2baba 2px;
@@ -164,6 +188,6 @@ input:focus{
     font-weight: 500;
 }
 
-h4{
+h4 {
     margin: 0px;
 }

@@ -122,15 +122,19 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Add YouTube Book</h5>
+                <h5 class="modal-title" id="modalTitle">Add your YouTube Book</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
               <div class="modal-body">
-                <label for="ytUrlInput">Enter your YouTube Url</label>
-                <input id="ytUrlInput" type="text">
+                <form>
+                  <label for="ytUrlInput1">Enter your YouTube URL: </label>            
+                  <input id="ytUrlInput" type="text">
+                  <div id="category"></div>
+                </form>
+                
               </div>
 
               <div class="modal-footer">
