@@ -125,32 +125,38 @@
 
       
         <div id="dialog" title="Add your YouTube Book">
-          <label for="ytUrlInput1">YouTube Video URL: </label>            
-          <input id="ytUrlInput" type="text">
-          <div class="modalCategory">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
-            <span class="caret"></span></button>
+          <div class="dialog-Video-Section">
+            <label for="ytUrlInput1">YouTube Video URL: </label>            
+            <input id="ytUrlInput" type="text">
+            <div id="player1">video</div>
+          </div>
+
+          <div class="dialog-other">
+            <div class="modalCategory">
+               <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Education</a></li>
+                    <li><a href="#">Science</a></li>
+                  </ul>
+              </div>
+  
+              <label for="dialog-CatInput2">New Category: </label>            
+              <input id="yuCatInput2" type="text">
+            </div>
         
-            <label for="dialogCategory">Select a Category</label>
-               <select name="Category" id="dialogCategory">
-                <option value="Education">Education</option>
-                <option value="Science & Technology">Science & Technology</option>              
-            </select>
-
-            <label for="yuCatInput2">New Category: </label>            
-            <input id="yuCatInput2" type="text">
+            <label for="dialog-CatInput2">Label: </label>            
+            <input id="dialog-CatInput2" type="text">
+  
+            <label for="diagCatInput2">Notes </label>            
+            <textarea id="yuCatInput2" type="text"></textarea>
+  
+            <div class="modal-footer">
+              <button type="button" id="addYtBook" class="btn btn-primary">Add</button>
+            </div>
           </div>
-      
-
-          <label for="dialogCatInput2">Label: </label>            
-          <input id="dialogCatInput2" type="text">
-
-          <label for="diagCatInput2">Notes </label>            
-          <textarea id="yuCatInput2" type="text"></textarea>
-
-          <div class="modal-footer">
-            <button type="button" id="addYtBook" class="btn btn-primary">Add</button>
-          </div>
+  
         </div>
 
         

@@ -106,10 +106,9 @@ input[type="text"]:focus {
 }
 
 
-/* ------------------ Modal ------------------ */
-.modal-dialog {
-    max-width: 850px;
-    margin: 2rem auto;
+/* ------------------ Dialog ------------------ */
+.dialog-other {
+    margin-top: 3em;
 }
 
 #modalTitle {
@@ -118,6 +117,7 @@ input[type="text"]:focus {
     text-align: center;
     font-size: 25px;
 }
+/* ------------------ End Dialog ------------------ */
 
 #addVideoBtn {
     width: 150px;
@@ -136,7 +136,7 @@ input[type="text"]:focus {
     color: #5d5c61;
 }
 
-/* ------------------ End Modal ------------------ */
+
 /* ------------------ Navbar ------------------ */
 .modal-body {
     max-height:800px;
