@@ -12,19 +12,19 @@
         <script src="../js/main.js"></script>
     </head>
     <body>
-        <nav class="navbar navbar-light ">
+        <nav class="navbar navbar-light" id = "navbar">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a class="navbar-brand" id="YtBookBrand" href="#">YouTube Book</a>
+                <a class="navbar-brand" id="navbar-title" href="#">YouTube Book</a>
               </div>
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="#" id="navbar-words">Home</a></li>
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category List
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-words">Category List
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#educationCat">Education</a></li>
-                    <li><a href="#scienceCat">Science & Technology</a></li>
+                    <li><a href="#scienceCat">Technology</a></li>
                   </ul>
                 </li>
               </ul>
@@ -34,7 +34,7 @@
                   <button class="btn btn-success" id="addVideoBtn" 
                   data-toggle="modal" data-target="#modal" type="submit">Add Video＋</button>
                 </li>
-                <li><a href="login.html" id="signout"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+                <li><a href="login.html" id="navbar-words"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
               </ul>
             </div>
         </nav>
@@ -53,11 +53,13 @@
                           <iframe src = "https://www.youtube.com/embed/lv_awaaT6gY" allow = "fullscreen"></iframe>
                         </div>
                         <div class = "bookmarks-section">
-                          <p>bookmarks content
-                          </p>
+                          <h4>Bookmarks</h4>
+                          <li>bookmarks content
+                          </li>
                         </div>
                         <div class = "notes-section">
-                          <p>notes content</p>
+                          <h4>Notes</h4>
+                          <li>notes content</li>
                         </div>
                       </div>
                     </div>
@@ -72,11 +74,13 @@
                           <iframe src = "https://www.youtube.com/embed/JAf_aSIJryg" allow = "fullscreen"></iframe>
                         </div>
                         <div class = "bookmarks-section">
-                          <p>bookmarks content
-                          </p>
+                          <h4>Bookmarks</h4>
+                          <li>bookmarks content
+                          </li>
                         </div>
                         <div class = "notes-section">
-                          <p>notes content</p>
+                          <h4>Notes</h4>
+                          <li>notes content</li>
                         </div>
                       </div>
                     </div>
@@ -96,11 +100,13 @@
                           <iframe src = "https://www.youtube.com/embed/bL1d0MMEgZE" allow = "fullscreen"></iframe>
                         </div>
                         <div class = "bookmarks-section">
-                          <p>bookmarks content
-                          </p>
+                          <h4>Bookmarks</h4>
+                          <li>bookmarks content
+                          </li>
                         </div>
                         <div class = "notes-section">
-                          <p>notes content</p>
+                          <h4>Notes</h4>
+                          <li>notes content</li>
                         </div>
                       </div>
                     </div>

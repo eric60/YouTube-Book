@@ -78,24 +78,12 @@ input:focus{
     font-weight: 700;
 }
 
-#YtBookBrand {
-    /* color:#FF0000;
-    font-style: bold;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700; */
-}
-
-.row{
-    font-size: 14pt;
-    padding-bottom: 10px;
-}
-
 .container{
     height: 10%;
     width: 100%;
     border: 1px;
     font-family: 'Segoe UI';
+    font-weight: bold;
 }
 .navbar {
     background-color: #e3f2fd;
@@ -106,6 +94,36 @@ input:focus{
     margin-top:5px;
     margin-right: 6px;
     font-size: 18px;
+    background-color: #47a88a;
+    color:white;
+    border: 2px solid #47a88a;
+    border-radius: 3px;
+    transition-duration: 0.4s;
+}
+
+#addVideoBtn:hover{
+    background-color: white;
+    color: #5d5c61;
+}
+
+#navbar{
+    background-color: #f2f2f2;
+    font-family: 'Segoe UI';
+    border-radius: 0px;
+}
+
+.navbar-brand{
+    font-size: 30px;
+}
+
+#navbar-words{
+    color: black;
+    font-size: 20px;
+}
+#navbar-title{
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
 }
 
 .panel-panel-primary-education{
@@ -138,9 +156,14 @@ input:focus{
 .bookmarks-section, .notes-section{
     width: 30%;
     height: 90%;
-    border: solid #968a8a 2px;
-    border-radius: 10px;
+    border: solid #c2baba 2px;
+    border-radius: 4px;
     float: left;
     margin-right: 2%;
     word-wrap: break-word;
+    font-weight: 500;
+}
+
+h4{
+    margin: 0px;
 }
