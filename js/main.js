@@ -3,7 +3,11 @@ $(document).ready(function() {
         alert('popup modal add video')
     })
 
-    $("#accordion").accordion();
+    $(".collapsibleBtn catBtn").accordion({
+        collapsible: true
+    });
 
-
-})
+    $(".collapsibleCategoryBox").accordion({
+        collapsible: true
+    });
+});
