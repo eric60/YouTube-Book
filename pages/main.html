@@ -23,11 +23,12 @@
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#" id="navbar-words">Home</a></li>
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-words">Category List
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-words">Jump To
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#educationCat">Education</a></li>
-                    <li><a href="#scienceCat">Technology</a></li>
+                    <li><b><a href="#Category-Education">Education</a></b></li>
+                    <li><a href="#label-Calc3">Calc 3</a></li>
+                    <li><b><a href="#Category-Technology">Technology</a></b></li>
                   </ul>
                 </li>
               </ul>
@@ -127,10 +128,12 @@
           <div class="modalCategory">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
             <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Education</a></li>
-              <li><a href="#">Science & Technology</a></li>
-            </ul>
+        
+            <label for="dialogCategory">Select a Category</label>
+               <select name="Category" id="dialogCategory">
+                <option value="Education">Education</option>
+                <option value="Science & Technology">Science & Technology</option>              
+            </select>
 
             <label for="yuCatInput2">New Category: </label>            
             <input id="yuCatInput2" type="text">
