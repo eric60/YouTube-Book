@@ -41,6 +41,7 @@ body {
 }
 /* Buttons end */
 
+/* ------------------ Login ------------------ */
 #logintitle{
     font-weight: bolder;
 }
@@ -78,6 +79,7 @@ input:focus{
     background-color: white;
     color: #5d5c61;
 }
+/* ------------------ End Login ------------------ */
 
 input[type="text"] {
     background: transparent;
@@ -95,13 +97,6 @@ input[type="text"]:focus {
     outline: none;
 }
 
-#modalTitle {
-    color:#FF0000;
-    font-style: bold;
-    text-align: center;
-    font-size: 25px;
-}
-
 .container{
     height: 10%;
     width: 100%;
@@ -109,8 +104,19 @@ input[type="text"]:focus {
     font-family: 'Segoe UI';
     font-weight: bold;
 }
-.navbar {
-    background-color: #e3f2fd;
+
+
+/* ------------------ Modal ------------------ */
+.modal-dialog {
+    max-width: 850px;
+    margin: 2rem auto;
+}
+
+#modalTitle {
+    color:#FF0000;
+    font-style: bold;
+    text-align: center;
+    font-size: 25px;
 }
 
 #addVideoBtn {
@@ -128,6 +134,13 @@ input[type="text"]:focus {
 #addVideoBtn:hover{
     background-color: white;
     color: #5d5c61;
+}
+
+/* ------------------ End Modal ------------------ */
+/* ------------------ Navbar ------------------ */
+
+.navbar {
+    background-color: #e3f2fd;
 }
 
 #navbar{
@@ -149,6 +162,8 @@ input[type="text"]:focus {
     color: black;
     font-weight: bold;
 }
+/* ------------------ End Navbar style ------------------ */
+
 
 .panel-panel-primary-education{
     background-color: #47a88a;

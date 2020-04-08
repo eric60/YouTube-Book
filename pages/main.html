@@ -6,7 +6,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         
         <script src="../js/main.js"></script>
@@ -130,9 +131,27 @@
 
               <div class="modal-body">
                 <form>
-                  <label for="ytUrlInput1">Enter your YouTube URL: </label>            
+                  <label for="ytUrlInput1">YouTube Video URL: </label>            
                   <input id="ytUrlInput" type="text">
-                  <div id="category"></div>
+
+                  <div class="modalCategory">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Education</a></li>
+                      <li><a href="#">Science & Technology</a></li>
+                    </ul>
+
+                    <label for="yuCatInput2">New Category: </label>            
+                    <input id="yuCatInput2" type="text">
+                  </div>
+              
+
+                  <label for="yuCatInput2">Label: </label>            
+                  <input id="yuCatInput2" type="text">
+
+                  <label for="yuCatInput2">Notes </label>            
+                  <textarea id="yuCatInput2" type="text"></textarea>
                 </form>
                 
               </div>
