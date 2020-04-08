@@ -10,4 +10,14 @@ $(document).ready(function() {
     $(".collapsibleCategoryBox").accordion({
         collapsible: true
     });
+
+    $(".collapsibleBtn labelBtn").accordion({
+        collapsible: true
+    });
+
+    $(".collapsibleLabelBox").accordion({
+        collapsible: true
+    });
+
+    
 });
