@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>        
+       
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         
         <script src="../js/main.js"></script>
@@ -32,8 +34,7 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li>
-                  <button class="btn btn-success" id="addVideoBtn" 
-                  data-toggle="modal" data-target="#modal" type="submit">Add Video＋</button>
+                  <button class="btn btn-success" id="addVideoBtn">Add Video＋</button>
                 </li>
                 <li><a href="login.html" id="navbar-words"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
               </ul>
@@ -118,51 +119,35 @@
               </div>
             
         </div>
-  
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Add your YouTube Book</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
 
-              <div class="modal-body">
-                <form>
-                  <label for="ytUrlInput1">YouTube Video URL: </label>            
-                  <input id="ytUrlInput" type="text">
+      
+        <div id="dialog" title="Add your YouTube Book">
+          <label for="ytUrlInput1">YouTube Video URL: </label>            
+          <input id="ytUrlInput" type="text">
+          <div class="modalCategory">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Education</a></li>
+              <li><a href="#">Science & Technology</a></li>
+            </ul>
 
-                  <div class="modalCategory">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Education</a></li>
-                      <li><a href="#">Science & Technology</a></li>
-                    </ul>
+            <label for="yuCatInput2">New Category: </label>            
+            <input id="yuCatInput2" type="text">
+          </div>
+      
 
-                    <label for="yuCatInput2">New Category: </label>            
-                    <input id="yuCatInput2" type="text">
-                  </div>
-              
+          <label for="dialogCatInput2">Label: </label>            
+          <input id="dialogCatInput2" type="text">
 
-                  <label for="yuCatInput2">Label: </label>            
-                  <input id="yuCatInput2" type="text">
+          <label for="diagCatInput2">Notes </label>            
+          <textarea id="yuCatInput2" type="text"></textarea>
 
-                  <label for="yuCatInput2">Notes </label>            
-                  <textarea id="yuCatInput2" type="text"></textarea>
-                </form>
-                
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="addYtBook" class="btn btn-primary">Add</button>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button type="button" id="addYtBook" class="btn btn-primary">Add</button>
           </div>
         </div>
+
         
     </body>
 </html>

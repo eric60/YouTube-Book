@@ -138,6 +138,9 @@ input[type="text"]:focus {
 
 /* ------------------ End Modal ------------------ */
 /* ------------------ Navbar ------------------ */
+.modal-body {
+    max-height:800px;
+}
 
 .navbar {
     background-color: #e3f2fd;
@@ -162,9 +165,9 @@ input[type="text"]:focus {
     color: black;
     font-weight: bold;
 }
-/* ------------------ End Navbar style ------------------ */
+/* ------------------ End Navbar ------------------ */
 
-
+/* ------------------ Main page video panels ------------------ */
 .panel-panel-primary-education{
     background-color: #47a88a;
     border-radius: 10px;
