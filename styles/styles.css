@@ -118,10 +118,6 @@ input[type="text"]:focus {
 
 
 /* ------------------ Navbar ------------------ */
-.modal-body {
-    max-height:800px;
-}
-
 .navbar {
     background-color: #e3f2fd;
 }

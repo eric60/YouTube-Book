@@ -1,26 +1,42 @@
 $(document).ready(function() {
+    let player;
+
     $('#addYtBook').click(function() {
         let url = $('#ytUrlInput').val();
         if(!validateUrl(url)) {
             alert("Please enter a valid Url");
         }
         else {
-            alert("valid url: " + url)
+            let videoId = parseYoutubeUrl(url)
+            console.log(videoId)
+            onYouTubeIframeAPIReady(player, "player1", videoId);
         }
     })
 
-    function insertYoutubePlayer() {
-        
+    function parseYoutubeUrl(url) {
+        let regEx = /v=([^&]+)/
+        var match = url.match(regEx)
+        console.log(match)
+        let videoId = match[1];
+        return videoId;
     }
 
-    function onYouTubeIframeAPIReady(divInsert) {
+    function validateUrl(url) {
+        // example v=73Fyj6HZ6R0&t=3s
+        // exclude only & character
+        if(!url.match(/v=([^&]+)/)) {
+            return false;
+        }
+        return true;
+    }
+
+    function onYouTubeIframeAPIReady(player, divInsert, videoId) {
+        console.log('trigger youtube player')
         player = new YT.Player(divInsert, {
-          height: '400',
-          width: '500',
-          videoId: 'M7lc1UVf-VE',
+          height: '300',
+          width: '400',
+          videoId: videoId,
           events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
           }
         });
       }
@@ -47,14 +63,7 @@ $(document).ready(function() {
         $( "#dialog-edit" ).dialog( "open" );
     });
 
-    function validateUrl(url) {
-        // example v=73Fyj6HZ6R0&t=3s
-        // exclude only & character
-        if(!url.match(/v=([^&]+)/)) {
-            return false;
-        }
-        return true;
-    }
+    // ================================ Collapsible methods =================================
     $(".collapsibleBtn catBtn").accordion({
         collapsible: true
     });
