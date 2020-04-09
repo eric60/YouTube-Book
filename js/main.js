@@ -15,8 +15,20 @@ $(document).ready(function() {
         height:600,
         resizable: false
     });
+
     $( "#addVideoBtn" ).click(function() {
         $( "#dialog" ).dialog( "open" );
+    });
+
+    $( "#dialog-edit" ).dialog({ 
+        autoOpen: false,
+        width: 800,
+        height:600,
+        resizable: false
+    });
+
+    $( "#image-icon" ).click(function() {
+        $( "#dialog-edit" ).dialog( "open" );
     });
 
     function validateUrl(url) {
