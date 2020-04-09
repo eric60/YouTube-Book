@@ -9,7 +9,23 @@ $(document).ready(function() {
         }
     })
 
-    $( "#dialog" ).dialog({ 
+    function insertYoutubePlayer() {
+        
+    }
+
+    function onYouTubeIframeAPIReady(divInsert) {
+        player = new YT.Player(divInsert, {
+          height: '400',
+          width: '500',
+          videoId: 'M7lc1UVf-VE',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+    $( "#dialog-add" ).dialog({ 
         autoOpen: false,
         width: 800,
         height:600,
@@ -17,7 +33,7 @@ $(document).ready(function() {
     });
 
     $( "#addVideoBtn" ).click(function() {
-        $( "#dialog" ).dialog( "open" );
+        $( "#dialog-add" ).dialog( "open" );
     });
 
     $( "#dialog-edit" ).dialog({ 
