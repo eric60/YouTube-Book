@@ -31,6 +31,7 @@ $(document).ready(function() {
         collapsible: true
     });
 
+    
     $(".collapsibleCategoryBox").accordion({
         collapsible: true
     });
@@ -39,9 +40,10 @@ $(document).ready(function() {
         collapsible: true
     });
 
-    $(".collapsibleLabelBox").accordion({
+    $(".panel-panel-primary-education").accordion({
         collapsible: true
     });
 
     
+
 });
