@@ -7,17 +7,24 @@ $(document).ready(function() {
        
     })
 
-    $('#ytUrlInput').bind("paste", handlePaste);
+    $('.dialog-other').hide();
+    $('#ytUrlInput').bind("paste", function() {
+        handlePaste(insertVideo)
+    });
 
-    function handlePaste() {
-        let url = $('#ytUrlInput').val();
+    function handlePaste(callback) {
+        let url = navigator.clipboard.readText().then(callback);
+    }
+
+    function insertVideo(url) {
         if(!validateUrl(url)) {
-            alert("Please enter a valid Url");
+            alert("Please enter a valid YouTube Video URL");
         }
         else {
             let videoId = parseYoutubeUrl(url)
             console.log(videoId)
             onYouTubeIframeAPIReady(player, "player1", videoId);
+            $('.dialog-other').show();
         }
     }
 

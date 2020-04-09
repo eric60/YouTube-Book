@@ -102,23 +102,16 @@ input[type="text"]:focus {
 
 
 /* ------------------ Dialog ------------------ */
-.split {
-    z-index: 1;
-    top: 0;
-    overflow-x: hidden;
-}
 
 .dialog-video {
-  left: 0;
-
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
-.dialog-other {
-    right: 0;
-    margin-top: 3em;
+.dialog-other, .dialog-category, .dialog-bookmarks, .dialog-notes{
+    margin-top: 20px;
 }
 
-.dialog-
 
 #modalTitle {
     color:#FF0000;
