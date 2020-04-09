@@ -56,7 +56,7 @@ $(document).ready(function() {
         });
       }
 
-    $( "#dialog-add" ).dialog({ 
+    $( "#dialog-add-video" ).dialog({ 
         autoOpen: false,
         width: dialogWidth,
         height:dialogHeight,
@@ -64,10 +64,10 @@ $(document).ready(function() {
     });
 
     $( "#addVideoBtn" ).click(function() {
-        $( "#dialog-add" ).dialog( "open" );
+        $( "#dialog-add-video" ).dialog( "open" );
     });
 
-    $( "#dialog-edit" ).dialog({ 
+    $( "#dialog-edit-order" ).dialog({ 
         autoOpen: false,
         width: 800,
         height:600,
@@ -75,7 +75,7 @@ $(document).ready(function() {
     });
 
     $( "#image-icon" ).click(function() {
-        $( "#dialog-edit" ).dialog( "open" );
+        $( "#dialog-edit-order" ).dialog( "open" );
     });
 
     // ================================ Collapsible methods =================================
