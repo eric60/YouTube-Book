@@ -1,7 +1,15 @@
 $(document).ready(function() {
     let player;
+    let dialogWidth = 800
+    let dialogHeight = 600;
 
     $('#addYtBook').click(function() {
+       
+    })
+
+    $('#ytUrlInput').bind("paste", handlePaste);
+
+    function handlePaste() {
         let url = $('#ytUrlInput').val();
         if(!validateUrl(url)) {
             alert("Please enter a valid Url");
@@ -11,7 +19,7 @@ $(document).ready(function() {
             console.log(videoId)
             onYouTubeIframeAPIReady(player, "player1", videoId);
         }
-    })
+    }
 
     function parseYoutubeUrl(url) {
         let regEx = /v=([^&]+)/
@@ -33,8 +41,8 @@ $(document).ready(function() {
     function onYouTubeIframeAPIReady(player, divInsert, videoId) {
         console.log('trigger youtube player')
         player = new YT.Player(divInsert, {
-          height: '300',
-          width: '400',
+          width: dialogWidth,
+          height: dialogHeight / 2,     
           videoId: videoId,
           events: {
           }
@@ -43,8 +51,8 @@ $(document).ready(function() {
 
     $( "#dialog-add" ).dialog({ 
         autoOpen: false,
-        width: 800,
-        height:600,
+        width: dialogWidth,
+        height:dialogHeight,
         resizable: false
     });
 
