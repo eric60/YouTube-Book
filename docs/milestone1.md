@@ -12,17 +12,17 @@
 
 
 ## Part 1: Wireframes
-* ![Main page](m1_images/wireframe2.jpg)
-* ![Add/Edit Video Modal](m1_images/wireframe1.jpg)
+1. ![Main page](m1_images/wireframe2.jpg)
+2. ![Add/Edit Video Modal](m1_images/wireframe1.jpg)
 
 ## Part 2: HTML and CSS
-* ![Main page](m1_images/html1.jpg)
-* ![Add/Edit Modal](m1_images/html2.jpg)
-* ![Login page](m1_images/wireframe2.jpg)
-* ![JQuery Accordion](m1_images/wireframe2.jpg)
+1. ![Main page](m1_images/html1.jpg)
+2. ![JQuery Accordion](m1_images/html5.jpg)
+3. ![Add/Edit Modal](m1_images/html2.jpg)
+4. ![Login page](m1_images/html3.jpg) 
 
 
 ## Work Breakdown
-* Eric: Worked on main setting up div structures and worked on modal for adding videos.
+* Eric: Worked on the main page setting up div structures and worked on modal for adding videos.
 * Trent: Made wireframes, worked on most of the CSS for the site and adjusted HTML layout where needed
 * John: Worked on login and signup HTML, added some CSS, JS accordions, write ups for wire-frames
