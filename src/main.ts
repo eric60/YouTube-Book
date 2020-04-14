@@ -82,19 +82,10 @@ $(document).ready(function() {
 
     // ================================ Collapsible methods =================================
 
-    
-    (<any>$(".collapsible-category")).accordion({
+
+    (<any>$(".accordion")).accordion({
         collapsible: true
     });
-
-    (<any>$(".collapsible-label")).accordion({
-        collapsible: true
-    });
-
-    (<any>$(".panel-panel-primary-education")).accordion({
-        collapsible: true
-    });
-
     
 
 });

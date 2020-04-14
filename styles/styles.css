@@ -220,10 +220,3 @@ h4 {
 }
 
 /* ------------------ Accordion ------------------ */
-.ui-accordion .ui-accordion-header {
-    background-color: blue;
-    cursor: pointer;
-    position: relative;
-    margin-top: 1px;
-    zoom: 1;
-  }

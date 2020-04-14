@@ -66,13 +66,13 @@ $(document).ready(function () {
         $("#dialog-edit-order").dialog("open");
     });
     // ================================ Collapsible methods =================================
-    $(".collapsible-category").accordion({
+    $(".accordion").accordion({
         collapsible: true
     });
     $(".collapsible-label").accordion({
         collapsible: true
     });
-    $(".panel-panel-primary-education").accordion({
+    $(".collapsible-video").accordion({
         collapsible: true
     });
 });
