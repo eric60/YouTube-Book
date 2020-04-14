@@ -1,7 +1,8 @@
+
 $(document).ready(function() {
-    let player;
-    let dialogWidth = 800
-    let dialogHeight = 600;
+    let player : any;
+    let dialogWidth : number = 800
+    let dialogHeight : number = 600;
 
     $('#addYtBook').click(function() {
        
@@ -16,7 +17,7 @@ $(document).ready(function() {
         let url = navigator.clipboard.readText().then(callback);
     }
 
-    function insertVideo(url) {
+    function insertVideo(url : string) {
         if(!validateUrl(url)) {
             alert("Please enter a valid YouTube Video URL");
         }
@@ -28,7 +29,7 @@ $(document).ready(function() {
         }
     }
 
-    function parseYoutubeUrl(url) {
+    function parseYoutubeUrl(url : string) {
         let regEx = /v=([^&]+)/
         var match = url.match(regEx)
         console.log(match)
@@ -36,7 +37,7 @@ $(document).ready(function() {
         return videoId;
     }
 
-    function validateUrl(url) {
+    function validateUrl(url : string) {
         // example v=73Fyj6HZ6R0&t=3s
         // exclude only & character
         if(!url.match(/v=([^&]+)/)) {
@@ -45,8 +46,9 @@ $(document).ready(function() {
         return true;
     }
 
-    function onYouTubeIframeAPIReady(player, divInsert, videoId) {
+    function onYouTubeIframeAPIReady(player, divInsert : string, videoId : string) {
         console.log('trigger youtube player')
+        // @ts-ignore
         player = new YT.Player(divInsert, {
           width: dialogWidth,
           height: dialogHeight / 2,     
@@ -56,7 +58,7 @@ $(document).ready(function() {
         });
       }
 
-    $( "#dialog-add-video" ).dialog({ 
+    (<any>$( "#dialog-add-video" )).dialog({ 
         autoOpen: false,
         width: dialogWidth,
         height:dialogHeight,
@@ -64,10 +66,10 @@ $(document).ready(function() {
     });
 
     $( "#addVideoBtn" ).click(function() {
-        $( "#dialog-add-video" ).dialog( "open" );
+        (<any>$( "#dialog-add-video" )).dialog( "open" );
     });
 
-    $( "#dialog-edit-order" ).dialog({ 
+    (<any>$( "#dialog-edit-order" )).dialog({ 
         autoOpen: false,
         width: 800,
         height:600,
@@ -75,24 +77,21 @@ $(document).ready(function() {
     });
 
     $( "#image-icon" ).click(function() {
-        $( "#dialog-edit-order" ).dialog( "open" );
+        (<any>$( "#dialog-edit-order" )).dialog( "open" );
     });
 
     // ================================ Collapsible methods =================================
-    $(".collapsibleBtn catBtn").accordion({
-        collapsible: true
-    });
 
     
-    $(".collapsibleCategoryBox").accordion({
+    (<any>$(".collapsible-category")).accordion({
         collapsible: true
     });
 
-    $(".collapsibleBtn labelBtn").accordion({
+    (<any>$(".collapsible-label")).accordion({
         collapsible: true
     });
 
-    $(".panel-panel-primary-education").accordion({
+    (<any>$(".panel-panel-primary-education")).accordion({
         collapsible: true
     });
 

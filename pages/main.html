@@ -19,7 +19,7 @@
 
         <!-- Personal -->
         <script src="https://www.youtube.com/iframe_api"></script>
-        <script src="../src/main.js"></script>
+        <script src="../src/bin/main.js"></script>
         <link rel="stylesheet" href="../styles/styles.css">
 
     </head>
@@ -56,11 +56,13 @@
         
         <div class="container" id="main-page-body">
             <button type="button" id="Category-Education" class="collapsibleBtn catBtn">Education</button>
-            <div class="collapsibleCategoryBox" id="Category-Education">           
-              <button type="button" class="collapsibleBtn labelBtn">Calc 3</button> 
+
+            <div class="collapsible-category" id="Category-Education">   
+
+              <button type="button" class="collapsible-label labelBtn">Calc 3</button> 
+
                 <div class="collapsibleLabelBox" id="Label-Calc3">
-                  <div class="panel-group">
-                    <div class="panel-panel-primary-education">
+
                       <div class="panel-heading">1. Integrals</div>
                       <div class="panel-body">
                         <div class = "video-section">
@@ -144,6 +146,9 @@
           </div>
 
           <div class="split dialog-other">
+            <label for="dialog-title-input"> </label>            
+            <input id="dialog-title-input" type="text" placeholder="Enter a Title">
+
             <div class="dialog-category">
               <select class="browser-default custom-select">
                 <option selected>Choose Category</option>
@@ -168,7 +173,7 @@
             </div>
 
            <div class="dialog-bookmarks">
-              <label for="dialog-Bookmarks">Add Bookmarks </label>   
+              <label for="dialog-Bookmarks">Add Bookmark </label>   
               <input class="timepicker">         
     
               <button type="button" id="addBookmark" class="btn btn-primary">Add</button>
@@ -183,7 +188,7 @@
           
   
             <div class="dialog-footer">
-              <button type="button" id="addYtBook" class="btn btn-primary">Add</button>
+              <button type="button" id="addYtBook" class="btn btn-primary">Submit</button>
             </div>
           </div>
   

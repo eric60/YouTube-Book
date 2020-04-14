@@ -39,6 +39,7 @@ $(document).ready(function () {
     }
     function onYouTubeIframeAPIReady(player, divInsert, videoId) {
         console.log('trigger youtube player');
+        // @ts-ignore
         player = new YT.Player(divInsert, {
             width: dialogWidth,
             height: dialogHeight / 2,
@@ -65,13 +66,10 @@ $(document).ready(function () {
         $("#dialog-edit-order").dialog("open");
     });
     // ================================ Collapsible methods =================================
-    $(".collapsibleBtn catBtn").accordion({
+    $(".collapsible-category").accordion({
         collapsible: true
     });
-    $(".collapsibleCategoryBox").accordion({
-        collapsible: true
-    });
-    $(".collapsibleBtn labelBtn").accordion({
+    $(".collapsible-label").accordion({
         collapsible: true
     });
     $(".panel-panel-primary-education").accordion({
