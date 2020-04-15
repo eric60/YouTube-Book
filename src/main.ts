@@ -3,15 +3,34 @@ $(document).ready(function() {
     let player : any;
     let dialogWidth : number = 800
     let dialogHeight : number = 600;
+    let divClone = `<div class="split dialog-Video">
+                    <label for="ytUrlInput">Paste your YouTube Video URL: </label>            
+                    <input id="ytUrlInput" type="text">
+                    <div id="player1"></div>
+                    </div>`
 
-    $('#addYtBook').click(function() {
-       
+    // --------------------- Button functions -------------------------
+    $('#submit-book').click(function() {
+       alert("Book submitted");
+       (<any>$("#dialog-add-video")).dialog("close");
+       location.reload()
     })
 
     $('.dialog-other').hide();
     $('#ytUrlInput').bind("paste", function() {
-        handlePaste(insertVideo)
+        handlePaste(insertVideo);
     });
+
+    $('#add-bookmark').click(function() {
+        $(`#insert-before-me`).before(`
+            <div>
+                <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
+                <input id="time-1" type='time' class="without_ampm" step="1">  
+                <textarea id="notes-1" placeholder="Bookmark notes"></textarea>
+            </div>
+        `);
+    })
+    
 
     function handlePaste(callback) {
         let url = navigator.clipboard.readText().then(callback);
@@ -58,12 +77,19 @@ $(document).ready(function() {
         });
       }
 
-    (<any>$( "#dialog-add-video" )).dialog({ 
-        autoOpen: false,
-        width: dialogWidth,
-        height:dialogHeight,
-        resizable: false
-    });
+    // --------------------- Dialog functions ---------------------------
+
+    dialogAddVideo()
+    function dialogAddVideo() {
+        (<any>$( "#dialog-add-video" )).dialog({ 
+            autoOpen: false,
+            width: dialogWidth,
+            height:dialogHeight,
+            resizable: false
+        });
+    }
+
+  
 
     $( "#addVideoBtn" ).click(function() {
         (<any>$( "#dialog-add-video" )).dialog( "open" );

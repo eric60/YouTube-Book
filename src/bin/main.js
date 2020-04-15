@@ -2,11 +2,19 @@ $(document).ready(function () {
     var player;
     var dialogWidth = 800;
     var dialogHeight = 600;
-    $('#addYtBook').click(function () {
+    var divClone = "<div class=\"split dialog-Video\">\n                    <label for=\"ytUrlInput\">Paste your YouTube Video URL: </label>            \n                    <input id=\"ytUrlInput\" type=\"text\">\n                    <div id=\"player1\"></div>\n                    </div>";
+    // --------------------- Button functions -------------------------
+    $('#submit-book').click(function () {
+        alert("Book submitted");
+        $("#dialog-add-video").dialog("close");
+        location.reload();
     });
     $('.dialog-other').hide();
     $('#ytUrlInput').bind("paste", function () {
         handlePaste(insertVideo);
+    });
+    $('#add-bookmark').click(function () {
+        $("#insert-before-me").before("\n            <div>\n                <label for=\"dialog-Bookmarks\">Add Bookmark hh:mm:ss </label>   \n                <input id=\"time-1\" type='time' class=\"without_ampm\" step=\"1\">  \n                <textarea id=\"notes-1\" placeholder=\"Bookmark notes\"></textarea>\n            </div>\n        ");
     });
     function handlePaste(callback) {
         var url = navigator.clipboard.readText().then(callback);
@@ -47,12 +55,16 @@ $(document).ready(function () {
             events: {}
         });
     }
-    $("#dialog-add-video").dialog({
-        autoOpen: false,
-        width: dialogWidth,
-        height: dialogHeight,
-        resizable: false
-    });
+    // --------------------- Dialog functions ---------------------------
+    dialogAddVideo();
+    function dialogAddVideo() {
+        $("#dialog-add-video").dialog({
+            autoOpen: false,
+            width: dialogWidth,
+            height: dialogHeight,
+            resizable: false
+        });
+    }
     $("#addVideoBtn").click(function () {
         $("#dialog-add-video").dialog("open");
     });
