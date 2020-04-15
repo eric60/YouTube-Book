@@ -80,6 +80,13 @@ $(document).ready(function () {
             ui.item.children("h3").triggerHandler("focusout");
             // Refresh accordion to handle new order
             $(this).accordion("refresh");
+        },
+        update: function () {
+            save_new_order();
         }
     });
+    function save_new_order() {
+        var sortedIds = $(".Label-Body").sortable('toArray');
+        console.log("new sortedIds: " + sortedIds);
+    }
 });

@@ -46,7 +46,7 @@ $(document).ready(function() {
         return true;
     }
 
-    function onYouTubeIframeAPIReady(player, divInsert : string, videoId : string) {
+    function onYouTubeIframeAPIReady(player : any, divInsert : string, videoId : string) {
         console.log('trigger youtube player')
         // @ts-ignore
         player = new YT.Player(divInsert, {
@@ -97,7 +97,15 @@ $(document).ready(function() {
  
           // Refresh accordion to handle new order
           (<any>$( this )).accordion( "refresh" );
+        },
+        update: function() {
+            save_new_order()
         }
     });
-    
+
+    function save_new_order() {
+        let sortedIds = (<any>$( ".Label-Body" )).sortable('toArray');
+        console.log("new sortedIds: " + sortedIds)
+    }
+  
 });
