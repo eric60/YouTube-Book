@@ -78,7 +78,8 @@ input:focus{
 }
 /* ------------------ End Login ------------------ */
 
-input[type="text"] {
+/* ------------------ Input types ------------------ */
+input[type="text"], input[type="time"] {
     background: transparent;
     border: none;
     border-bottom: 1px solid grey;
@@ -93,6 +94,21 @@ input[type="text"]:focus {
     box-shadow: none;
     outline: none;
 }
+
+.without_ampm::-webkit-datetime-edit-ampm-field {
+    display: none;
+}
+
+input[type=time]::-webkit-clear-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance:none;
+    appearance: none;
+    margin: -10px; 
+}
+
+/* ------------------ End Input types ------------------ */
 
 .container{
     height: 10%;

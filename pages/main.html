@@ -36,7 +36,7 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-words">Go To
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><b><a href="#Category-Education">Education</a></b></li>
+                    <li><b><a href="#Category-Education">Math</a></b></li>
                     <li><a href="#Label-Calc3">Calc 3</a></li>
                     <li><b><a href="#Category-Technology">Technology</a></b></li>
                   </ul>
@@ -58,7 +58,7 @@
         <!-- End nav bar -->
         
         <div class="container" id="main-page-body">
-            <button type="button" class="collapsible-btn category-btn" id="Category-Education" >Education</button>
+            <button type="button" class="collapsible-btn category-btn" id="Category-Education" >Math</button>
 
             <div class="Category" id="Category-Education">   
               
@@ -106,15 +106,16 @@
                 </div>
                 
               </div>
+              <!-- end category -->
 
             </div>
 
           </div>
-        <!-- div end main page body. Separate from dialog divs -->
+        <!-- end main page body. Separate from dialog divs -->
       
         <div id="dialog-edit-order" title="Edit Ordering">
             <input type="text">Number
-            <div>Education</div>
+            <div>Math</div>
         </div>
 
         <div id="dialog-add-video" title="Add your YouTube Book">
@@ -152,27 +153,29 @@
             </div>
 
            <div class="dialog-bookmarks">
-              <label for="dialog-Bookmarks">Add Bookmark </label>   
-              <input class="timepicker">         
-    
-              <button type="button" id="addBookmark" class="btn btn-primary">Add</button>
-              <br>
-      
+              <div>
+                <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
+                <input id="time-1" type='time' class="without_ampm" step="1">  
+                <textarea id="notes-1" placeholder="Bookmark notes"></textarea>
+                <button type="button" id="add-bookmark" class="btn btn-primary">Add</button>
+              </div>
+              
+              <div id="insert-before-me"></div>
            </div>
 
            <div class="dialog-notes">
-            <label for="dialog-Notes">Add Notes </label>            
+            <label for="dialog-Notes">Notes </label>            
             <textarea id="dialog-Notes" type="text"></textarea>
            </div>
           
   
             <div class="dialog-footer">
-              <button type="button" id="addYtBook" class="btn btn-primary">Submit</button>
+              <button type="button" id="submit-book" class="btn btn-primary">Submit</button>
             </div>
           </div>
   
         </div>
-        <!-- div end dialog-add-video -->
+        <!-- End dialog-add-video -->
 
         
     </body>
