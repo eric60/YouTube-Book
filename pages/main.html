@@ -31,8 +31,9 @@
               </div>
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#" id="navbar-words">Home</a></li>
+
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-words">Jump To
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navbar-words">Go To
                   <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><b><a href="#Category-Education">Education</a></b></li>
@@ -40,6 +41,7 @@
                     <li><b><a href="#Category-Technology">Technology</a></b></li>
                   </ul>
                 </li>
+
               </ul>
 
               <ul class="nav navbar-nav navbar-right">
@@ -53,16 +55,18 @@
               </ul>
             </div>
         </nav>
+        <!-- End nav bar -->
         
         <div class="container" id="main-page-body">
-            <button type="button" id="Category-Education" class="collapsibleBtn catBtn">Education</button>
+            <button type="button" class="collapsible-btn category-btn" id="Category-Education" >Education</button>
 
-            <div id="Category-Education">   
-
-              <div class="accordion" id="Label-Calc">
-                <h3>Calc</h3>
-                <div id="Label-Calc3-Body">
-                    <div class="accordion" id="Video-Integrals">
+            <div class="Category" id="Category-Education">   
+              
+              <button type="button" class="collapsible-btn label-btn" id="Label-Calc3">Calc</button>
+           
+                <div class="Label-Body" id="Label-Body-Calc3">
+                    
+                  <div class="Label-Video" id="Calc3-1">
                       <h3>1. Integrals</h3>   
                       <div class="panel-body">
                         <div class = "video-section">
@@ -81,7 +85,7 @@
                   </div>
             
 
-                  <div class="accordion" id="Video-Integration">
+                  <div class="Label-Video" id="Calc3-2">
                     <h3>2. Integration</h3>   
                     <div class="panel-body">
                       <div class = "video-section">
@@ -104,36 +108,9 @@
               </div>
 
             </div>
-               
-                <div class="container">
-                  <button type="button" class="collapsibleBtn catBtn">Technology</button>
-                  <div class="collapsibleCategoryBox" id="#educationCat"></div>
-                <button type="button" class="collapsibleBtn labelBtn">GPUs</button>
-                <div class="collapsibleLabelBox">
-                  <div class="panel-group">
-                    <div class="panel-panel-primary-technology">
-                      <div class="panel-heading" id = "TechnologyHeading">1. RTX 2080Ti</div>
-                      <div class="panel-body">
-                        <div class = "video-section">
-                          <iframe src = "https://www.youtube.com/embed/bL1d0MMEgZE" allow = "fullscreen"></iframe>
-                        </div>
-                        <div class = "bookmarks-section">
-                          <h4>Bookmarks</h4>
-                          <li>bookmarks content
-                          </li>
-                        </div>
-                        <div class = "notes-section">
-                          <h4>Notes</h4>
-                          <li>notes content</li>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
 
+          </div>
+        <!-- div end main page body. Separate from dialog divs -->
       
         <div id="dialog-edit-order" title="Edit Ordering">
             <input type="text">Number
@@ -195,6 +172,7 @@
           </div>
   
         </div>
+        <!-- div end dialog-add-video -->
 
         
     </body>

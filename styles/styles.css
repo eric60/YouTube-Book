@@ -9,32 +9,34 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.column{
+.column {
     position: relative;
     text-align: center;
 }
 
-.collapsibleBtn {
+/* ------------------  Buttons ------------------ */
+.collapsible-btn {
     background:none!important;
     border:none; 
     padding:0!important;
     cursor:pointer;
 }
 
-.catBtn {
+.category-btn {
     font-size: 35px;
     border:inherit;
     font-style: bold;
 }
 
-.labelBtn {
+.label-btn {
     font-size: 20px;
 }
 
-.collapsibleBtn:hover{
+.collapsible-btn:hover, .label-btn:hover{
     text-decoration:underline;
 }
-/* Buttons end */
+
+/* ------------------ End Buttons ------------------ */
 
 /* ------------------ Login ------------------ */
 #logintitle{
@@ -101,7 +103,7 @@ input[type="text"]:focus {
 }
 
 
-/* ------------------ Dialog ------------------ */
+/* ------------------ Dialogs ------------------ */
 
 .dialog-video {
     margin-top: 1em;
@@ -119,7 +121,7 @@ input[type="text"]:focus {
     text-align: center;
     font-size: 25px;
 }
-/* ------------------ End Dialog ------------------ */
+/* ------------------ End Dialogs ------------------ */
 
 
 
@@ -220,3 +222,8 @@ h4 {
 }
 
 /* ------------------ Accordion ------------------ */
+
+.Label-Video .ui-accordion-header{
+    background:#47a88a;
+    color:white;
+ }
