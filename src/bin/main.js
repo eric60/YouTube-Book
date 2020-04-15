@@ -67,12 +67,7 @@ $(document).ready(function () {
     });
     // ================================ Collapsible methods =================================
     $(".accordion").accordion({
-        collapsible: true
-    });
-    $(".collapsible-label").accordion({
-        collapsible: true
-    });
-    $(".collapsible-video").accordion({
-        collapsible: true
+        collapsible: true,
+        heightStyle: "content"
     });
 });

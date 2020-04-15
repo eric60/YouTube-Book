@@ -84,7 +84,8 @@ $(document).ready(function() {
 
 
     (<any>$(".accordion")).accordion({
-        collapsible: true
+        collapsible: true,
+        heightStyle: "content"
     });
     
 
