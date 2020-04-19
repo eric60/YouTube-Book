@@ -1,3 +1,4 @@
+
 //followed from tutorial here https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database
 
 const {MongoClient} = require('mongodb');
