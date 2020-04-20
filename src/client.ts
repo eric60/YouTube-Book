@@ -1,6 +1,7 @@
 
 $(document).ready(function() {
-    const url = "http://localhost:8080/video"; 
+    const url = `http://localhost:8080/video`; 
+    const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com/'
 
     let player : any;
     let dialogWidth : number = 800
@@ -49,7 +50,7 @@ $(document).ready(function() {
             let label : string = getLabel();
             let bookmarks : Array<Object> = getBookmarks();
             let notes : any = $('#dialog-Notes').val();
-            
+
             console.log(`urlinput: ${urlInput}, category: ${category}, label: ${label}, notes: ${notes}`)
             console.log(bookmarks);
 

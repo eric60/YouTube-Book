@@ -54,7 +54,8 @@ var MyServer = /** @class */ (function () {
         });
         // Serve static pages from a particular path.
         this.server.use('/', express.static('../static'));
-        this.router.all('/users/:userId/create', this.createVideoHandler.bind(this));
+        this.server.use('/video', this.router);
+        this.router.all('/username/:username/create', this.createVideoHandler.bind(this));
     }
     MyServer.prototype.listen = function (port) {
         this.server.listen(port);
@@ -66,7 +67,6 @@ var MyServer = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log('trigger');
                         videoObj = {
                             "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
                             "videoTitle": "calc1 video 1",
@@ -77,9 +77,10 @@ var MyServer = /** @class */ (function () {
                                     "timestampNotes": "hello hello 123"
                                 }]
                         };
-                        username = request.param['username'];
+                        username = request.params['username'];
                         category = request.query.category;
                         label = request.query.label;
+                        console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
                         return [4 /*yield*/, this.createVideo(username, category, label, videoObj, response)];
                     case 1:
                         _a.sent();

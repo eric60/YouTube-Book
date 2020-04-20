@@ -2,11 +2,12 @@
   "name": "cs326-final-YoutubeBook",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/bin/server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "start": "cd src && npm install && && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/eric60/cs326-final-YoutubeBook/issues"
   },
-  "homepage": "https://github.com/eric60/cs326-final-YoutubeBook#readme"
+  "homepage": "https://github.com/eric60/cs326-final-YoutubeBook#readme",
+  "engines": {
+    "node": "12.16.1"
+  }
 }
