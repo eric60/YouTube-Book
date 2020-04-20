@@ -1,4 +1,4 @@
-//followed from tutorial here https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,56 +35,109 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var MongoClient = require('mongodb').MongoClient;
-function main() {
-    return __awaiter(this, void 0, void 0, function () {
-        var uri, client, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    uri = "mongodb+srv://<username>:<password>@cs326cluster-0pubh.mongodb.net/test?retryWrites=true&w=majority";
-                    client = new MongoClient(uri);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 4, 5, 7]);
-                    // Connect to the MongoDB cluster
-                    return [4 /*yield*/, client.connect()];
-                case 2:
-                    // Connect to the MongoDB cluster
-                    _a.sent();
-                    // Make the appropriate DB calls
-                    return [4 /*yield*/, listDatabases(client)];
-                case 3:
-                    // Make the appropriate DB calls
-                    _a.sent();
-                    return [3 /*break*/, 7];
-                case 4:
-                    e_1 = _a.sent();
-                    console.error(e_1);
-                    return [3 /*break*/, 7];
-                case 5: return [4 /*yield*/, client.close()];
-                case 6:
-                    _a.sent();
-                    return [7 /*endfinally*/];
-                case 7: return [2 /*return*/];
-            }
+exports.__esModule = true;
+var Database = /** @class */ (function () {
+    function Database(collectionName) {
+        var _this = this;
+        //followed from tutorial here https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database
+        this.MongoClient = require('mongodb').MongoClient;
+        this.uri = "mongodb+srv://guest:guest@cs326cluster-0pubh.mongodb.net/test?retryWrites=true&w=majority";
+        this.dbName = "db";
+        this.collectionName = collectionName;
+        this.client = new this.MongoClient(this.uri, { useNewUrlParser: true });
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.client.connect()["catch"](function (err) { console.log(err); })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
+    }
+    Database.prototype.put = function (key, value) {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, collection, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        db = this.client.db(this.dbName);
+                        collection = db.collection(this.collectionName);
+                        console.log("put: key = " + key + ", value = " + value);
+                        return [4 /*yield*/, collection.updateOne({ 'name': key }, { $set: { 'value': value } }, { 'upsert': true })];
+                    case 1:
+                        result = _a.sent();
+                        console.log("result = " + result);
+                        return [2 /*return*/];
+                }
+            });
         });
-    });
-}
-function listDatabases(client) {
-    return __awaiter(this, void 0, void 0, function () {
-        var databasesList;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, client.db().admin().listDatabases()];
-                case 1:
-                    databasesList = _a.sent();
-                    console.log("Databases:");
-                    databasesList.databases.forEach(function (db) { return console.log(" - " + db.name); });
-                    return [2 /*return*/];
-            }
+    };
+    Database.prototype.get = function (key) {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, collection, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        db = this.client.db(this.dbName);
+                        collection = db.collection(this.collectionName);
+                        console.log("get: key = " + key);
+                        return [4 /*yield*/, collection.findOne({ 'name': key })];
+                    case 1:
+                        result = _a.sent();
+                        console.log("get: returned " + JSON.stringify(result));
+                        if (result) {
+                            return [2 /*return*/, result.value];
+                        }
+                        else {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/];
+                }
+            });
         });
-    });
-}
-;
-main()["catch"](console.error);
+    };
+    Database.prototype.del = function (key) {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, collection, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        db = this.client.db(this.dbName);
+                        collection = db.collection(this.collectionName);
+                        console.log("delete: key = " + key);
+                        return [4 /*yield*/, collection.deleteOne({ 'name': key })];
+                    case 1:
+                        result = _a.sent();
+                        console.log("result = " + result);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Database.prototype.isFound = function (key) {
+        return __awaiter(this, void 0, void 0, function () {
+            var v;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("isFound: key = " + key);
+                        return [4 /*yield*/, this.get(key)];
+                    case 1:
+                        v = _a.sent();
+                        console.log("is found result = " + v);
+                        if (v === null) {
+                            return [2 /*return*/, false];
+                        }
+                        else {
+                            return [2 /*return*/, true];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Database;
+}());
+exports.Database = Database;

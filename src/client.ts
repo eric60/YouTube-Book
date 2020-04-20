@@ -9,6 +9,15 @@ $(document).ready(function() {
                     <div id="player1"></div>
                     </div>`
 
+
+    // --------------------- CRUD functions -------------------------
+    function videoCreate() {
+        
+    }
+
+
+
+
     // --------------------- Button functions -------------------------
     $('#submit-book').click(function() {
        alert("Book submitted");

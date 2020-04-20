@@ -55,95 +55,28 @@ var MyServer = /** @class */ (function () {
         });
         // Serve static pages from a particular path.
         this.server.use('/', express.static('./html'));
-        //// YOUR CODE GOES HERE
-        //// HANDLE CREATE, READ, UPDATE, AND DELETE OPERATIONS
-        //// HANDLE ERRORS WITH A WILDCARD (*)
-        // Start up the counter endpoint at '/counter'.
-        //this.server.use('/counter', this.router);
-        this.router.all('/video/create', this.createHandler.bind(this));
-        this.router.all('/video/*', this.errorHandler.bind(this));
-        this.router.all('/video/read', this.readHandler.bind(this));
-        this.router.all('/video/update', this.updateHandler.bind(this));
-        this.router.all('/video/delete', this.deleteHandler.bind(this));
-        this.router.all('/label/create', this.createHandler.bind(this));
-        this.router.all('/label/*', this.errorHandler.bind(this));
-        this.router.all('/label/read', this.readHandler.bind(this));
-        this.router.all('/label/update', this.updateHandler.bind(this));
-        this.router.all('/label/delete', this.deleteHandler.bind(this));
-        this.router.all('/category/create', this.createHandler.bind(this));
-        this.router.all('/category/*', this.errorHandler.bind(this));
-        this.router.all('/category/read', this.readHandler.bind(this));
-        this.router.all('/category/update', this.updateHandler.bind(this));
-        this.router.all('/category/delete', this.deleteHandler.bind(this));
+        this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
     }
-    MyServer.prototype.errorHandler = function (request, response, next) {
+    MyServer.prototype.createVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var name, value;
+            var videoObj, username, category, label;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        name = request.params['username'] + "-" + request.query.username;
-                        console.log("----- in error name: " + name);
-                        return [4 /*yield*/, this.theDatabase.isFound(name)];
-                    case 1:
-                        value = _a.sent();
-                        console.log('error handler isFound: ' + value);
-                        if (!value) {
-                            response.write(JSON.stringify({ 'result': 'error' }));
-                            response.end();
-                        }
-                        else {
-                            next();
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MyServer.prototype.createHandler = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.createCounter(request.params['username'] + "-" + request.query.username, response)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MyServer.prototype.readHandler = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.readCounter(request.params['username'] + "-" + request.query.username, response)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MyServer.prototype.updateHandler = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var value;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        value = request.query.value;
-                        return [4 /*yield*/, this.updateCounter(request.params['username'] + "-" + request.query.username, value, response)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    MyServer.prototype.deleteHandler = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.deleteCounter(request.params['username'] + "-" + request.query.username, response)];
+                        videoObj = {
+                            "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
+                            "videoTitle": "calc1 video 1",
+                            "videoOrder": 2,
+                            "notes": "test- mongo notes",
+                            "bookmarks": [{
+                                    "timestamp": "00:01:10",
+                                    "timestampNotes": "hello hello 123"
+                                }]
+                        };
+                        username = request.param['username'];
+                        category = request.query.category;
+                        label = request.query.label;
+                        return [4 /*yield*/, this.createVideo(username, category, label, videoObj, response)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -153,6 +86,24 @@ var MyServer = /** @class */ (function () {
     };
     MyServer.prototype.listen = function (port) {
         this.server.listen(port);
+    };
+    MyServer.prototype.createVideo = function (username, category, label, videoObj, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("creating video");
+                        return [4 /*yield*/, this.theDatabase.put(name, 0)];
+                    case 1:
+                        _a.sent();
+                        response.write(JSON.stringify({ 'result': 'created',
+                            'name': name,
+                            'value': 0 }));
+                        response.end();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     return MyServer;
 }());

@@ -18,7 +18,7 @@ constructor(collectionName) {
 
 }
 
-public async put(key: string, value: string) : Promise<void> {
+public async put(key: string, value: object) : Promise<void> {
     let db = this.client.db(this.dbName);
     let collection = db.collection(this.collectionName);
     console.log("put: key = " + key + ", value = " + value);
