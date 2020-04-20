@@ -38,14 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var http = require('http');
 var url = require('url');
-var path = require('path');
-var __dirname = path.resolve();
 var express = require('express');
 var MyServer = /** @class */ (function () {
     function MyServer() {
         // Server stuff: use express instead of http.createServer
         this.server = express();
-        this.port = 8080;
         this.router = express.Router();
         // this.theDatabase = db;
         // from https://enable-cors.org/server_expressjs.html
@@ -57,19 +54,19 @@ var MyServer = /** @class */ (function () {
         });
         // Serve static pages from a particular path.
         this.server.use('/', express.static('../static'));
-        this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
-        this.router.all('/video/:username/update', this.createVideoHandler.bind(this));
-        this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
+        this.router.all('/users/:userId/create', this.createVideoHandler.bind(this));
     }
     MyServer.prototype.listen = function (port) {
         this.server.listen(port);
     };
+    // ------------------------- CRUD handlers ------------------------------------
     MyServer.prototype.createVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var videoObj, username, category, label;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log('trigger');
                         videoObj = {
                             "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
                             "videoTitle": "calc1 video 1",
@@ -116,6 +113,7 @@ var MyServer = /** @class */ (function () {
             });
         });
     };
+    // ---------------------------- CRUD functions -------------------------------------
     MyServer.prototype.createVideo = function (username, category, label, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

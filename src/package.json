@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jquery": "^3.3.34",
+    "@types/jquery": "^3.3.35",
     "express": "^4.17.1",
     "mongodb": "^3.5.6",
     "typescript": "^3.8.3"

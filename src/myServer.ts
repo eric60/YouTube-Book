@@ -1,8 +1,6 @@
 declare var require: any
 let http = require('http');
 let url = require('url');
-var path = require('path');
-var __dirname = path.resolve();
 let express = require('express');
 ​
 export class MyServer {
@@ -11,7 +9,6 @@ export class MyServer {
 ​
 	// Server stuff: use express instead of http.createServer
 	private server = express();
-	private port = 8080;
 	private router = express.Router();
 
 	constructor() {
@@ -25,19 +22,19 @@ export class MyServer {
 		});
 		// Serve static pages from a particular path.
 		this.server.use('/', express.static('../static'));
+		this.server.use('/video', this.router);
 
-		this.router.all('/video/:username/create', this.createVideoHandler.bind(this))
+		this.router.all('/username/:username/create', this.createVideoHandler.bind(this))
 
-		this.router.all('/video/:username/update', this.createVideoHandler.bind(this))
-
-		this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this))
 
 
 	}
 	
 	public listen(port) : void  {
 		this.server.listen(port);
-    }
+	}
+	
+	// ------------------------- CRUD handlers ------------------------------------
     
     private async createVideoHandler(request, response) : Promise<void> {
 		// get video object from front end
@@ -51,9 +48,10 @@ export class MyServer {
 				"timestampNotes": "hello hello 123"
 			}]
 		}
-		let username = request.param['username'];
+		let username = request.params['username'];
 		let category = request.query.category;
 		let label = request.query.label;
+		console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
 		await this.createVideo(username, category, label, videoObj, response);
 	}
 	
@@ -73,7 +71,7 @@ export class MyServer {
 		await this.deleteVideo(username, videoObj, response);
     }
 ​
-  
+   // ---------------------------- CRUD functions -------------------------------------
 
     public async createVideo(username: string, category: string, label: string, videoObj: object, response) : Promise<void> {
 		console.log("creating video")
