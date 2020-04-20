@@ -1,5 +1,7 @@
 
 $(document).ready(function() {
+    const url = "http://localhost:8080/video"; 
+
     let player : any;
     let dialogWidth : number = 800
     let dialogHeight : number = 600;
@@ -17,7 +19,20 @@ $(document).ready(function() {
 
 
 
+    function videoRead() {
 
+    }
+
+    function videoUpdate() {
+
+    }
+
+    function videoDelete() {
+
+    }
+
+
+    
     // --------------------- Button functions -------------------------
     $('#submit-book').click(function() {
        alert("Book submitted");

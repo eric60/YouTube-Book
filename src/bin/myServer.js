@@ -38,14 +38,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var http = require('http');
 var url = require('url');
+var path = require('path');
+var __dirname = path.resolve();
 var express = require('express');
 var MyServer = /** @class */ (function () {
-    function MyServer(db) {
+    function MyServer() {
         // Server stuff: use express instead of http.createServer
         this.server = express();
         this.port = 8080;
         this.router = express.Router();
-        this.theDatabase = db;
+        // this.theDatabase = db;
         // from https://enable-cors.org/server_expressjs.html
         this.router.use(function (request, response, next) {
             response.header('Content-Type', 'application/json');
@@ -54,7 +56,8 @@ var MyServer = /** @class */ (function () {
             next();
         });
         // Serve static pages from a particular path.
-        this.server.use('/', express.static('./html'));
+        this.server.use('/', express.static('../pages'));
+        this.server.use(express.static('../styles'));
         this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
     }
     MyServer.prototype.createVideoHandler = function (request, response) {
@@ -90,18 +93,14 @@ var MyServer = /** @class */ (function () {
     MyServer.prototype.createVideo = function (username, category, label, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log("creating video");
-                        return [4 /*yield*/, this.theDatabase.put(name, 0)];
-                    case 1:
-                        _a.sent();
-                        response.write(JSON.stringify({ 'result': 'created',
-                            'name': name,
-                            'value': 0 }));
-                        response.end();
-                        return [2 /*return*/];
-                }
+                console.log("creating video");
+                // await this.theDatabase.put(name, 0);
+                response.write(JSON.stringify({ 'result': 'created',
+                    'username': username,
+                    'category': category
+                }));
+                response.end();
+                return [2 /*return*/];
             });
         });
     };

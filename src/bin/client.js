@@ -1,10 +1,17 @@
 $(document).ready(function () {
+    var url = "http://localhost:8080/video";
     var player;
     var dialogWidth = 800;
     var dialogHeight = 600;
     var divClone = "<div class=\"split dialog-Video\">\n                    <label for=\"ytUrlInput\">Paste your YouTube Video URL: </label>            \n                    <input id=\"ytUrlInput\" type=\"text\">\n                    <div id=\"player1\"></div>\n                    </div>";
     // --------------------- CRUD functions -------------------------
     function videoCreate() {
+    }
+    function videoRead() {
+    }
+    function videoUpdate() {
+    }
+    function videoDelete() {
     }
     // --------------------- Button functions -------------------------
     $('#submit-book').click(function () {

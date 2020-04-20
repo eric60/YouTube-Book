@@ -1,5 +1,8 @@
+declare var require: any
 let http = require('http');
 let url = require('url');
+var path = require('path');
+var __dirname = path.resolve();
 let express = require('express');
 ​
 export class MyServer {
@@ -12,8 +15,8 @@ export class MyServer {
 	private router = express.Router();
 
 ​
-	constructor(db) {
-		this.theDatabase = db;
+	constructor() {
+		// this.theDatabase = db;
 		// from https://enable-cors.org/server_expressjs.html
 		this.router.use((request, response, next) => {
 			response.header('Content-Type','application/json');
@@ -22,9 +25,14 @@ export class MyServer {
 			next();
 		});
 		// Serve static pages from a particular path.
-		this.server.use('/', express.static('./html'));
+		this.server.use('/', express.static('../pages'));
+		this.server.use(express.static('../styles'))
 
 		this.router.all('/video/:username/create', this.createVideoHandler.bind(this))
+
+		this.router.all('/video/:username/update', this.createVideoHandler.bind(this))
+
+
     }
 
     
@@ -52,11 +60,13 @@ export class MyServer {
 
     public async createVideo(username: string, category: string, label: string, videoObj: object, response) : Promise<void> {
 		console.log("creating video")
-		await this.theDatabase.put(name, 0);
+		// await this.theDatabase.put(name, 0);
 
-		response.write(JSON.stringify({'result' : 'created',
-						'name' : name,
-						'value' : 0 }));
+		response.write(JSON.stringify(
+						{'result' : 'created',
+						'username' : username,
+						'category' : category 
+						}));
 		response.end();
     }
 ​​

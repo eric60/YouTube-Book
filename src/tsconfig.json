@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "lib": ["es5", "es6", "dom"],
-        "outDir": "bin"
+        "lib": ["es2015", "es5", "es6", "dom"],
+        "outDir": "bin",
     }
 }
