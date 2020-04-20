@@ -4,14 +4,14 @@ let express = require('express');
 ​
 export class MyServer {
 ​
-		private theDatabase;
+	private theDatabase;
 ​
-		// Server stuff: use express instead of http.createServer
-		private server = express();
-		private port = 8080;
-		private router = express.Router();
+	// Server stuff: use express instead of http.createServer
+	private server = express();
+	private port = 8080;
+	private router = express.Router();
 ​
-		constructor(db) {
+	constructor(db) {
 		this.theDatabase = db;
 		// from https://enable-cors.org/server_expressjs.html
 		this.router.use((request, response, next) => {
@@ -34,17 +34,17 @@ export class MyServer {
 		this.router.all('/video/update', this.updateHandler.bind(this))
         this.router.all('/video/delete', this.deleteHandler.bind(this))
         
-        this.router.all('/label/create', this.createHandler.bind(this))
-		this.router.all('/label/*', this.errorHandler.bind(this))
-		this.router.all('/label/read', this.readHandler.bind(this))
-		this.router.all('/label/update', this.updateHandler.bind(this))
-        this.router.all('/label/delete', this.deleteHandler.bind(this))
+        // this.router.all('/label/create', this.createHandler.bind(this))
+		// this.router.all('/label/*', this.errorHandler.bind(this))
+		// this.router.all('/label/read', this.readHandler.bind(this))
+		// this.router.all('/label/update', this.updateHandler.bind(this))
+        // this.router.all('/label/delete', this.deleteHandler.bind(this))
         
-        this.router.all('/category/create', this.createHandler.bind(this))
-		this.router.all('/category/*', this.errorHandler.bind(this))
-		this.router.all('/category/read', this.readHandler.bind(this))
-		this.router.all('/category/update', this.updateHandler.bind(this))
-		this.router.all('/category/delete', this.deleteHandler.bind(this))
+        // this.router.all('/category/create', this.createHandler.bind(this))
+		// this.router.all('/category/*', this.errorHandler.bind(this))
+		// this.router.all('/category/read', this.readHandler.bind(this))
+		// this.router.all('/category/update', this.updateHandler.bind(this))
+		// this.router.all('/category/delete', this.deleteHandler.bind(this))
     }
 ​
     private async errorHandler(request, response, next) : Promise<void> {
@@ -61,7 +61,7 @@ export class MyServer {
     }
     
     private async createHandler(request, response) : Promise<void> {
-		await this.createCounter(request.params['username']+"-"+ request.query.username, response);
+		await this.createVideo(request.params['username']+"-"+ request.query.username, response);
     }
 ​
     private async readHandler(request, response): Promise<void> {
@@ -80,16 +80,16 @@ export class MyServer {
     public listen(port) : void  {
 	this.server.listen(port);
     }
-​/*
-    public async createCounter(name: string, response) : Promise<void> {
-	console.log("creating counter named '" + name + "'");
-	await this.theDatabase.put(name, 0);
-	response.write(JSON.stringify({'result' : 'created',
-				       'name' : name,
-				       'value' : 0 }));
-	response.end();
+
+    public async createVideo(name: string, response) : Promise<void> {
+		console.log("creating counter named '" + name + "'");
+		await this.theDatabase.put(name, 0);
+		response.write(JSON.stringify({'result' : 'created',
+						'name' : name,
+						'value' : 0 }));
+		response.end();
     }
-​
+​​/*
     public async errorCounter(name: string, response) : Promise<void> {
 	response.write(JSON.stringify({'result': 'error'}));
 	response.end();
