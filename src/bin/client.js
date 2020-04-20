@@ -80,9 +80,10 @@ $(document).ready(function () {
     $("#image-icon").click(function () {
         $("#dialog-edit-order").dialog("open");
     });
-    // ================================ Collapsible methods =================================
+    // ================================ Accordion functions =================================
     $(".Label-Body").accordion({
         header: "> div > h3",
+        active: false,
         collapsible: true,
         heightStyle: "content"
     })

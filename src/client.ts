@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     // --------------------- CRUD functions -------------------------
     function videoCreate() {
-        
+
     }
 
 
@@ -115,10 +115,11 @@ $(document).ready(function() {
         (<any>$( "#dialog-edit-order" )).dialog( "open" );
     });
 
-    // ================================ Collapsible methods =================================
+    // ================================ Accordion functions =================================
     
     (<any>$(".Label-Body")).accordion({
         header: "> div > h3",
+        active: false,
         collapsible: true,
         heightStyle: "content"
     })
