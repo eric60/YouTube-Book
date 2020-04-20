@@ -3,12 +3,15 @@
 ## Description
 YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 
-## Set up
-* In src type `npm install`
+## To Run
+* In src type `ts-node --prefer-ts-exts server.ts`
 
-## To compile and run
-Compile server js 
+## Set up
+* In src type `npm install` to download node modules
+
+## To compile
+Compile server files
 * In src type `tsc`. Compiled js goes into bin folder.
 
-Compile client js
+Compile client file
 * In src type `tsc client.ts --outDir ../static/`. Compiled js goes into static folder.
