@@ -1,6 +1,7 @@
-// 'use strict';
-// // import { Database } from './mongo-database';
-// import { MyServer } from './myserver';
-// const theDatabase = new Database('counter-db-eric60');
-// const theServer = new MyServer(theDatabase);
-// theServer.listen(8080);
+'use strict';
+exports.__esModule = true;
+var mongo_database_1 = require("./mongo-database");
+var myServer_1 = require("./myServer");
+var theDatabase = new mongo_database_1.Database('web-programming-db'); // CHANGE THIS
+var theServer = new myServer_1.MyServer(theDatabase);
+theServer.listen(8080);
