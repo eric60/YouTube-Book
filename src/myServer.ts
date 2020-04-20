@@ -32,6 +32,8 @@ export class MyServer {
 
 		this.router.all('/video/:username/update', this.createVideoHandler.bind(this))
 
+		this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this))
+
 
     }
 
@@ -52,6 +54,22 @@ export class MyServer {
 		let category = request.query.category;
 		let label = request.query.label;
 		await this.createVideo(username, category, label, videoObj, response);
+	}
+	
+	private async deleteVideoHandler(request, response) : Promise<void> {
+		// get video object from front end
+		let videoObj = {
+			"videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
+			"videoTitle": "calc1 video 1",
+			"videoOrder": 2,
+			"notes": "test- mongo notes",
+			"bookmarks": [{
+				"timestamp": "00:01:10",
+				"timestampNotes": "hello hello 123"
+			}]
+		}
+		let username = request.param['username'];
+		await this.deleteVideo(username, videoObj, response);
     }
 ​
     public listen(port) : void  {
@@ -66,6 +84,17 @@ export class MyServer {
 						{'result' : 'created',
 						'username' : username,
 						'category' : category 
+						}));
+		response.end();
+	}
+	
+	public async deleteVideo(username: string, videoObj: object, response) : Promise<void> {
+		console.log("deleting video")
+		// await this.theDatabase.del(videoObj);
+
+		response.write(JSON.stringify(
+						{'result' : 'deleted',
+						'video' : videoObj
 						}));
 		response.end();
     }
