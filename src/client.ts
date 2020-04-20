@@ -5,17 +5,64 @@ $(document).ready(function() {
     let player : any;
     let dialogWidth : number = 800
     let dialogHeight : number = 600;
-    let divClone = `<div class="split dialog-Video">
-                    <label for="ytUrlInput">Paste your YouTube Video URL: </label>            
-                    <input id="ytUrlInput" type="text">
-                    <div id="player1"></div>
-                    </div>`
 
+    // ------------------- Helper functions --------------------------
+    function getBookmarks() {
+        let bookmarks = [];
+        for (let i = 1; i < bookmarkCnt + 1; i++) {
+            let timestamp =  $(`#time-${i}`).val()
+            let timestampNotes =  $(`#notes-${i}`).val()
 
+            if (timestamp) {
+                bookmarks[i] = {
+                    timestamp: timestamp,
+                    timestampNotes: timestampNotes
+                }
+            }
+        }
+        return bookmarks;
+    }
+
+    function getCategory() {
+        // no spaces in html or urls so replace spaces with dashes
+        let category : any = $('#select-category').find(":selected").text().replace(" ", "-")
+        if (!category) {
+            category = $('#dialog-category-input').val();
+        }
+        return category;
+    }
+
+    function getLabel() {
+        let label : any = $('#select-label').find(":selected").text().replace(" ", "-")
+        if (!label) {
+            label = $('#dialog-label-input').val();
+        }
+        return label;
+    }
     // --------------------- CRUD functions -------------------------
     function videoCreate() {
+        (async() => {
+            console.log('----- In videoCreate -------')
 
+            let urlInput : any = $('#ytUrlInput').val();
+            let category = getCategory();
+            let label : string = getLabel();
+            let bookmarks : Array<Object> = getBookmarks();
+            let notes : any = $('#dialog-Notes').val();
+            
+            console.log(`urlinput: ${urlInput}, category: ${category}, label: ${label}, notes: ${notes}`)
+            console.log(bookmarks);
+
+            const newUrl : string = url + "/eric/" + "/create?category=" + category + "&label=" + label;
+            console.log(newUrl);
+
+            const resp = await fetch(newUrl);
+            const j = await resp.json();
+            console.log(j)
+
+        })();
     }
+
 
 
 
@@ -37,7 +84,7 @@ $(document).ready(function() {
     $('#submit-book').click(function() {
        alert("Book submitted");
        (<any>$("#dialog-add-video")).dialog("close");
-       location.reload()
+       videoCreate();
     })
 
     $('.dialog-other').hide();
@@ -45,12 +92,15 @@ $(document).ready(function() {
         handlePaste(insertVideo);
     });
 
+    let bookmarkCnt = 1;
     $('#add-bookmark').click(function() {
+        bookmarkCnt++;
+        console.log('bookmarkCnt: ' + bookmarkCnt)
         $(`#insert-before-me`).before(`
             <div>
                 <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
-                <input id="time-1" type='time' class="without_ampm" step="1">  
-                <textarea id="notes-1" placeholder="Bookmark notes"></textarea>
+                <input id="time-${bookmarkCnt}" type='time' class="without_ampm" step="1">  
+                <textarea id="notes-${bookmarkCnt}" placeholder="Bookmark notes"></textarea>
             </div>
         `);
     })
@@ -102,7 +152,6 @@ $(document).ready(function() {
       }
 
     // --------------------- Dialog functions ---------------------------
-
     dialogAddVideo()
     function dialogAddVideo() {
         (<any>$( "#dialog-add-video" )).dialog({ 
@@ -112,8 +161,6 @@ $(document).ready(function() {
             resizable: false
         });
     }
-
-  
 
     $( "#addVideoBtn" ).click(function() {
         (<any>$( "#dialog-add-video" )).dialog( "open" );

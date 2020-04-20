@@ -57,13 +57,13 @@ var MyServer = /** @class */ (function () {
         });
         // Serve static pages from a particular path.
         this.server.use('/', express.static('../static'));
-        this.server.use(function (req, res) {
-            res.sendFile(path.join(__dirname + '/bin/client.js'));
-        });
         this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
         this.router.all('/video/:username/update', this.createVideoHandler.bind(this));
         this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
     }
+    MyServer.prototype.listen = function (port) {
+        this.server.listen(port);
+    };
     MyServer.prototype.createVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var videoObj, username, category, label;
@@ -115,9 +115,6 @@ var MyServer = /** @class */ (function () {
                 }
             });
         });
-    };
-    MyServer.prototype.listen = function (port) {
-        this.server.listen(port);
     };
     MyServer.prototype.createVideo = function (username, category, label, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {

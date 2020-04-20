@@ -14,7 +14,6 @@ export class MyServer {
 	private port = 8080;
 	private router = express.Router();
 
-​
 	constructor() {
 		// this.theDatabase = db;
 		// from https://enable-cors.org/server_expressjs.html
@@ -26,9 +25,6 @@ export class MyServer {
 		});
 		// Serve static pages from a particular path.
 		this.server.use('/', express.static('../static'));
-		this.server.use(function(req, res) {
-			res.sendFile(path.join(__dirname + '/bin/client.js'))
-		})
 
 		this.router.all('/video/:username/create', this.createVideoHandler.bind(this))
 
@@ -37,8 +33,11 @@ export class MyServer {
 		this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this))
 
 
+	}
+	
+	public listen(port) : void  {
+		this.server.listen(port);
     }
-
     
     private async createVideoHandler(request, response) : Promise<void> {
 		// get video object from front end
@@ -74,9 +73,7 @@ export class MyServer {
 		await this.deleteVideo(username, videoObj, response);
     }
 ​
-    public listen(port) : void  {
-		this.server.listen(port);
-    }
+  
 
     public async createVideo(username: string, category: string, label: string, videoObj: object, response) : Promise<void> {
 		console.log("creating video")
