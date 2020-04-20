@@ -25,8 +25,10 @@ export class MyServer {
 			next();
 		});
 		// Serve static pages from a particular path.
-		this.server.use('/', express.static('../pages'));
-		this.server.use(express.static('../styles'))
+		this.server.use('/', express.static('../static'));
+		this.server.use(function(req, res) {
+			res.sendFile(path.join(__dirname + '/bin/client.js'))
+		})
 
 		this.router.all('/video/:username/create', this.createVideoHandler.bind(this))
 

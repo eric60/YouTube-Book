@@ -56,9 +56,13 @@ var MyServer = /** @class */ (function () {
             next();
         });
         // Serve static pages from a particular path.
-        this.server.use('/', express.static('../pages'));
-        this.server.use(express.static('../styles'));
+        this.server.use('/', express.static('../static'));
+        this.server.use(function (req, res) {
+            res.sendFile(path.join(__dirname + '/bin/client.js'));
+        });
         this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
+        this.router.all('/video/:username/update', this.createVideoHandler.bind(this));
+        this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
     }
     MyServer.prototype.createVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
@@ -87,6 +91,31 @@ var MyServer = /** @class */ (function () {
             });
         });
     };
+    MyServer.prototype.deleteVideoHandler = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var videoObj, username;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        videoObj = {
+                            "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
+                            "videoTitle": "calc1 video 1",
+                            "videoOrder": 2,
+                            "notes": "test- mongo notes",
+                            "bookmarks": [{
+                                    "timestamp": "00:01:10",
+                                    "timestampNotes": "hello hello 123"
+                                }]
+                        };
+                        username = request.param['username'];
+                        return [4 /*yield*/, this.deleteVideo(username, videoObj, response)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     MyServer.prototype.listen = function (port) {
         this.server.listen(port);
     };
@@ -98,6 +127,19 @@ var MyServer = /** @class */ (function () {
                 response.write(JSON.stringify({ 'result': 'created',
                     'username': username,
                     'category': category
+                }));
+                response.end();
+                return [2 /*return*/];
+            });
+        });
+    };
+    MyServer.prototype.deleteVideo = function (username, videoObj, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log("deleting video");
+                // await this.theDatabase.del(videoObj);
+                response.write(JSON.stringify({ 'result': 'deleted',
+                    'video': videoObj
                 }));
                 response.end();
                 return [2 /*return*/];
