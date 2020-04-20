@@ -9,5 +9,6 @@ YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 ## To compile and run
 Compile server js 
 * In src type `tsc`. Compiled js goes into bin folder.
+
 Compile client js
 * In src type `tsc client.ts --outDir ../static/`. Compiled js goes into static folder.
