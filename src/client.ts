@@ -1,4 +1,5 @@
 
+declare var jquery: any;
 $(document).ready(function() {
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
@@ -8,39 +9,33 @@ $(document).ready(function() {
     let dialogWidth : number = 800
     let dialogHeight : number = 600;
 
-    // ------------------- Helper functions --------------------------
-    function getBookmarks() {
-        let bookmarks = [];
-        for (let i = 1; i < bookmarkCnt + 1; i++) {
-            let timestamp =  $(`#time-${i}`).val()
-            let timestampNotes =  $(`#notes-${i}`).val()
+    
+     // --------------------- Button functions -------------------------
+     $('#submit-book').click(function() {
+        alert("Book submitted");
+        (<any>$("#dialog-add-video")).dialog("close");
+        videoCreate();
+     })
+ 
+     $('.dialog-other').hide();
+     $('#ytUrlInput').bind("paste", function() {
+         handlePaste(insertVideo);
+     });
+ 
+     let bookmarkCnt = 1;
+     $('#add-bookmark').click(function() {
+         bookmarkCnt++;
+         console.log('bookmarkCnt: ' + bookmarkCnt)
+         $(`#insert-before-me`).before(`
+             <div>
+                 <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
+                 <input id="time-${bookmarkCnt}" type='time' class="without_ampm" step="1">  
+                 <textarea id="notes-${bookmarkCnt}" placeholder="Bookmark notes"></textarea>
+             </div>
+         `);
+     })
 
-            if (timestamp) {
-                bookmarks[i] = {
-                    timestamp: timestamp,
-                    timestampNotes: timestampNotes
-                }
-            }
-        }
-        return bookmarks;
-    }
-
-    function getCategory() {
-        // no spaces in html or urls so replace spaces with dashes
-        let category : any = $('#select-category').find(":selected").text().replace(" ", "-")
-        if (!category) {
-            category = $('#dialog-category-input').val();
-        }
-        return category;
-    }
-
-    function getLabel() {
-        let label : any = $('#select-label').find(":selected").text().replace(" ", "-")
-        if (!label) {
-            label = $('#dialog-label-input').val();
-        }
-        return label;
-    }
+   
     // --------------------- CRUD functions -------------------------
     function videoCreate() {
         (async() => {
@@ -82,32 +77,40 @@ $(document).ready(function() {
 
 
     
-    // --------------------- Button functions -------------------------
-    $('#submit-book').click(function() {
-       alert("Book submitted");
-       (<any>$("#dialog-add-video")).dialog("close");
-       videoCreate();
-    })
+    // ------------------- Helper functions --------------------------
+    function getBookmarks() {
+        let bookmarks = [];
+        for (let i = 1; i < bookmarkCnt + 1; i++) {
+            let timestamp =  $(`#time-${i}`).val()
+            let timestampNotes =  $(`#notes-${i}`).val()
 
-    $('.dialog-other').hide();
-    $('#ytUrlInput').bind("paste", function() {
-        handlePaste(insertVideo);
-    });
+            if (timestamp) {
+                bookmarks[i] = {
+                    timestamp: timestamp,
+                    timestampNotes: timestampNotes
+                }
+            }
+        }
+        return bookmarks;
+    }
 
-    let bookmarkCnt = 1;
-    $('#add-bookmark').click(function() {
-        bookmarkCnt++;
-        console.log('bookmarkCnt: ' + bookmarkCnt)
-        $(`#insert-before-me`).before(`
-            <div>
-                <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
-                <input id="time-${bookmarkCnt}" type='time' class="without_ampm" step="1">  
-                <textarea id="notes-${bookmarkCnt}" placeholder="Bookmark notes"></textarea>
-            </div>
-        `);
-    })
+    function getCategory() {
+        // no spaces in html or urls so replace spaces with dashes
+        let category : any = $('#select-category').find(":selected").text().replace(" ", "-")
+        if (!category) {
+            category = $('#dialog-category-input').val();
+        }
+        return category;
+    }
+
+    function getLabel() {
+        let label : any = $('#select-label').find(":selected").text().replace(" ", "-")
+        if (!label) {
+            label = $('#dialog-label-input').val();
+        }
+        return label;
+    }
     
-
     function handlePaste(callback) {
         let url = navigator.clipboard.readText().then(callback);
     }

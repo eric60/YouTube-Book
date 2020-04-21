@@ -35,10 +35,64 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 $(document).ready(function () {
-    var url = "http://localhost:8080/video";
+    var localUrl = "http://localhost:8080";
+    var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
+    var url = localUrl;
     var player;
     var dialogWidth = 800;
     var dialogHeight = 600;
+    // --------------------- Button functions -------------------------
+    $('#submit-book').click(function () {
+        alert("Book submitted");
+        $("#dialog-add-video").dialog("close");
+        videoCreate();
+    });
+    $('.dialog-other').hide();
+    $('#ytUrlInput').bind("paste", function () {
+        handlePaste(insertVideo);
+    });
+    var bookmarkCnt = 1;
+    $('#add-bookmark').click(function () {
+        bookmarkCnt++;
+        console.log('bookmarkCnt: ' + bookmarkCnt);
+        $("#insert-before-me").before("\n             <div>\n                 <label for=\"dialog-Bookmarks\">Add Bookmark hh:mm:ss </label>   \n                 <input id=\"time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">  \n                 <textarea id=\"notes-" + bookmarkCnt + "\" placeholder=\"Bookmark notes\"></textarea>\n             </div>\n         ");
+    });
+    // --------------------- CRUD functions -------------------------
+    function videoCreate() {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var urlInput, category, label, bookmarks, notes, newUrl, resp, j;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('----- In videoCreate -------');
+                        urlInput = $('#ytUrlInput').val();
+                        category = getCategory();
+                        label = getLabel();
+                        bookmarks = getBookmarks();
+                        notes = $('#dialog-Notes').val();
+                        console.log("urlinput: " + urlInput + ", category: " + category + ", label: " + label + ", notes: " + notes);
+                        console.log(bookmarks);
+                        newUrl = url + "/video" + "/eric/" + "/create?category=" + category + "&label=" + label;
+                        console.log(newUrl);
+                        return [4 /*yield*/, fetch(newUrl)];
+                    case 1:
+                        resp = _a.sent();
+                        return [4 /*yield*/, resp.json()];
+                    case 2:
+                        j = _a.sent();
+                        console.log(j);
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
+    }
+    function videoRead() {
+    }
+    function videoUpdate() {
+    }
+    function videoDelete() {
+    }
     // ------------------- Helper functions --------------------------
     function getBookmarks() {
         var bookmarks = [];
@@ -69,58 +123,6 @@ $(document).ready(function () {
         }
         return label;
     }
-    // --------------------- CRUD functions -------------------------
-    function videoCreate() {
-        var _this = this;
-        (function () { return __awaiter(_this, void 0, void 0, function () {
-            var urlInput, category, label, bookmarks, notes, newUrl, resp, j;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log('----- In videoCreate -------');
-                        urlInput = $('#ytUrlInput').val();
-                        category = getCategory();
-                        label = getLabel();
-                        bookmarks = getBookmarks();
-                        notes = $('#dialog-Notes').val();
-                        console.log("urlinput: " + urlInput + ", category: " + category + ", label: " + label + ", notes: " + notes);
-                        console.log(bookmarks);
-                        newUrl = url + "/eric/" + "/create?category=" + category + "&label=" + label;
-                        console.log(newUrl);
-                        return [4 /*yield*/, fetch(newUrl)];
-                    case 1:
-                        resp = _a.sent();
-                        return [4 /*yield*/, resp.json()];
-                    case 2:
-                        j = _a.sent();
-                        console.log(j);
-                        return [2 /*return*/];
-                }
-            });
-        }); })();
-    }
-    function videoRead() {
-    }
-    function videoUpdate() {
-    }
-    function videoDelete() {
-    }
-    // --------------------- Button functions -------------------------
-    $('#submit-book').click(function () {
-        alert("Book submitted");
-        $("#dialog-add-video").dialog("close");
-        videoCreate();
-    });
-    $('.dialog-other').hide();
-    $('#ytUrlInput').bind("paste", function () {
-        handlePaste(insertVideo);
-    });
-    var bookmarkCnt = 1;
-    $('#add-bookmark').click(function () {
-        bookmarkCnt++;
-        console.log('bookmarkCnt: ' + bookmarkCnt);
-        $("#insert-before-me").before("\n            <div>\n                <label for=\"dialog-Bookmarks\">Add Bookmark hh:mm:ss </label>   \n                <input id=\"time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">  \n                <textarea id=\"notes-" + bookmarkCnt + "\" placeholder=\"Bookmark notes\"></textarea>\n            </div>\n        ");
-    });
     function handlePaste(callback) {
         var url = navigator.clipboard.readText().then(callback);
     }
@@ -182,7 +184,7 @@ $(document).ready(function () {
     $("#image-icon").click(function () {
         $("#dialog-edit-order").dialog("open");
     });
-    // ================================ Accordion functions =================================
+    // --------------------- Accordion functions ---------------------
     $(".Label-Body").accordion({
         header: "> div > h3",
         active: false,
