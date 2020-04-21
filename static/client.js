@@ -138,7 +138,7 @@ $(document).ready(function () {
         else {
             var videoId_1 = parseYoutubeUrl(url);
             console.log(videoId_1);
-            onYouTubeIframeAPIReady(addPlayer, "player1", videoId_1, false);
+            onYouTubeIframeAPIReady(addPlayer, 0, "player1", videoId_1, false);
             $('.dialog-other').show();
         }
     }
@@ -173,29 +173,41 @@ $(document).ready(function () {
     var videoId = "XlvsJLer_No";
     function initYtVideos() {
         for (var i = 0; i < videosLen; i++) {
-            var player = void 0;
-            videoPlayers[i] = player;
             var divInsert = "video-" + (i + 1);
             console.log(divInsert);
             var lastVideo = false;
             if (i == videosLen - 1) {
                 lastVideo = true;
             }
-            onYouTubeIframeAPIReady(videoPlayers[i], divInsert, videoId, lastVideo);
+            onYouTubeIframeAPIReady(null, i, divInsert, videoId, lastVideo);
         }
     }
     // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
-    function onYouTubeIframeAPIReady(player, divInsert, videoId, lastVideo) {
+    function onYouTubeIframeAPIReady(player, videoPlayerIdx, divInsert, videoId, lastVideo) {
         console.log('trigger youtube player');
-        // @ts-ignore
-        player = new YT.Player(divInsert, {
-            width: videoWidth,
-            height: videoHeight,
-            videoId: videoId,
-            events: {
-                'onReady': onPlayerReady(event, lastVideo)
-            }
-        });
+        if (player == null) {
+            // @ts-ignore
+            videoPlayers[videoPlayerIdx] = new YT.Player(divInsert, {
+                width: videoWidth,
+                height: videoHeight,
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady(event, lastVideo)
+                }
+            });
+            console.log(videoPlayers[videoPlayerIdx]);
+        }
+        else {
+            // @ts-ignore
+            player = new YT.Player(divInsert, {
+                width: videoWidth,
+                height: videoHeight,
+                videoId: videoId,
+                events: {
+                    'onReady': onPlayerReady(event, lastVideo)
+                }
+            });
+        }
     }
     // wait until last youtube iframe on page loads until initAccordion
     // accordion will break if it needs to load something after initializing
@@ -232,6 +244,8 @@ $(document).ready(function () {
     checkYoutubePlayerReady();
     function initAccordion() {
         console.log('trigger initAccordion');
+        console.log('---- Video players ---');
+        console.log(videoPlayers);
         $(".Label-Body").accordion({
             header: "> div > h3",
             active: false,

@@ -11,7 +11,7 @@ Compile server files
 * In src type `tsc`.
 
 Compile client file
-* In src type `tsc client.ts --outDir ../static/`. Compiled js goes into static folder.
+* In static type `tsc client.ts`
 
 ## To Test
-* In src type `nodemon server.js` so nodemon will reload server on server js changes. Type `rs` when changed client js
+* In src type `nodemon server.js` so nodemon will reload server on all js changes including client side js.
