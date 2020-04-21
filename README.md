@@ -4,11 +4,7 @@
 YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 
 ## To Run
-* In src type `node server.js`
-* Go to localhost:8080
-
-## Set up
-* In src type `npm install` to download node modules
+* In root type `npm start`
 
 ## To compile
 Compile server files
