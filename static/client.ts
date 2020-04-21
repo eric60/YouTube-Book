@@ -5,7 +5,6 @@ $(document).ready(function() {
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
     const url =  localUrl
 
-    let player : any;
     let dialogWidth : number = 800
     let dialogHeight : number = 600;
 
@@ -41,13 +40,13 @@ $(document).ready(function() {
         (async() => {
             console.log('----- In videoCreate -------')
 
-            let urlInput : any = $('#ytUrlInput').val();
+            let videoUrl : any = $('#ytUrlInput').val();
             let category = getCategory();
             let label : string = getLabel();
             let bookmarks : Array<Object> = getBookmarks();
             let notes : any = $('#dialog-Notes').val();
 
-            console.log(`urlinput: ${urlInput}, category: ${category}, label: ${label}, notes: ${notes}`)
+            console.log(`urlinput: ${videoUrl}, category: ${category}, label: ${label}, notes: ${notes}`)
             console.log(bookmarks);
 
             const newUrl : string = url + "/video" + "/eric/" + "/create?category=" + category + "&label=" + label;
@@ -115,6 +114,7 @@ $(document).ready(function() {
         let url = navigator.clipboard.readText().then(callback);
     }
 
+    let addPlayer : any;
     function insertVideo(url : string) {
         if(!validateUrl(url)) {
             alert("Please enter a valid YouTube Video URL");
@@ -122,7 +122,7 @@ $(document).ready(function() {
         else {
             let videoId = parseYoutubeUrl(url)
             console.log(videoId)
-            onYouTubeIframeAPIReady(player, "player1", videoId);
+            onYouTubeIframeAPIReady(addPlayer, "player1", videoId, false);
             $('.dialog-other').show();
         }
     }
@@ -143,8 +143,39 @@ $(document).ready(function() {
         }
         return true;
     }
+    // ------------------------- YouTube player functions -------------------------
+    // Yt iframe API not synchronous, need to wait until ready
+    function checkYoutubePlayerReady() {
+        // @ts-ignore
+        if (typeof YT !== "undefined" && (YT && YT.Player)) {
+            initYtVideos();
+        } else {
+            setTimeout(checkYoutubePlayerReady, 100)
+        }
+    }
 
-    function onYouTubeIframeAPIReady(player : any, divInsert : string, videoId : string) {
+    
+    let videosLen = 2;
+    let videoPlayers : Array<any> = []
+    let videoId = "XlvsJLer_No"
+    function initYtVideos() {
+        for (let i = 0; i < videosLen; i++) {
+            let player : any;
+            videoPlayers[i] = player;
+            let divInsert = "video-" + (i + 1);
+            console.log(divInsert)
+            
+            let lastVideo = false
+            if (i == videosLen - 1) {
+                lastVideo = true;
+            }
+            onYouTubeIframeAPIReady(videoPlayers[i], divInsert, videoId, lastVideo);
+        }
+    }
+
+
+    // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
+    function onYouTubeIframeAPIReady(player : any, divInsert : string, videoId : string, lastVideo : boolean) {
         console.log('trigger youtube player')
         // @ts-ignore
         player = new YT.Player(divInsert, {
@@ -152,8 +183,18 @@ $(document).ready(function() {
           height: dialogHeight / 2,     
           videoId: videoId,
           events: {
-          }
+              'onReady': onPlayerReady(event, lastVideo)
+          },
         });
+      }
+
+      // wait until last youtube iframe on page loads until initAccordion
+      // accordion will break if it needs to load something after initializing
+      function onPlayerReady(event, lastVideo : boolean) {
+        if (lastVideo) {
+            console.log('trigger lastVideo onPlayerReady. Now can call accordion')
+            initAccordion();
+        }
       }
 
     // --------------------- Dialog functions ---------------------------
@@ -183,31 +224,39 @@ $(document).ready(function() {
     });
 
     // --------------------- Accordion functions ---------------------
-    (<any>$(".Label-Body")).accordion({
-        header: "> div > h3",
-        active: false,
-        collapsible: true,
-        heightStyle: "content"
-    })
-    .sortable({
-        axis: "y",
-        handle: "h3",
-        stop: function( event, ui ) {
-          // IE doesn't register the blur when sorting
-          // so trigger focusout handlers to remove .ui-state-focus
-          ui.item.children( "h3" ).triggerHandler( "focusout" );
- 
-          // Refresh accordion to handle new order
-          (<any>$( this )).accordion( "refresh" );
-        },
-        update: function() {
-            save_new_order()
-        }
-    });
+    // On page load trigger 
+    checkYoutubePlayerReady()
 
-    function save_new_order() {
-        let sortedIds = (<any>$( ".Label-Body" )).sortable('toArray');
-        console.log("new sortedIds: " + sortedIds)
+    function initAccordion() {
+        console.log('trigger initAccordion');
+
+        (<any>$(".Label-Body")).accordion({
+            header: "> div > h3",
+            active: false,
+            collapsible: true,
+            heightStyle: "content"
+        })
+        .sortable({
+            axis: "y",
+            handle: "h3",
+            stop: function( event, ui ) {
+              // IE doesn't register the blur when sorting
+              // so trigger focusout handlers to remove .ui-state-focus
+              ui.item.children( "h3" ).triggerHandler( "focusout" );
+     
+              // Refresh accordion to handle new order
+              (<any>$( this )).accordion( "refresh" );
+            },
+            update: function() {
+                save_new_order()
+            }
+        });
+    
+        function save_new_order() {
+            let sortedIds = (<any>$( ".Label-Body" )).sortable('toArray');
+            console.log("new sortedIds: " + sortedIds)
+        }
+      
     }
-  
+   
 });

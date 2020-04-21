@@ -38,7 +38,6 @@ $(document).ready(function () {
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
     var url = localUrl;
-    var player;
     var dialogWidth = 800;
     var dialogHeight = 600;
     // --------------------- Button functions -------------------------
@@ -61,17 +60,17 @@ $(document).ready(function () {
     function videoCreate() {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var urlInput, category, label, bookmarks, notes, newUrl, resp, j;
+            var videoUrl, category, label, bookmarks, notes, newUrl, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log('----- In videoCreate -------');
-                        urlInput = $('#ytUrlInput').val();
+                        videoUrl = $('#ytUrlInput').val();
                         category = getCategory();
                         label = getLabel();
                         bookmarks = getBookmarks();
                         notes = $('#dialog-Notes').val();
-                        console.log("urlinput: " + urlInput + ", category: " + category + ", label: " + label + ", notes: " + notes);
+                        console.log("urlinput: " + videoUrl + ", category: " + category + ", label: " + label + ", notes: " + notes);
                         console.log(bookmarks);
                         newUrl = url + "/video" + "/eric/" + "/create?category=" + category + "&label=" + label;
                         console.log(newUrl);
@@ -126,14 +125,15 @@ $(document).ready(function () {
     function handlePaste(callback) {
         var url = navigator.clipboard.readText().then(callback);
     }
+    var addPlayer;
     function insertVideo(url) {
         if (!validateUrl(url)) {
             alert("Please enter a valid YouTube Video URL");
         }
         else {
-            var videoId = parseYoutubeUrl(url);
-            console.log(videoId);
-            onYouTubeIframeAPIReady(player, "player1", videoId);
+            var videoId_1 = parseYoutubeUrl(url);
+            console.log(videoId_1);
+            onYouTubeIframeAPIReady(addPlayer, "player1", videoId_1, false);
             $('.dialog-other').show();
         }
     }
@@ -152,15 +152,50 @@ $(document).ready(function () {
         }
         return true;
     }
-    function onYouTubeIframeAPIReady(player, divInsert, videoId) {
+    // ------------------------- YouTube player functions -------------------------
+    function checkYoutubePlayerReady() {
+        // @ts-ignore
+        if (typeof YT !== "undefined" && (YT && YT.Player)) {
+            initYtVideos();
+        }
+        else {
+            setTimeout(checkYoutubePlayerReady, 100);
+        }
+    }
+    var videosLen = 2;
+    var videoPlayers = [];
+    var videoId = "XlvsJLer_No";
+    function initYtVideos() {
+        for (var i = 0; i < videosLen; i++) {
+            var player = void 0;
+            videoPlayers[i] = player;
+            var divInsert = "video-" + (i + 1);
+            console.log(divInsert);
+            var lastVideo = false;
+            if (i == videosLen - 1) {
+                lastVideo = true;
+            }
+            onYouTubeIframeAPIReady(videoPlayers[i], divInsert, videoId, lastVideo);
+        }
+    }
+    // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
+    function onYouTubeIframeAPIReady(player, divInsert, videoId, lastVideo) {
         console.log('trigger youtube player');
         // @ts-ignore
         player = new YT.Player(divInsert, {
             width: dialogWidth,
             height: dialogHeight / 2,
             videoId: videoId,
-            events: {}
+            events: {
+                'onReady': onPlayerReady(event, lastVideo)
+            }
         });
+    }
+    function onPlayerReady(event, lastVideo) {
+        if (lastVideo) {
+            console.log('trigger lastVideo onPlayerReady. Now can call accordion');
+            initAccordion();
+        }
     }
     // --------------------- Dialog functions ---------------------------
     dialogAddVideo();
@@ -185,28 +220,33 @@ $(document).ready(function () {
         $("#dialog-edit-order").dialog("open");
     });
     // --------------------- Accordion functions ---------------------
-    $(".Label-Body").accordion({
-        header: "> div > h3",
-        active: false,
-        collapsible: true,
-        heightStyle: "content"
-    })
-        .sortable({
-        axis: "y",
-        handle: "h3",
-        stop: function (event, ui) {
-            // IE doesn't register the blur when sorting
-            // so trigger focusout handlers to remove .ui-state-focus
-            ui.item.children("h3").triggerHandler("focusout");
-            // Refresh accordion to handle new order
-            $(this).accordion("refresh");
-        },
-        update: function () {
-            save_new_order();
+    // On page load trigger 
+    checkYoutubePlayerReady();
+    function initAccordion() {
+        console.log('trigger initAccordion');
+        $(".Label-Body").accordion({
+            header: "> div > h3",
+            active: false,
+            collapsible: true,
+            heightStyle: "content"
+        })
+            .sortable({
+            axis: "y",
+            handle: "h3",
+            stop: function (event, ui) {
+                // IE doesn't register the blur when sorting
+                // so trigger focusout handlers to remove .ui-state-focus
+                ui.item.children("h3").triggerHandler("focusout");
+                // Refresh accordion to handle new order
+                $(this).accordion("refresh");
+            },
+            update: function () {
+                save_new_order();
+            }
+        });
+        function save_new_order() {
+            var sortedIds = $(".Label-Body").sortable('toArray');
+            console.log("new sortedIds: " + sortedIds);
         }
-    });
-    function save_new_order() {
-        var sortedIds = $(".Label-Body").sortable('toArray');
-        console.log("new sortedIds: " + sortedIds);
     }
 });
