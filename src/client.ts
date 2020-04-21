@@ -1,7 +1,8 @@
 
 $(document).ready(function() {
-    const url = `http://localhost:8080/video`; 
-    const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com/'
+    const localUrl = `http://localhost:8080`;
+    const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
+    const url =  localUrl
 
     let player : any;
     let dialogWidth : number = 800
@@ -54,7 +55,7 @@ $(document).ready(function() {
             console.log(`urlinput: ${urlInput}, category: ${category}, label: ${label}, notes: ${notes}`)
             console.log(bookmarks);
 
-            const newUrl : string = url + "/eric/" + "/create?category=" + category + "&label=" + label;
+            const newUrl : string = url + "/video" + "/eric/" + "/create?category=" + category + "&label=" + label;
             console.log(newUrl);
 
             const resp = await fetch(newUrl);
@@ -178,8 +179,7 @@ $(document).ready(function() {
         (<any>$( "#dialog-edit-order" )).dialog( "open" );
     });
 
-    // ================================ Accordion functions =================================
-    
+    // --------------------- Accordion functions ---------------------
     (<any>$(".Label-Body")).accordion({
         header: "> div > h3",
         active: false,
