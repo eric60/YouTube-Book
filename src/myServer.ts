@@ -22,9 +22,8 @@ export class MyServer {
 		});
 		// Serve static pages from a particular path.
 		this.server.use('/', express.static('../static'));
-		this.server.use('/video', this.router);
 
-		this.router.all('/username/:username/create', this.createVideoHandler.bind(this))
+		this.router.all('video/username/:username/create', this.createVideoHandler.bind(this))
 
 
 
