@@ -120,6 +120,18 @@ input[type=time]::-webkit-clear-button {
 
 
 /* ------------------ Dialogs ------------------ */
+#submit-book {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+#notes-1 {
+    margin-left: 50px;
+}
+
+#add-bookmark {
+    margin-bottom: 40px;
+}
 
 .dialog-video {
     margin-top: 1em;
@@ -210,16 +222,14 @@ input[type=time]::-webkit-clear-button {
 }
 
 .panel-body {
+    text-align: center;
     overflow: hidden;
     background-color: #f2f2f2;
     border-radius: 10px;
 }
 
 .video-section {
-    width: 33%;
-    height: 100%;
-    float: left;
-    margin-right: 0;
+
 }
 
 .bookmarks-section, .notes-section {

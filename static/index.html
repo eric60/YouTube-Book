@@ -124,14 +124,14 @@
             <div>Math</div>
         </div>
 
-        <div id="dialog-add-video" title="Add your YouTube Book">
+        <div id="dialog-add-video" class="text-center" title="Add your YouTube Book">
           <div class="split dialog-Video">
             <label for="ytUrlInput">Paste your YouTube Video URL: </label>            
             <input id="ytUrlInput" type="text" autocomplete="on">
-            <div id="player1"></div>
+            <div class="video-section" id="player1"></div>
           </div>
 
-          <div class="split dialog-other">
+          <div class="dialog-other text-center">
             <label for="dialog-title-input"> </label>            
             <input id="dialog-title-input" type="text" placeholder="Enter a Title">
 
@@ -158,25 +158,31 @@
               </span>
             </div>
 
-           <div class="dialog-bookmarks">
+           <div class="dialog-bookmarks text-center">
               <div>
-                <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
+                <div><b><u>Add Bookmarks</u></b></div>
+                <label for="dialog-Bookmarks">hh:mm:ss </label>   
                 <input id="time-1" type='time' class="without_ampm" step="1" required>  
-                <textarea id="notes-1" placeholder="Bookmark notes"></textarea>
-                <button type="button" id="add-bookmark" class="btn btn-primary">Add</button>
+                <div>
+                  <textarea id="notes-1" placeholder="Bookmark notes" cols="30"></textarea>
+                  <button type="button" id="add-bookmark" class="btn btn-primary">Add</button>
+                </div>
+                
               </div>
               
               <div id="insert-before-me"></div>
            </div>
 
-           <div class="dialog-notes">
-            <label for="dialog-Notes">Notes </label>            
-            <textarea id="dialog-Notes" type="text"></textarea>
+           <div class="dialog-notes text-center">
+            <label for="dialog-Notes"><u>Notes</u></label> 
+            <div>
+              <textarea id="dialog-Notes" cols="50"></textarea>
+            </div>           
            </div>
           
   
-            <div class="dialog-footer">
-              <button type="button" id="submit-book" class="btn btn-primary">Submit</button>
+            <div class="dialog-footer text-center">
+              <button type="button" id="submit-book" class="btn btn-success">Submit</button>
             </div>
           </div>
   

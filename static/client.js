@@ -38,8 +38,10 @@ $(document).ready(function () {
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
     var url = localUrl;
-    var dialogWidth = 800;
-    var dialogHeight = 600;
+    var dialogWidth = 1200;
+    var dialogHeight = 800;
+    var videoWidth = 1000;
+    var videoHeight = 800 / 1.5;
     // --------------------- Button functions -------------------------
     $('#submit-book').click(function () {
         alert("Book submitted");
@@ -54,8 +56,11 @@ $(document).ready(function () {
     $('#add-bookmark').click(function () {
         bookmarkCnt++;
         console.log('bookmarkCnt: ' + bookmarkCnt);
-        $("#insert-before-me").before("\n             <div>\n                 <label for=\"dialog-Bookmarks\">Add Bookmark hh:mm:ss </label>   \n                 <input id=\"time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">  \n                 <textarea id=\"notes-" + bookmarkCnt + "\" placeholder=\"Bookmark notes\"></textarea>\n             </div>\n         ");
+        addBookmark("#insert-before-me", bookmarkCnt);
     });
+    function addBookmark(divInsert, bookmarkCnt) {
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"notes-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+    }
     // --------------------- CRUD functions -------------------------
     function videoCreate() {
         var _this = this;
@@ -153,6 +158,7 @@ $(document).ready(function () {
         return true;
     }
     // ------------------------- YouTube player functions -------------------------
+    // Yt iframe API not synchronous, need to wait until ready
     function checkYoutubePlayerReady() {
         // @ts-ignore
         if (typeof YT !== "undefined" && (YT && YT.Player)) {
@@ -183,14 +189,16 @@ $(document).ready(function () {
         console.log('trigger youtube player');
         // @ts-ignore
         player = new YT.Player(divInsert, {
-            width: dialogWidth,
-            height: dialogHeight / 2,
+            width: videoWidth,
+            height: videoHeight,
             videoId: videoId,
             events: {
                 'onReady': onPlayerReady(event, lastVideo)
             }
         });
     }
+    // wait until last youtube iframe on page loads until initAccordion
+    // accordion will break if it needs to load something after initializing
     function onPlayerReady(event, lastVideo) {
         if (lastVideo) {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion');
@@ -204,7 +212,7 @@ $(document).ready(function () {
             autoOpen: false,
             width: dialogWidth,
             height: dialogHeight,
-            resizable: false
+            resizable: true
         });
     }
     $("#addVideoBtn").click(function () {

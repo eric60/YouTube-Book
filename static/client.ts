@@ -5,8 +5,10 @@ $(document).ready(function() {
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
     const url =  localUrl
 
-    let dialogWidth : number = 800
-    let dialogHeight : number = 600;
+    let dialogWidth : number = 1200
+    let dialogHeight : number = 800
+    let videoWidth = 1000
+    let videoHeight = 800 / 1.5
 
     
      // --------------------- Button functions -------------------------
@@ -25,14 +27,21 @@ $(document).ready(function() {
      $('#add-bookmark').click(function() {
          bookmarkCnt++;
          console.log('bookmarkCnt: ' + bookmarkCnt)
-         $(`#insert-before-me`).before(`
-             <div>
-                 <label for="dialog-Bookmarks">Add Bookmark hh:mm:ss </label>   
-                 <input id="time-${bookmarkCnt}" type='time' class="without_ampm" step="1">  
-                 <textarea id="notes-${bookmarkCnt}" placeholder="Bookmark notes"></textarea>
-             </div>
-         `);
+         addBookmark(`#insert-before-me`, bookmarkCnt)
+        
      })
+
+     function addBookmark(divInsert: string, bookmarkCnt : number) {
+        $(divInsert).before(`
+            <div>
+                <label for="dialog-Bookmarks">hh:mm:ss </label> 
+                <input id="time-${bookmarkCnt}" type='time' class="without_ampm" step="1">   
+                <div>
+                    <textarea id="notes-${bookmarkCnt}" cols="35" placeholder="Bookmark notes"></textarea>
+                </div>  
+            </div>
+        `);
+     }
 
    
     // --------------------- CRUD functions -------------------------
@@ -177,10 +186,11 @@ $(document).ready(function() {
     // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
     function onYouTubeIframeAPIReady(player : any, divInsert : string, videoId : string, lastVideo : boolean) {
         console.log('trigger youtube player')
+ 
         // @ts-ignore
         player = new YT.Player(divInsert, {
-          width: dialogWidth,
-          height: dialogHeight / 2,     
+          width: videoWidth,
+          height: videoHeight,
           videoId: videoId,
           events: {
               'onReady': onPlayerReady(event, lastVideo)
@@ -204,7 +214,7 @@ $(document).ready(function() {
             autoOpen: false,
             width: dialogWidth,
             height:dialogHeight,
-            resizable: false
+            resizable: true
         });
     }
 
