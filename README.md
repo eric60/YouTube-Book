@@ -7,6 +7,9 @@ YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 * In root type `npm start`
 
 ## To compile
+Download all node modules
+* In root npm install
+
 Compile server files
 * In src type `tsc`.
 
