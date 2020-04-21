@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "npm install && cd src && node server.js",
+    "start": "npm install && cd src && nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

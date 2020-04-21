@@ -15,6 +15,3 @@ Compile server files
 
 Compile client file
 * In static type `tsc client.ts`
-
-## To Test
-* In src type `nodemon server.js` so nodemon will reload server on all js changes including client side js.
