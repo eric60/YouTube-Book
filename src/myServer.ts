@@ -23,9 +23,16 @@ export class MyServer {
 		// Serve static pages from a particular path.
 		this.server.use('/', express.static('../static'));
 
-		this.router.all('video/username/:username/create', this.createVideoHandler.bind(this))
+		this.server.use('/video', this.router);
 
+		this.router.all('/username/:username/create', this.createVideoHandler.bind(this))
 
+		this.router.all('/username/:username/delete', this.deleteVideoHandler.bind(this))
+
+		// Set a fall-through handler if nothing matches.
+		this.router.get('*', async (request, response) => {
+			response.send(JSON.stringify({ "result" : "command-not-found" }));
+		});
 
 	}
 	
