@@ -5,6 +5,7 @@ YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 
 ## To Run
 * In root type `npm start`
+* Any time changing js compile to js with `tsc` then nodemon will restart server automatically.
 
 ## To compile
 Download all node modules
