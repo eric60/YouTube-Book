@@ -36,15 +36,15 @@ body {
     text-decoration:underline;
 }
 
-<<<<<<< HEAD
 #delete-video {
     padding: 20px;
     float: right;
-=======
+}
+
 .timestampBtn {
     color: blue;
->>>>>>> 2bf5faea13f16174e104d2b9f41b0220e44ae0f1
 }
+
 
 /* ------------------ End Buttons ------------------ */
 
