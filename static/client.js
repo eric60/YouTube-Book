@@ -42,8 +42,8 @@ $(document).ready(function () {
     var dialogHeight = 800;
     var videoWidth = 1000;
     var videoHeight = 800 / 1.5;
-    // --------------------- Button functions -------------------------
-    $('#submit-book').click(function () {
+    // --------------------- Button trigger functions -------------------------
+    $('#dialog-submit-book').click(function () {
         alert("Book submitted");
         $("#dialog-add-video").dialog("close");
         videoCreate();
@@ -52,14 +52,47 @@ $(document).ready(function () {
     $('#ytUrlInput').bind("paste", function () {
         handlePaste(insertVideo);
     });
+    // --------------------- Video add bookmarks -------------------------
+    var totalVideoCnt = 1;
+    var videoBookmarkCnts = [];
+    function initVideoData() {
+        for (var i = 0; i < totalVideoCnt; i++) {
+            console.log('------initvideodata for video ' + (i + 1));
+            addVideoBookmarks(i);
+            addVideoSubmitBtns(i);
+        }
+    }
+    function addVideoBookmarks(i) {
+        var videoNum = i + 1;
+        var add_bookmark_div = "#video-" + videoNum + "-add-bookmark";
+        videoBookmarkCnts[videoNum] = 1;
+        $(add_bookmark_div).click(function () {
+            var insertDiv = "#video-" + videoNum + "-insert-before-me";
+            var bookmarkCnt = videoBookmarkCnts[videoNum]++;
+            console.log('add video bookmarkCnt: ' + bookmarkCnt);
+            addVideoBookmark(insertDiv, bookmarkCnt, i);
+        });
+    }
+    function addVideoSubmitBtns(index) {
+        var videoNum = index + 1;
+        var videoSubmitId = "#video-" + videoNum + "-submit-book";
+        $(videoSubmitId).click(function () {
+            alert("Book submitted");
+        });
+    }
+    function addVideoBookmark(divInsert, bookmarkCnt, videoNum) {
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"video-" + videoNum + "-time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"video-" + videoNum + "-bn-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+    }
+    // --------------------------- Dialog add bookmarks ----------------------
     var bookmarkCnt = 1;
-    $('#add-bookmark').click(function () {
+    $('#dialog-add-bookmark').click(function () {
+        var insertDiv = "#dialog-insert-before-me";
         bookmarkCnt++;
-        console.log('bookmarkCnt: ' + bookmarkCnt);
-        addBookmark("#insert-before-me", bookmarkCnt);
+        console.log('add dialog bookmarkCnt: ' + bookmarkCnt);
+        addDialogBookmark(insertDiv, bookmarkCnt);
     });
-    function addBookmark(divInsert, bookmarkCnt) {
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"notes-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+    function addDialogBookmark(divInsert, bookmarkCnt) {
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"dialog-time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"dialog-bn-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
     }
     // --------------------- CRUD functions -------------------------
     function videoCreate() {
@@ -97,7 +130,15 @@ $(document).ready(function () {
     }
     function videoDelete() {
     }
-    // ------------------- Helper functions --------------------------
+    // ------------------- Helper functions for getting data for CRUD --------------------------
+    // CREATE
+    function getDialogBookmarks() {
+    }
+    function getDialogCategory() {
+    }
+    function getDialogLabel() {
+    }
+    // UPDATE - get data from main screen
     function getBookmarks() {
         var bookmarks = [];
         for (var i = 1; i < bookmarkCnt + 1; i++) {
@@ -127,6 +168,7 @@ $(document).ready(function () {
         }
         return label;
     }
+    // ----------------------------------------------------------------
     function handlePaste(callback) {
         var url = navigator.clipboard.readText().then(callback);
     }
@@ -181,6 +223,7 @@ $(document).ready(function () {
             }
             onYouTubeIframeAPIReady(null, i, divInsert, videoId, lastVideo);
         }
+        initVideoData();
     }
     // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
     function onYouTubeIframeAPIReady(player, videoPlayerIdx, divInsert, videoId, lastVideo) {

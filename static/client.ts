@@ -11,8 +11,8 @@ $(document).ready(function() {
     let videoHeight = 800 / 1.5
 
     
-     // --------------------- Button functions -------------------------
-     $('#submit-book').click(function() {
+     // --------------------- Button trigger functions -------------------------
+     $('#dialog-submit-book').click(function() {
         alert("Book submitted");
         (<any>$("#dialog-add-video")).dialog("close");
         videoCreate();
@@ -23,21 +23,78 @@ $(document).ready(function() {
          handlePaste(insertVideo);
      });
  
-     let bookmarkCnt = 1;
-     $('#add-bookmark').click(function() {
-         bookmarkCnt++;
-         console.log('bookmarkCnt: ' + bookmarkCnt)
-         addBookmark(`#insert-before-me`, bookmarkCnt)
-        
-     })
 
-     function addBookmark(divInsert: string, bookmarkCnt : number) {
+
+    // --------------------- Video add bookmarks -------------------------
+  
+    let totalVideoCnt : number = 1;
+    let videoBookmarkCnts : Array<number>= [];
+
+
+    function initVideoData() {
+        for (let i = 0; i < totalVideoCnt; i++) {
+            console.log('------initvideodata for video ' + (i + 1))
+            addVideoBookmarks(i);
+            addVideoSubmitBtns(i);
+       
+        }
+    }
+
+    function addVideoBookmarks(i : number) {
+        let videoNum = i + 1;
+        let add_bookmark_div = `#video-${videoNum}-add-bookmark`
+        videoBookmarkCnts[videoNum] = 1;
+
+        $(add_bookmark_div).click(function() {
+        
+            let insertDiv = `#video-${videoNum}-insert-before-me`
+            let bookmarkCnt = videoBookmarkCnts[videoNum]++;
+            console.log('add video bookmarkCnt: ' + bookmarkCnt)
+            addVideoBookmark(insertDiv, bookmarkCnt, i);
+           
+        })
+    }
+
+    function addVideoSubmitBtns(index : number) {
+        let videoNum = index + 1;
+        let videoSubmitId = `#video-${videoNum}-submit-book`
+        $(videoSubmitId).click(function() {
+            alert("Book submitted");
+         })
+    }
+
+    
+
+     function addVideoBookmark(divInsert: string, bookmarkCnt : number, videoNum : number) {
         $(divInsert).before(`
             <div>
                 <label for="dialog-Bookmarks">hh:mm:ss </label> 
-                <input id="time-${bookmarkCnt}" type='time' class="without_ampm" step="1">   
+                <input id="video-${videoNum}-time-${bookmarkCnt}" type='time' class="without_ampm" step="1">   
                 <div>
-                    <textarea id="notes-${bookmarkCnt}" cols="35" placeholder="Bookmark notes"></textarea>
+                    <textarea id="video-${videoNum}-bn-${bookmarkCnt}" cols="35" placeholder="Bookmark notes"></textarea>
+                </div>  
+            </div>
+        `);
+     }
+
+     // --------------------------- Dialog add bookmarks ----------------------
+
+     let bookmarkCnt = 1;
+     $('#dialog-add-bookmark').click(function() {
+         let insertDiv = `#dialog-insert-before-me`
+         bookmarkCnt++;
+         console.log('add dialog bookmarkCnt: ' + bookmarkCnt)
+         addDialogBookmark(insertDiv, bookmarkCnt)
+        
+     })
+
+     function addDialogBookmark(divInsert: string, bookmarkCnt : number) {
+        $(divInsert).before(`
+            <div>
+                <label for="dialog-Bookmarks">hh:mm:ss </label> 
+                <input id="dialog-time-${bookmarkCnt}" type='time' class="without_ampm" step="1">   
+                <div>
+                    <textarea id="dialog-bn-${bookmarkCnt}" cols="35" placeholder="Bookmark notes"></textarea>
                 </div>  
             </div>
         `);
@@ -85,7 +142,23 @@ $(document).ready(function() {
 
 
     
-    // ------------------- Helper functions --------------------------
+    // ------------------- Helper functions for getting data for CRUD --------------------------
+    // CREATE
+    function getDialogBookmarks() {
+
+    }
+
+    function getDialogCategory() {
+
+    }
+
+    function getDialogLabel() {
+
+    }
+
+    // UPDATE - get data from main screen
+
+
     function getBookmarks() {
         let bookmarks = [];
         for (let i = 1; i < bookmarkCnt + 1; i++) {
@@ -119,6 +192,7 @@ $(document).ready(function() {
         return label;
     }
     
+    // ----------------------------------------------------------------
     function handlePaste(callback) {
         let url = navigator.clipboard.readText().then(callback);
     }
@@ -178,6 +252,7 @@ $(document).ready(function() {
             }
             onYouTubeIframeAPIReady(null, i ,divInsert, videoId, lastVideo);
         }
+        initVideoData();
     }
 
 

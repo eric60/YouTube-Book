@@ -64,32 +64,43 @@
                       <div class="panel-body">
                         <div class = "video-section" id="video-1"></div>
                       
-                          <div class="dialog-notes text-center">
+                          <div class="dialog-notes">
                             <label for="dialog-Notes" class="boxTitle">Notes</label> 
                             <div>
                               <textarea id="video-1-notes" cols="50"></textarea>
                             </div>           
                           </div>
+
+                          <div class="video-bookmarks">
+                            <div class="boxTitle"><b>Bookmarks</b></div>
+
+                              <p>1:30</p>
+                          </div>
               
-                        <div class="dialog-bookmarks text-center">
+                        <div class="dialog-bookmarks">
                             <div>
-                              <div class="boxTitle"><b>Add Bookmarks</b></div>
+                              <div class="boxTitle"><b>Add New Bookmarks</b></div>
                               <label for="dialog-Bookmarks">hh:mm:ss </label>   
                               <input id="video-1-time-1" type='time' class="without_ampm" step="1" required>  
                               <div>
-                                <textarea id="video-1-bn-1" placeholder="Bookmark notes" cols="30"></textarea>
-                                <button type="button" id="add-bookmark" class="btn btn-primary">Add</button>
+                                <textarea class="bookmark-notes" id="video-1-bn-1" placeholder="Bookmark notes" cols="30"></textarea>
+                                <button type="button" id="video-1-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                               </div>
                               
                             </div>
                             
-                            <div id="insert-before-me"></div>
+                            <div id="video-1-insert-before-me"></div>
+                        </div>
+
+                        <div class="dialog-footer">
+                          <button type="button" id="video-1-submit-book" class="btn btn-success">Submit</button>
                         </div>
 
                       </div>
-                      <!-- Panel body end -->
+                      <!-- Video-1 Panel body end -->
                   </div>
             
+                  <!-- Video 2 start -->
                   <div class="Label-Video" id="Web-Services-video2">
                     <h3>Web Services video 2</h3>   
                     <div class="panel-body">
@@ -141,14 +152,14 @@
             <div>Math</div>
         </div>
 
-        <div id="dialog-add-video" class="text-center" title="Add your YouTube Book">
+        <div id="dialog-add-video" title="Add your YouTube Book">
           <div class="split dialog-Video">
             <label for="ytUrlInput">Paste your YouTube Video URL: </label>            
             <input id="ytUrlInput" type="text" autocomplete="on">
             <div class="video-section" id="player1"></div>
           </div>
 
-          <div class="dialog-other text-center">
+          <div class="dialog-other">
             <label for="dialog-title-input"> </label>            
             <input id="dialog-title-input" type="text" placeholder="Enter a Title">
 
@@ -175,33 +186,33 @@
               </span>
             </div>
 
-            <div class="dialog-notes text-center">
+            <div class="dialog-notes">
               <label for="dialog-Notes" class="boxTitle">Notes</label> 
               <div>
                 <textarea id="dialog-Notes" cols="50"></textarea>
               </div>           
             </div>
 
-           <div class="dialog-bookmarks text-center">
+           <div class="dialog-bookmarks">
               <div>
                 <div class="boxTitle"><b>Add Bookmarks</b></div>
                 <label for="dialog-Bookmarks">hh:mm:ss </label>   
-                <input id="time-1" type='time' class="without_ampm" step="1" required>  
+                <input id="dialog-time-1" type='time' class="without_ampm" step="1" required>  
                 <div>
-                  <textarea id="notes-1" placeholder="Bookmark notes" cols="30"></textarea>
-                  <button type="button" id="add-bookmark" class="btn btn-primary">Add</button>
+                  <textarea class="bookmark-notes" id="dialog-bn-1" placeholder="Bookmark notes" cols="30"></textarea>
+                  <button type="button" id="dialog-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                 </div>
                 
               </div>
               
-              <div id="insert-before-me"></div>
+              <div id="dialog-insert-before-me"></div>
            </div>
 
           
           
   
-            <div class="dialog-footer text-center">
-              <button type="button" id="submit-book" class="btn btn-success">Submit</button>
+            <div class="dialog-footer">
+              <button type="button" id="dialog-submit-book" class="btn btn-success">Submit</button>
             </div>
           </div>
   
