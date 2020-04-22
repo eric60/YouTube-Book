@@ -56,20 +56,31 @@ $(document).ready(function () {
     $('#ytUrlInput').bind("paste", function () {
         handlePaste(insertVideo);
     });
+    $( "#delete-video" ).button({  
+        icons: {  
+           primary: "ui-icon-trash"  
+        },  
+        text: false  
+     });
     // --------------------- Video add bookmarks TODO -------------------------
+    var oldBookmarksCnt = 1;
     var totalVideoCnt = 3;
     var videoBookmarkCnts = [];
     function initVideoData() {
         // video-1, video-2
         for (var i = 1; i < totalVideoCnt + 1; i++) {
             console.log('------initvideodata for video ' + i);
-            addVideoBookmarks(i);
+            addOldTimestampBtns(i);
+            addOldVideoBookmarks(i);
+            addNewVideoBookmarks(i);
             addVideoSubmitBtns(i);
         }
     }
-    function addVideoBookmarks(videoNum) {
+    function addOldVideoBookmarks(videoNum) {
+    }
+    function addNewVideoBookmarks(videoNum) {
         var add_bookmark_div = "#video-" + videoNum + "-add-bookmark";
-        videoBookmarkCnts[videoNum] = 1;
+        videoBookmarkCnts[videoNum] = oldBookmarksCnt + 1; // 1 old bm, start on video-1-time-2 new
         $(add_bookmark_div).click(function () {
             var insertDiv = "#video-" + videoNum + "-insert-before-me";
             var bookmarkCnt = ++videoBookmarkCnts[videoNum];
@@ -77,16 +88,20 @@ $(document).ready(function () {
             addVideoBookmark(insertDiv, bookmarkCnt, videoNum);
         });
     }
+    function addVideoBookmark(divInsert, bookmarkCnt, videoNum) {
+        var bmTime = "video-" + videoNum + "-time-" + bookmarkCnt;
+        var bmNote = "video-" + videoNum + "-bm-" + bookmarkCnt;
+        var timestampBtn = "<button id=\"video-" + videoNum + "-link-" + bookmarkCnt + "\" class=\"timestampBtn\" >hh:mm:ss</button>";
+        $(divInsert).before("\n            <div>\n                " + timestampBtn + "\n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+    }
+    function addOldTimestampBtns(videoNum) {
+        var add_timestamp_btn_div = "video-" + videoNum + "-link{}";
+    }
     function addVideoSubmitBtns(videoNum) {
         var videoSubmitId = "#video-" + videoNum + "-submit-book";
         $(videoSubmitId).click(function () {
             alert("Book submitted");
         });
-    }
-    function addVideoBookmark(divInsert, bookmarkCnt, videoNum) {
-        var bmTime = "video-" + videoNum + "-time-" + bookmarkCnt;
-        var bmNote = "video-" + videoNum + "-bm-" + bookmarkCnt;
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
     }
     // --------------------------- Dialog add bookmarks ----------------------
     var bookmarkCnt = 1;
@@ -113,7 +128,7 @@ $(document).ready(function () {
                         videoUrl = $('#ytUrlInput').val();
                         category = getCategory();
                         label = getLabel();
-                        bookmarks = getBookmarks();
+                        bookmarks = getDialogBookmarks();
                         notes = $('#dialog-Notes').val();
                         console.log("urlinput: " + videoUrl + ", category: " + category + ", label: " + label + ", notes: " + notes);
                         console.log(bookmarks);
@@ -176,21 +191,26 @@ $(document).ready(function () {
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE
     function getDialogBookmarks() {
+        var timestampDiv = "dialog-time-";
+        var bmNotes = "dialog-bm-";
+        return getBookmarks(timestampDiv, bmNotes);
     }
     function getDialogCategory() {
     }
     function getDialogLabel() {
     }
     // UPDATE - get data from main screen
-    function getBookmarks() {
+    function getBookmarks(timestamp, bmNotes) {
         var bookmarks = [];
         for (var i = 1; i < bookmarkCnt + 1; i++) {
-            var timestamp = $("#time-" + i).val();
-            var timestampNotes = $("#notes-" + i).val();
+            timestamp += "" + i;
+            bmNotes += "" + i;
+            var timestampVal = $(timestamp).val();
+            var bmNotesVal = $(bmNotes).val();
             if (timestamp) {
                 bookmarks[i] = {
                     timestamp: timestamp,
-                    timestampNotes: timestampNotes
+                    timestampNotes: bmNotesVal
                 };
             }
         }
@@ -309,6 +329,9 @@ $(document).ready(function () {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion');
             initAccordion();
         }
+    }
+    function goToTimeStamp(time) {
+        // convert time to seconds
     }
     // --------------------- Dialog functions ---------------------------
     dialogAddVideo();

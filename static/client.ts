@@ -27,12 +27,21 @@ $(document).ready(function() {
      $('#ytUrlInput').bind("paste", function() {
          handlePaste(insertVideo);
      });
- 
 
+     $( "#delete-video" ).button({  
+        icons: {  
+           primary: "ui-icon-trash"  
+        },  
+        text: false  
+     });  
+ 
 
     // --------------------- Video add bookmarks TODO -------------------------
   
+    let oldBookmarksCnt = 1;
+    
     let totalVideoCnt : number = 3;
+
     let videoBookmarkCnts : Array<number>= [];
 
 
@@ -40,15 +49,25 @@ $(document).ready(function() {
         // video-1, video-2
         for (let i = 1; i < totalVideoCnt + 1; i++) {
             console.log('------initvideodata for video ' + i)
-            addVideoBookmarks(i);
+            addOldTimestampBtns(i);
+            addOldVideoBookmarks(i)
+            addNewVideoBookmarks(i);
+          
+
             addVideoSubmitBtns(i);
+          
        
         }
+
     }
 
-    function addVideoBookmarks(videoNum : number) {
+    function addOldVideoBookmarks(videoNum : number) {
+
+    }
+
+    function addNewVideoBookmarks(videoNum : number) {
         let add_bookmark_div = `#video-${videoNum}-add-bookmark`
-        videoBookmarkCnts[videoNum] = 1;
+        videoBookmarkCnts[videoNum] = oldBookmarksCnt + 1; // 1 old bm, start on video-1-time-2 new
 
         $(add_bookmark_div).click(function() {
             
@@ -59,22 +78,14 @@ $(document).ready(function() {
         })
     }
 
-    function addVideoSubmitBtns(videoNum : number) {
-        let videoSubmitId = `#video-${videoNum}-submit-book`
-        $(videoSubmitId).click(function() {
-            alert("Book submitted");
-         })
-    }
-
-    
-
      function addVideoBookmark(divInsert: string, bookmarkCnt : number, videoNum : number) {
          let bmTime = `video-${videoNum}-time-${bookmarkCnt}`
          let bmNote = `video-${videoNum}-bm-${bookmarkCnt}`
+         let timestampBtn = `<button id="video-${videoNum}-link-${bookmarkCnt}" class="timestampBtn" >hh:mm:ss</button>`
 
         $(divInsert).before(`
             <div>
-                <label for="dialog-Bookmarks">hh:mm:ss </label> 
+                ${timestampBtn}
                 <input id="${bmTime}" type='time' class="without_ampm" step="1">   
                 <div>
                     <textarea id="${bmNote}" cols="35" placeholder="Bookmark notes"></textarea>
@@ -82,6 +93,18 @@ $(document).ready(function() {
             </div>
         `);
      }
+
+     function addOldTimestampBtns(videoNum : number) {
+        let add_timestamp_btn_div = `video-${videoNum}-link{}`
+    }   
+
+    function addVideoSubmitBtns(videoNum : number) {
+        let videoSubmitId = `#video-${videoNum}-submit-book`
+        $(videoSubmitId).click(function() {
+            alert("Book submitted");
+         })
+    }
+
 
      // --------------------------- Dialog add bookmarks ----------------------
 
@@ -117,7 +140,8 @@ $(document).ready(function() {
             let videoUrl : any = $('#ytUrlInput').val();
             let category = getCategory();
             let label : string = getLabel();
-            let bookmarks : Array<Object> = getBookmarks();
+            let bookmarks : Array<Object> = getDialogBookmarks();
+
             let notes : any = $('#dialog-Notes').val();
 
             console.log(`urlinput: ${videoUrl}, category: ${category}, label: ${label}, notes: ${notes}`)
@@ -173,6 +197,9 @@ $(document).ready(function() {
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE
     function getDialogBookmarks() {
+        let timestampDiv = `dialog-time-`
+        let bmNotes = `dialog-bm-`
+        return getBookmarks(timestampDiv, bmNotes)
 
     }
 
@@ -187,16 +214,19 @@ $(document).ready(function() {
     // UPDATE - get data from main screen
 
 
-    function getBookmarks() {
+    function getBookmarks(timestamp : string, bmNotes: string) {
         let bookmarks = [];
+        
         for (let i = 1; i < bookmarkCnt + 1; i++) {
-            let timestamp =  $(`#time-${i}`).val()
-            let timestampNotes =  $(`#notes-${i}`).val()
+            timestamp += `${i}`
+            bmNotes += `${i}`
+            let timestampVal =  $(timestamp).val()
+            let bmNotesVal =  $(bmNotes).val()
 
             if (timestamp) {
                 bookmarks[i] = {
                     timestamp: timestamp,
-                    timestampNotes: timestampNotes
+                    timestampNotes: bmNotesVal
                 }
             }
         }
@@ -328,6 +358,10 @@ $(document).ready(function() {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion')
             initAccordion();
         }
+      }
+
+      function goToTimeStamp(time) {
+          // convert time to seconds
       }
 
     // --------------------- Dialog functions ---------------------------
