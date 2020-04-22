@@ -2,6 +2,7 @@ declare var require: any
 let http = require('http');
 let url = require('url');
 let express = require('express');
+let faker = require('faker');
 ​
 export class MyServer {
 ​
@@ -27,11 +28,13 @@ export class MyServer {
 
 		this.router.all('/video/:username/create', this.createVideoHandler.bind(this))
 
+		this.router.all('/video/:username/read', this.readVideoHandler.bind(this))
+
 		this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this))
 
 		// Set a fall-through handler if nothing matches.
 		this.router.get('*', async (request, response) => {
-			response.send(JSON.stringify({ "result" : "command-not-found" }));
+			response.send(JSON.stringify({ "result" : "error" }));
 		});
 
 	}
@@ -60,6 +63,15 @@ export class MyServer {
 		console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
 		await this.createVideo(username, category, label, videoObj, response);
 	}
+
+	private async readVideoHandler(request, response) : Promise<void> {
+		console.log("made it to readvidhandler");
+		let username = request.params['username'];
+		let category = request.query.category;
+		let label = request.query.label;
+		console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
+		await this.readVideo(username, category, label, response);
+	}
 	
 	private async deleteVideoHandler(request, response) : Promise<void> {
 		// get video object from front end
@@ -80,7 +92,7 @@ export class MyServer {
    // ---------------------------- CRUD functions -------------------------------------
 
     public async createVideo(username: string, category: string, label: string, videoObj: object, response) : Promise<void> {
-		console.log("creating video")
+		console.log("creating video...")
 		// await this.theDatabase.put(name, 0);
 
 		response.write(JSON.stringify(
@@ -88,6 +100,23 @@ export class MyServer {
 						'username' : username,
 						'category' : category 
 						}));
+		response.end();
+	}
+
+	public async readVideo(username : string, category : string, label: string, response) : Promise<void> {
+		console.log("reading video");
+		//await this.theDatabase.get(username, category, label);
+
+		response.write(JSON.stringify(
+			{'result' : 'read',
+			'username' : username,
+			'category' : category,
+			'label' : label,
+			'title' : faker.random.word() + " video",
+			'notes' : faker.random.words() + " video",
+			'bookmarks' : faker.date.recent() + " - " + faker.random.words() + ", " + faker.date.recent() + " - " + faker.random.words(),
+		}
+		))
 		response.end();
 	}
 	

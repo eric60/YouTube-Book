@@ -19,6 +19,11 @@ $(document).ready(function() {
         (<any>$("#dialog-add-video")).dialog("close");
         videoCreate();
      })
+
+     $('#readTestBtn').click(function() {
+         alert("Book read");
+         videoRead();
+     });
  
      $('.dialog-other').hide();
      $('#ytUrlInput').bind("paste", function() {
@@ -202,7 +207,13 @@ $(document).ready(function() {
 
             const resp = await fetch(newUrl);
             const j = await resp.json();
-            console.log(j)
+
+            if (j['result'] !== 'error'){
+                console.log("Video created. Data: " + JSON.stringify(j));
+                document.getElementById("outputText").innerHTML = "Success; video created. Data: " + JSON.stringify(j); 
+            } else {
+                document.getElementById("outputText").innerHTML = "Error; video not created."
+            }
 
         })();
     }
@@ -210,8 +221,22 @@ $(document).ready(function() {
 
 
 
-    function videoRead() {
-
+    function videoRead() { //temporary, DB implementation to return proper data
+        (async() => {
+            console.log("videoRead called");
+            let category = "someCategory" //to be deprecated.
+            let label = "someLabel" //to be deprecated.
+            const newURL : string = url + "/video" + "/eric" + "/read?category=" + category + "&label=" + label;
+            console.log("videoRead: fetching " + newURL);
+            const resp = await fetch(newURL);
+            const j = await resp.json();
+            if (j['result'] !== 'error'){
+                console.log("Video read. Data: " + JSON.stringify(j));
+                document.getElementById("outputText").innerHTML = "Success; video read. Data: " + JSON.stringify(j); 
+            } else {
+                document.getElementById("outputText").innerHTML = "Error; video not read."
+            }
+            })();
     }
 
     function videoUpdate() {
@@ -268,6 +293,14 @@ $(document).ready(function() {
         let category : any = $('#select-category').find(":selected").text().replace(" ", "-")
         if (!category) {
             category = $('#dialog-category-input').val();
+        }
+        return category;
+    }
+
+    function getCategoryMainPage() { //gets category for current video
+        let category : any = $('#Category-Coding').text().replace(" ", "-");
+        if (!category) {
+            category = "err";
         }
         return category;
     }

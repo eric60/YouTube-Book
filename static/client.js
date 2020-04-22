@@ -49,6 +49,10 @@ $(document).ready(function () {
         $("#dialog-add-video").dialog("close");
         videoCreate();
     });
+    $('#readTestBtn').click(function () {
+        alert("Book read");
+        videoRead();
+    });
     $('.dialog-other').hide();
     $('#ytUrlInput').bind("paste", function () {
         handlePaste(insertVideo);
@@ -180,13 +184,49 @@ $(document).ready(function () {
                         return [4 /*yield*/, resp.json()];
                     case 2:
                         j = _a.sent();
-                        console.log(j);
+                        if (j['result'] !== 'error') {
+                            console.log("Video created. Data: " + JSON.stringify(j));
+                            document.getElementById("outputText").innerHTML = "Success; video created. Data: " + JSON.stringify(j);
+                        }
+                        else {
+                            document.getElementById("outputText").innerHTML = "Error; video not created.";
+                        }
                         return [2 /*return*/];
                 }
             });
         }); })();
     }
     function videoRead() {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var category, label, newURL, resp, j;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("videoRead called");
+                        category = "someCategory" //to be deprecated.
+                        ;
+                        label = "someLabel" //to be deprecated.
+                        ;
+                        newURL = url + "/video" + "/eric" + "/read?category=" + category + "&label=" + label;
+                        console.log("videoRead: fetching " + newURL);
+                        return [4 /*yield*/, fetch(newURL)];
+                    case 1:
+                        resp = _a.sent();
+                        return [4 /*yield*/, resp.json()];
+                    case 2:
+                        j = _a.sent();
+                        if (j['result'] !== 'error') {
+                            console.log("Video read. Data: " + JSON.stringify(j));
+                            document.getElementById("outputText").innerHTML = "Success; video read. Data: " + JSON.stringify(j);
+                        }
+                        else {
+                            document.getElementById("outputText").innerHTML = "Error; video not read.";
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
     }
     function videoUpdate() {
     }
@@ -225,6 +265,13 @@ $(document).ready(function () {
         var category = $('#select-category').find(":selected").text().replace(" ", "-");
         if (!category) {
             category = $('#dialog-category-input').val();
+        }
+        return category;
+    }
+    function getCategoryMainPage() {
+        var category = $('#Category-Coding').text().replace(" ", "-");
+        if (!category) {
+            category = "err";
         }
         return category;
     }
