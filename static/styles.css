@@ -36,6 +36,11 @@ body {
     text-decoration:underline;
 }
 
+#delete-video {
+    padding: 20px;
+    float: right;
+}
+
 /* ------------------ End Buttons ------------------ */
 
 /* ------------------ Login ------------------ */

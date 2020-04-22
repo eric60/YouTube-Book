@@ -22,8 +22,14 @@ $(document).ready(function() {
      $('#ytUrlInput').bind("paste", function() {
          handlePaste(insertVideo);
      });
- 
 
+     $( "#delete-video" ).button({  
+        icons: {  
+           primary: "ui-icon-trash"  
+        },  
+        text: false  
+     });  
+ 
 
     // --------------------- Video add bookmarks TODO -------------------------
   
