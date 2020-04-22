@@ -52,7 +52,7 @@ $(document).ready(function () {
     $('#ytUrlInput').bind("paste", function () {
         handlePaste(insertVideo);
     });
-    // --------------------- Video add bookmarks -------------------------
+    // --------------------- Video add bookmarks TODO -------------------------
     var totalVideoCnt = 1;
     var videoBookmarkCnts = [];
     function initVideoData() {
@@ -94,7 +94,7 @@ $(document).ready(function () {
     function addDialogBookmark(divInsert, bookmarkCnt) {
         $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"dialog-time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"dialog-bn-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
     }
-    // --------------------- CRUD functions -------------------------
+    // --------------------- TODO CRUD functions -------------------------
     function videoCreate() {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -130,7 +130,7 @@ $(document).ready(function () {
     }
     function videoDelete() {
     }
-    // ------------------- Helper functions for getting data for CRUD --------------------------
+    // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE
     function getDialogBookmarks() {
     }

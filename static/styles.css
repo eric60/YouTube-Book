@@ -208,6 +208,10 @@ input[type=time]::-webkit-clear-button {
 
 
 /* ------------------ Main page video panels ------------------ */
+a:hover{
+    color: blue;
+}
+
 .boxTitle {
     color: #47a88a;
     font-size: 18px;

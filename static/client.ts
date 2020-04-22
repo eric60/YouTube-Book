@@ -25,7 +25,7 @@ $(document).ready(function() {
  
 
 
-    // --------------------- Video add bookmarks -------------------------
+    // --------------------- Video add bookmarks TODO -------------------------
   
     let totalVideoCnt : number = 1;
     let videoBookmarkCnts : Array<number>= [];
@@ -101,7 +101,7 @@ $(document).ready(function() {
      }
 
    
-    // --------------------- CRUD functions -------------------------
+    // --------------------- TODO CRUD functions -------------------------
     function videoCreate() {
         (async() => {
             console.log('----- In videoCreate -------')
@@ -142,7 +142,7 @@ $(document).ready(function() {
 
 
     
-    // ------------------- Helper functions for getting data for CRUD --------------------------
+    // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE
     function getDialogBookmarks() {
 
