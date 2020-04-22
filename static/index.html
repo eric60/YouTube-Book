@@ -20,6 +20,7 @@
 
     </head>
     <body>
+
         <nav class="navbar navbar-light" id = "navbar">
             <div class="container-fluid">
               <div class="navbar-header">
@@ -62,16 +63,31 @@
                       <h3>Web service video 1</h3>   
                       <div class="panel-body">
                         <div class = "video-section" id="video-1"></div>
-                        <div class = "bookmarks-section">
-                          <h4>Bookmarks</h4>
-                          <li>bookmarks content
-                          </li>
+                      
+                          <div class="dialog-notes text-center">
+                            <label for="dialog-Notes" class="boxTitle">Notes</label> 
+                            <div>
+                              <textarea id="video-1-notes" cols="50"></textarea>
+                            </div>           
+                          </div>
+              
+                        <div class="dialog-bookmarks text-center">
+                            <div>
+                              <div class="boxTitle"><b>Add Bookmarks</b></div>
+                              <label for="dialog-Bookmarks">hh:mm:ss </label>   
+                              <input id="video-1-time-1" type='time' class="without_ampm" step="1" required>  
+                              <div>
+                                <textarea id="video-1-bn-1" placeholder="Bookmark notes" cols="30"></textarea>
+                                <button type="button" id="add-bookmark" class="btn btn-primary">Add</button>
+                              </div>
+                              
+                            </div>
+                            
+                            <div id="insert-before-me"></div>
                         </div>
-                        <div class = "notes-section">
-                          <h4>Notes</h4>
-                          <li>notes content</li>
-                        </div>
+
                       </div>
+                      <!-- Panel body end -->
                   </div>
             
                   <div class="Label-Video" id="Web-Services-video2">
@@ -91,11 +107,13 @@
                   </div>
 
                 </div>
+
                 <button type="button" class="collapsible-btn label-btn" id="Label-Databses">Databases</button>  
                 <div class="Label-Body" id="Label-Body-Databases">
                   <div class="Label-Video" id="Databases-video1">
                     <h3>Databases video 1</h3>   
                     <div class="panel-body">
+                      <div id="video-3"></div>
                       <div class = "video-section">
                         <iframe src = "https://www.youtube.com/embed/lv_awaaT6gY" allow = "fullscreen"></iframe>
                       </div>
