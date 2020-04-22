@@ -136,11 +136,13 @@ input[type=time]::-webkit-clear-button {
 }
 
 .bookmark-notes {
-    margin-left: 50px;
+
 }
 
 .add-bookmark {
-    margin-bottom: 40px;
+    margin-left: 7px;
+    position: absolute;
+    margin-bottom: 35px;
 }
 
 .dialog-video {
