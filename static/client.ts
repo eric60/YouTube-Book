@@ -118,7 +118,7 @@ $(document).ready(function() {
             console.log(`urlinput: ${videoUrl}, category: ${category}, label: ${label}, notes: ${notes}`)
             console.log(bookmarks);
 
-            const newUrl : string = url + "/video" + "/eric/" + "/create?category=" + category + "&label=" + label;
+            const newUrl : string = url + "/video" + "/eric" + "/create?category=" + category + "&label=" + label;
             console.log(newUrl);
 
             const resp = await fetch(newUrl);

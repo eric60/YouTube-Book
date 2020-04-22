@@ -25,9 +25,9 @@ export class MyServer {
 
 		this.server.use('/', this.router);
 
-		this.router.all('/video/username/:username/create', this.createVideoHandler.bind(this))
+		this.router.all('/video/:username/create', this.createVideoHandler.bind(this))
 
-		this.router.all('/video/username/:username/delete', this.deleteVideoHandler.bind(this))
+		this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this))
 
 		// Set a fall-through handler if nothing matches.
 		this.router.get('*', async (request, response) => {

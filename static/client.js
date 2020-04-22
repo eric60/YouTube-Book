@@ -113,7 +113,7 @@ $(document).ready(function () {
                         notes = $('#dialog-Notes').val();
                         console.log("urlinput: " + videoUrl + ", category: " + category + ", label: " + label + ", notes: " + notes);
                         console.log(bookmarks);
-                        newUrl = url + "/video" + "/eric/" + "/create?category=" + category + "&label=" + label;
+                        newUrl = url + "/video" + "/eric" + "/create?category=" + category + "&label=" + label;
                         console.log(newUrl);
                         return [4 /*yield*/, fetch(newUrl)];
                     case 1:

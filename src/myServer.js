@@ -56,8 +56,8 @@ var MyServer = /** @class */ (function () {
         // Serve static pages from a particular path.
         this.server.use('/', express.static('../static'));
         this.server.use('/', this.router);
-        this.router.all('/video/username/:username/create', this.createVideoHandler.bind(this));
-        this.router.all('/video/username/:username/delete', this.deleteVideoHandler.bind(this));
+        this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
+        this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
         // Set a fall-through handler if nothing matches.
         this.router.get('*', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
