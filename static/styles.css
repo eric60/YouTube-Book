@@ -207,6 +207,12 @@ input[type=time]::-webkit-clear-button {
 
 
 /* ------------------ Main page video panels ------------------ */
+.boxTitle {
+    color: #47a88a;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
 .panel-panel-primary-education{
     background-color: #47a88a;
     border-radius: 10px;
