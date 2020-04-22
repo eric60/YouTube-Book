@@ -53,35 +53,36 @@ $(document).ready(function () {
         handlePaste(insertVideo);
     });
     // --------------------- Video add bookmarks TODO -------------------------
-    var totalVideoCnt = 1;
+    var totalVideoCnt = 3;
     var videoBookmarkCnts = [];
     function initVideoData() {
-        for (var i = 0; i < totalVideoCnt; i++) {
-            console.log('------initvideodata for video ' + (i + 1));
+        // video-1, video-2
+        for (var i = 1; i < totalVideoCnt + 1; i++) {
+            console.log('------initvideodata for video ' + i);
             addVideoBookmarks(i);
             addVideoSubmitBtns(i);
         }
     }
-    function addVideoBookmarks(i) {
-        var videoNum = i + 1;
+    function addVideoBookmarks(videoNum) {
         var add_bookmark_div = "#video-" + videoNum + "-add-bookmark";
         videoBookmarkCnts[videoNum] = 1;
         $(add_bookmark_div).click(function () {
             var insertDiv = "#video-" + videoNum + "-insert-before-me";
-            var bookmarkCnt = videoBookmarkCnts[videoNum]++;
+            var bookmarkCnt = ++videoBookmarkCnts[videoNum];
             console.log('add video bookmarkCnt: ' + bookmarkCnt);
-            addVideoBookmark(insertDiv, bookmarkCnt, i);
+            addVideoBookmark(insertDiv, bookmarkCnt, videoNum);
         });
     }
-    function addVideoSubmitBtns(index) {
-        var videoNum = index + 1;
+    function addVideoSubmitBtns(videoNum) {
         var videoSubmitId = "#video-" + videoNum + "-submit-book";
         $(videoSubmitId).click(function () {
             alert("Book submitted");
         });
     }
     function addVideoBookmark(divInsert, bookmarkCnt, videoNum) {
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"video-" + videoNum + "-time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"video-" + videoNum + "-bn-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+        var bmTime = "video-" + videoNum + "-time-" + bookmarkCnt;
+        var bmNote = "video-" + videoNum + "-bm-" + bookmarkCnt;
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
     }
     // --------------------------- Dialog add bookmarks ----------------------
     var bookmarkCnt = 1;
@@ -92,7 +93,9 @@ $(document).ready(function () {
         addDialogBookmark(insertDiv, bookmarkCnt);
     });
     function addDialogBookmark(divInsert, bookmarkCnt) {
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"dialog-time-" + bookmarkCnt + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"dialog-bn-" + bookmarkCnt + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+        var dialogTime = "dialog-time-" + bookmarkCnt;
+        var dialogNote = "dialog-bm-" + bookmarkCnt;
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
     }
     // --------------------- TODO CRUD functions -------------------------
     function videoCreate() {
