@@ -15,7 +15,7 @@ body {
 }
 
 /* ------------------  Buttons ------------------ */
-.collapsible-btn {
+.collapsible-btn, .timestampBtn{
     background:none!important;
     border:none; 
     padding:0!important;
@@ -32,8 +32,12 @@ body {
     font-size: 20px;
 }
 
-.collapsible-btn:hover, .label-btn:hover{
+.collapsible-btn:hover, .label-btn:hover, .timestampBtn:hover{
     text-decoration:underline;
+}
+
+.timestampBtn {
+    color: blue;
 }
 
 /* ------------------ End Buttons ------------------ */
