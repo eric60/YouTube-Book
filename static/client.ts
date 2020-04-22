@@ -10,6 +10,8 @@ $(document).ready(function() {
     let videoWidth = 1000
     let videoHeight = 800 / 1.5
 
+    let totalVideoCnt : number = 3;
+
     
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
@@ -23,6 +25,7 @@ $(document).ready(function() {
          handlePaste(insertVideo);
      });
 
+    // @ts-ignore
      $( "#delete-video" ).button({  
         icons: {  
            primary: "ui-icon-trash"  
@@ -35,8 +38,6 @@ $(document).ready(function() {
   
     let oldBookmarksCnt = 1;
     
-    let totalVideoCnt : number = 3;
-
     let videoBookmarkCnts : Array<number>= [];
 
 
@@ -46,9 +47,9 @@ $(document).ready(function() {
             console.log('------initvideodata for video ' + i)
             addOldTimestampBtns(i);
             addOldVideoBookmarks(i)
+
             addNewVideoBookmarks(i);
           
-
             addVideoSubmitBtns(i);
           
        
@@ -63,34 +64,70 @@ $(document).ready(function() {
     function addNewVideoBookmarks(videoNum : number) {
         let add_bookmark_div = `#video-${videoNum}-add-bookmark`
         videoBookmarkCnts[videoNum] = oldBookmarksCnt + 1; // 1 old bm, start on video-1-time-2 new
+        let bookmarkCnt = videoBookmarkCnts[videoNum];
 
         $(add_bookmark_div).click(function() {
-            
-            let insertDiv = `#video-${videoNum}-insert-before-me`
-            let bookmarkCnt = ++videoBookmarkCnts[videoNum];
-            console.log('add video bookmarkCnt: ' + bookmarkCnt)
-            addVideoBookmark(insertDiv, bookmarkCnt, videoNum);
+            addBookmarkBtnAction(videoNum, bookmarkCnt)
         })
+    }
+
+    function addBookmarkBtnAction(videoNum : number, bookmarkCnt : number) {
+        addNewTimeStamp(videoNum, bookmarkCnt);
+            
+        bookmarkCnt++; // start bookmark 2 -> bookmark 3
+        let insertDiv = `#video-${videoNum}-insert-before-me`
+        console.log('add video bookmarkCnt: ' + bookmarkCnt)
+
+        addVideoBookmark(insertDiv, bookmarkCnt, videoNum);
+    }
+
+    function addNewTimeStamp(videoNum : number, bookmarkCnt: number) {
+        let timestampDiv = `#video-${videoNum}-time-${bookmarkCnt}`
+        let timestampVal = $(timestampDiv).val();
+        console.log('trigger addNewTimeStamp: ' + timestampVal + ', for : ' + timestampDiv)
+
+        let timestampBtn = `#video-${videoNum}-link-${bookmarkCnt}`
+        let seconds = convertTimeToSeconds(timestampVal);
+
+        addTimeStamp(videoNum, timestampBtn, seconds);
     }
 
      function addVideoBookmark(divInsert: string, bookmarkCnt : number, videoNum : number) {
          let bmTime = `video-${videoNum}-time-${bookmarkCnt}`
          let bmNote = `video-${videoNum}-bm-${bookmarkCnt}`
-         let timestampBtn = `<button id="video-${videoNum}-link-${bookmarkCnt}" class="timestampBtn" >hh:mm:ss</button>`
+         let timestampBtn = `<button id="video-${videoNum}-link-${bookmarkCnt}" 
+                        class="timestampBtn">hh:mm:ss</button>`
 
+        let addBookmarkBtnDiv = `#video-${videoNum}-add-bookmark`
+        $(addBookmarkBtnDiv).remove();
         $(divInsert).before(`
             <div>
                 ${timestampBtn}
-                <input id="${bmTime}" type='time' class="without_ampm" step="1">   
+                <input id="${bmTime}" type='time' class="without_ampm" step="1" value="00:00:00">   
                 <div>
                     <textarea id="${bmNote}" cols="35" placeholder="Bookmark notes"></textarea>
+                    <button type="button" id="video-1-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                 </div>  
             </div>
         `);
+        $(addBookmarkBtnDiv).click(function() {
+            addBookmarkBtnAction(videoNum, bookmarkCnt)
+        })
      }
 
      function addOldTimestampBtns(videoNum : number) {
-        let add_timestamp_btn_div = `video-${videoNum}-link{}`
+         // video-1-time-1
+         for (let i = 1; i < oldBookmarksCnt + 1; i++) {
+            let timestampDiv = `#video-${videoNum}-time-${i}`
+            let timestampVal = $(timestampDiv).val();
+            let timestampBtn = `#video-${videoNum}-link-${i}`
+            console.log('----' + timestampDiv + ': ' + timestampVal);
+
+            let seconds = convertTimeToSeconds(timestampVal);
+            console.log('--result seconds: ' + seconds);
+            addTimeStamp(videoNum, timestampBtn, seconds)
+
+         }
     }   
 
     function addVideoSubmitBtns(videoNum : number) {
@@ -98,6 +135,24 @@ $(document).ready(function() {
         $(videoSubmitId).click(function() {
             alert("Book submitted");
          })
+    }
+
+    // ------- helper functions for Video add bookmark ---------
+    function convertTimeToSeconds(input : any) {
+        let hours = parseInt(input.substring(0,2))
+        if (hours == 12) {
+            hours = 0;
+        }
+        let minutes = parseInt(input.substring(3,5))
+        let seconds = parseInt(input.substring(6,8))
+        if (!seconds) {
+            seconds = 0;
+        }
+        console.log(hours + ',' + minutes + ',' + seconds);
+        seconds += (minutes * 60) + (hours * 3600);
+        console.log('seconds: ' + seconds);
+        return seconds;
+
     }
 
 
@@ -200,7 +255,7 @@ $(document).ready(function() {
 
             if (timestamp) {
                 bookmarks[i] = {
-                    timestamp: timestamp,
+                    timestamp: timestampVal,
                     timestampNotes: bmNotesVal
                 }
             }
@@ -225,7 +280,7 @@ $(document).ready(function() {
         return label;
     }
     
-    // ----------------------------------------------------------------
+    // ---------------------  Add-video dialog functions  -------------------------------------------
     function handlePaste(callback) {
         let url = navigator.clipboard.readText().then(callback);
     }
@@ -271,16 +326,16 @@ $(document).ready(function() {
     }
 
     
-    let videosLen = 2;
     let videoPlayers : Array<any> = []
     let videoId = "XlvsJLer_No"
+
     function initYtVideos() {
-        for (let i = 0; i < videosLen; i++) {
-            let divInsert = "video-" + (i + 1);
+        for (let i = 1; i < totalVideoCnt + 1; i++) {
+            let divInsert = "video-" + i;
             console.log(divInsert)
             
             let lastVideo = false
-            if (i == videosLen - 1) {
+            if (i == totalVideoCnt) {
                 lastVideo = true;
             }
             onYouTubeIframeAPIReady(null, i ,divInsert, videoId, lastVideo);
@@ -327,8 +382,11 @@ $(document).ready(function() {
         }
       }
 
-      function goToTimeStamp(time) {
+      function addTimeStamp(videoNum : number, timestampBtn : string, time : number) {
           // convert time to seconds
+          $(timestampBtn).click(function() {
+            videoPlayers[videoNum].seekTo(time, true);
+          })
       }
 
     // --------------------- Dialog functions ---------------------------
