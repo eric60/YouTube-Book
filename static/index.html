@@ -54,9 +54,9 @@
         <!-- End nav bar -->
         
         <div class="container" id="main-page-body">
-            <button type="button" class="collapsible-btn category-btn" id="Category-Coding" >Coding</button>
+            <button class="collapsible-btn category-btn" id="Category-Coding" >Coding</button>
             <div class="Category" id="Category-Coding">     
-              <button type="button" class="collapsible-btn label-btn" id="Label-Web-Services">Web Services</button>  
+              <button class="label-btn" id="Label-Web-Services">Web Services</button>  
                 <div class="Label-Body" id="Label-Body-Web-Services">
                     
                   <div class="Label-Video" id="Web-Services-video1">
@@ -74,11 +74,11 @@
                           <div class="video-bookmarks">
                             <!-- TODO TRENT UPDATE get data from fields on submit when edited-->
                             <div class="boxTitle"><b>Bookmarks</b></div>
-                            <button type="button" class="collapsible-btn timestampBtn" id="video-1-link-1">hh:mm:ss</button>  
+                            <button id="video-1-link-1" class="timestampBtn" >hh:mm:ss</button>  
 
-                            <input id="video-1-old-time-1" type='time' class="without_ampm" step="1" required value="00:01:10"> 
+                            <input id="video-1-time-1" type='time' class="without_ampm" step="1" required value="00:01:10"> 
                             <div>
-                              <textarea class="bookmark-notes" id="video-1-old-bm-1" placeholder="Bookmark notes" cols="30"></textarea>
+                              <textarea class="bookmark-notes" id="video-1-bm-1" placeholder="Bookmark notes" cols="30"></textarea>
                             </div>
                           </div>
               
@@ -87,10 +87,10 @@
                            <!-- TODO TRENT UPDATE get data from fields on submit when edited-->
                             <div>
                               <div class="boxTitle"><b>Add New Bookmarks</b></div>
-                              <a>hh:mm:ss </a>   
-                              <input id="video-1-time-1" type='time' class="without_ampm" step="1" required>  
+                              <button id="video-1-link-2" class="timestampBtn" >hh:mm:ss</button>  
+                              <input id="video-1-time-2" type='time' class="without_ampm" step="1" required>  
                               <div>
-                                <textarea class="bookmark-notes" id="video-1-bm-1" placeholder="Bookmark notes" cols="30"></textarea>
+                                <textarea class="bookmark-notes" id="video-1-bm-2" placeholder="Bookmark notes" cols="30"></textarea>
                                 <button type="button" id="video-1-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                               </div>
                               

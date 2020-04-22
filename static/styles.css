@@ -15,7 +15,7 @@ body {
 }
 
 /* ------------------  Buttons ------------------ */
-.collapsible-btn, .timestampBtn{
+.collapsible-btn, .timestampBtn, .label-btn{
     background:none!important;
     border:none; 
     padding:0!important;

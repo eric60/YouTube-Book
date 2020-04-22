@@ -27,7 +27,10 @@ $(document).ready(function() {
 
     // --------------------- Video add bookmarks TODO -------------------------
   
+    let oldBookmarksCnt = 1;
+    
     let totalVideoCnt : number = 3;
+
     let videoBookmarkCnts : Array<number>= [];
 
 
@@ -35,16 +38,25 @@ $(document).ready(function() {
         // video-1, video-2
         for (let i = 1; i < totalVideoCnt + 1; i++) {
             console.log('------initvideodata for video ' + i)
-            addVideoBookmarks(i);
+            addOldTimestampBtns(i);
+            addOldVideoBookmarks(i)
+            addNewVideoBookmarks(i);
+          
+
             addVideoSubmitBtns(i);
-            addTimestampBtns(i);
+          
        
         }
+
     }
 
-    function addVideoBookmarks(videoNum : number) {
+    function addOldVideoBookmarks(videoNum : number) {
+
+    }
+
+    function addNewVideoBookmarks(videoNum : number) {
         let add_bookmark_div = `#video-${videoNum}-add-bookmark`
-        videoBookmarkCnts[videoNum] = 1;
+        videoBookmarkCnts[videoNum] = oldBookmarksCnt + 1; // 1 old bm, start on video-1-time-2 new
 
         $(add_bookmark_div).click(function() {
             
@@ -55,7 +67,23 @@ $(document).ready(function() {
         })
     }
 
-    function addTimestampBtns(videoNum : number) {
+     function addVideoBookmark(divInsert: string, bookmarkCnt : number, videoNum : number) {
+         let bmTime = `video-${videoNum}-time-${bookmarkCnt}`
+         let bmNote = `video-${videoNum}-bm-${bookmarkCnt}`
+         let timestampBtn = `<button id="video-${videoNum}-link-${bookmarkCnt}" class="timestampBtn" >hh:mm:ss</button>`
+
+        $(divInsert).before(`
+            <div>
+                ${timestampBtn}
+                <input id="${bmTime}" type='time' class="without_ampm" step="1">   
+                <div>
+                    <textarea id="${bmNote}" cols="35" placeholder="Bookmark notes"></textarea>
+                </div>  
+            </div>
+        `);
+     }
+
+     function addOldTimestampBtns(videoNum : number) {
         let add_timestamp_btn_div = `video-${videoNum}-link{}`
     }   
 
@@ -66,22 +94,6 @@ $(document).ready(function() {
          })
     }
 
-     function addVideoBookmark(divInsert: string, bookmarkCnt : number, videoNum : number) {
-         let bmTime = `video-${videoNum}-time-${bookmarkCnt}`
-         let bmNote = `video-${videoNum}-bm-${bookmarkCnt}`
-
-        $(divInsert).before(`
-            <div>
-                <label for="dialog-Bookmarks">hh:mm:ss </label> 
-                <input id="${bmTime}" type='time' class="without_ampm" step="1">   
-                <div>
-                    <textarea id="${bmNote}" cols="35" placeholder="Bookmark notes"></textarea>
-                </div>  
-            </div>
-        `);
-     }
-
-     
 
      // --------------------------- Dialog add bookmarks ----------------------
 
