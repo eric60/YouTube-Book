@@ -39,6 +39,7 @@ exports.__esModule = true;
 var http = require('http');
 var url = require('url');
 var express = require('express');
+var faker = require('faker');
 var MyServer = /** @class */ (function () {
     function MyServer() {
         var _this = this;
@@ -57,11 +58,12 @@ var MyServer = /** @class */ (function () {
         this.server.use('/', express.static('../static'));
         this.server.use('/', this.router);
         this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
+        this.router.all('/video/:username/read', this.readVideoHandler.bind(this));
         this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
         // Set a fall-through handler if nothing matches.
         this.router.get('*', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                response.send(JSON.stringify({ "result": "command-not-found" }));
+                response.send(JSON.stringify({ "result": "error" }));
                 return [2 /*return*/];
             });
         }); });
@@ -98,6 +100,25 @@ var MyServer = /** @class */ (function () {
             });
         });
     };
+    MyServer.prototype.readVideoHandler = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var username, category, label;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("made it to readvidhandler");
+                        username = request.params['username'];
+                        category = request.query.category;
+                        label = request.query.label;
+                        console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
+                        return [4 /*yield*/, this.readVideo(username, category, label, response)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     MyServer.prototype.deleteVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var videoObj, username;
@@ -127,11 +148,29 @@ var MyServer = /** @class */ (function () {
     MyServer.prototype.createVideo = function (username, category, label, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log("creating video");
+                console.log("creating video...");
                 // await this.theDatabase.put(name, 0);
                 response.write(JSON.stringify({ 'result': 'created',
                     'username': username,
                     'category': category
+                }));
+                response.end();
+                return [2 /*return*/];
+            });
+        });
+    };
+    MyServer.prototype.readVideo = function (username, category, label, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log("reading video");
+                //await this.theDatabase.get(username, category, label);
+                response.write(JSON.stringify({ 'result': 'read',
+                    'username': username,
+                    'category': category,
+                    'label': label,
+                    'title': faker.random.word() + " video",
+                    'notes': faker.random.words() + " video",
+                    'bookmarks': faker.date.recent() + " - " + faker.random.words() + ", " + faker.date.recent() + " - " + faker.random.words()
                 }));
                 response.end();
                 return [2 /*return*/];
