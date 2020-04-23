@@ -20,10 +20,11 @@ $(document).ready(function() {
     let videoWidth = dialogWidth * 0.85 // 1000
     let videoHeight = videoWidth * .5 // 500
 
+    // --------- TODO Data from GET call to user's video list -----------------
     let TOTAL_VIDEO_CNT : number = 3;
 
     let OLD_BOOKMARK_CNT = 1;
-
+    // -------------------------------------------------------------------
     let DIALOG_BOOKMARK_CNT= 1;
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
