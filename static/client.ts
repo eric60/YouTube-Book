@@ -243,7 +243,7 @@ $(document).ready(function() {
 
     
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
-    // CREATE
+    // CREATE get data from add video dialog
     function getDialogBookmarks() {
         let timestampDiv = `dialog-time-`
         let bmNotes = `dialog-bm-`
@@ -260,8 +260,6 @@ $(document).ready(function() {
     }
 
     // UPDATE - get data from main screen
-
-
     function getBookmarks(timestamp : string, bmNotes: string) {
         let bookmarks = [];
         
@@ -306,6 +304,8 @@ $(document).ready(function() {
         return label;
     }
     
+
+
     // ---------------------  Add-video dialog functions  -------------------------------------------
     function handlePaste(callback) {
         let url = navigator.clipboard.readText().then(callback);
@@ -476,7 +476,6 @@ $(document).ready(function() {
             let sortedIds = (<any>$( ".Label-Body" )).sortable('toArray');
             console.log("new sortedIds: " + sortedIds)
         }
-      
     }
    
 });
