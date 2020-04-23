@@ -11,10 +11,14 @@ $(document).ready(function() {
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
     const url =  localUrl
 
-    let dialogWidth : number = 1200
-    let dialogHeight : number = 800
-    let videoWidth = 1000
-    let videoHeight = 800 / 1.5
+    let windowWidth : number =  $(window).width(); 
+    let windowHeight : number =  $(window).height();
+    console.log('windowWidth: ' + windowWidth + ", windowHeight:" + windowHeight)
+
+    let dialogWidth : number = windowWidth * 0.8 // 1200
+    let dialogHeight : number = dialogWidth * .67 // 800
+    let videoWidth = dialogWidth * 0.85 // 1000
+    let videoHeight = videoWidth * .5 // 500
 
     let TOTAL_VIDEO_CNT : number = 3;
 

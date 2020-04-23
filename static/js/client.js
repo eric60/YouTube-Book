@@ -43,10 +43,13 @@ $(document).ready(function () {
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
     var url = localUrl;
-    var dialogWidth = 1200;
-    var dialogHeight = 800;
-    var videoWidth = 1000;
-    var videoHeight = 800 / 1.5;
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    console.log('windowWidth: ' + windowWidth + ", windowHeight:" + windowHeight);
+    var dialogWidth = windowWidth * 0.8; // 1200
+    var dialogHeight = dialogWidth * .67; // 800
+    var videoWidth = dialogWidth * 0.85; // 1000
+    var videoHeight = videoWidth * .5; // 500
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
     var DIALOG_BOOKMARK_CNT = 1;
