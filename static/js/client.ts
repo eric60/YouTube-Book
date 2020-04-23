@@ -272,9 +272,10 @@ $(document).ready(function() {
             console.log("---- in videoDelete ----");
             let category = "someCategroy";
             let label : string = "someLabel";
-            const newURL : string = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label;
+            let videoId : string = "someID";
+            const newURL : string = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
             
-            console.log("videoDelete: fetching " + category, + ', ' + label);
+            console.log("videoDelete: fetching " + category, + ', ' + label + ', ' + videoId);
             
             const resp = await fetch(newURL);
             const j = await resp.json();
