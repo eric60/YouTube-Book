@@ -39,6 +39,7 @@ exports.__esModule = true;
 // import YouTubeLoader from './YouTubeLoader';
 var VideoInserter_1 = require("./VideoInserter");
 $(document).ready(function () {
+    console.log('url: ' + window.location.href);
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
     var url = localUrl;
@@ -157,16 +158,22 @@ $(document).ready(function () {
         return seconds;
     }
     // --------------------------- Dialog add bookmarks ----------------------
-    $('#dialog-add-bookmark').click(function () {
-        var insertDiv = "#dialog-insert-before-me";
-        DIALOG_BOOKMARK_CNT++;
-        console.log('add dialog bookmarkCnt: ' + DIALOG_BOOKMARK_CNT);
-        addDialogBookmark(insertDiv, DIALOG_BOOKMARK_CNT);
-    });
+    dialogAddBookmarkAction();
+    function dialogAddBookmarkAction() {
+        $('#dialog-add-bookmark').click(function () {
+            var insertDiv = "#dialog-insert-before-me";
+            DIALOG_BOOKMARK_CNT++;
+            console.log('add dialog bookmarkCnt: ' + DIALOG_BOOKMARK_CNT);
+            addDialogBookmark(insertDiv, DIALOG_BOOKMARK_CNT);
+        });
+    }
     function addDialogBookmark(divInsert, bookmarkCnt) {
         var dialogTime = "dialog-time-" + bookmarkCnt;
         var dialogNote = "dialog-bm-" + bookmarkCnt;
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n            </div>\n        ");
+        var dialogAddBookmarkBtnDiv = "#dialog-add-bookmark";
+        $(dialogAddBookmarkBtnDiv).remove();
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"dialog-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
+        dialogAddBookmarkAction();
     }
     // --------------------- TODO CRUD functions -------------------------
     function videoCreate() {

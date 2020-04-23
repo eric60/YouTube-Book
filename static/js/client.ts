@@ -6,6 +6,7 @@ import VideoInserter from './VideoInserter';
 declare var jquery: any;
 $(document).ready(function() {
 
+    console.log('url: ' + window.location.href)
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
     const url =  localUrl
@@ -174,27 +175,35 @@ $(document).ready(function() {
 
      // --------------------------- Dialog add bookmarks ----------------------
 
-    
-     $('#dialog-add-bookmark').click(function() {
-         let insertDiv = `#dialog-insert-before-me`
-         DIALOG_BOOKMARK_CNT++;
-         console.log('add dialog bookmarkCnt: ' + DIALOG_BOOKMARK_CNT)
-         addDialogBookmark(insertDiv, DIALOG_BOOKMARK_CNT)
-        
-     })
-
+    dialogAddBookmarkAction();
+    function dialogAddBookmarkAction() {
+        $('#dialog-add-bookmark').click(function() {
+            let insertDiv = `#dialog-insert-before-me`
+            DIALOG_BOOKMARK_CNT++;
+            console.log('add dialog bookmarkCnt: ' + DIALOG_BOOKMARK_CNT)
+            addDialogBookmark(insertDiv, DIALOG_BOOKMARK_CNT)
+           
+        })
+    }
+   
      function addDialogBookmark(divInsert: string, bookmarkCnt : number) {
          let dialogTime = `dialog-time-${bookmarkCnt}`
          let dialogNote = `dialog-bm-${bookmarkCnt}`
+
+         let dialogAddBookmarkBtnDiv = `#dialog-add-bookmark`
+         $(dialogAddBookmarkBtnDiv).remove();
+
         $(divInsert).before(`
             <div>
                 <label for="dialog-Bookmarks">hh:mm:ss </label> 
                 <input id="${dialogTime}" type='time' class="without_ampm" step="1">   
                 <div>
                     <textarea id="${dialogNote}" cols="35" placeholder="Bookmark notes"></textarea>
+                    <button type="button" id="dialog-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                 </div>  
             </div>
         `);
+        dialogAddBookmarkAction();
      }
 
    
@@ -207,7 +216,6 @@ $(document).ready(function() {
             let category = getCategory();
             let label : string = getLabel();
             let bookmarks : Array<Object> = getDialogBookmarks();
-
             let notes : any = $('#dialog-Notes').val();
 
             console.log(`urlinput: ${videoUrl}, category: ${category}, label: ${label}, notes: ${notes}`)
