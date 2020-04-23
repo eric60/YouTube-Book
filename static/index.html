@@ -79,7 +79,7 @@
 
                             <input id="video-1-time-1" type='time' class="without_ampm" step="1" required value="00:01:10"> 
                             <div>
-                              <textarea class="bookmark-notes" id="video-1-bm-1" placeholder="Bookmark notes" cols="35"></textarea>
+                              <textarea class="bookmark-notes" id="video-1-bm-1" cols="35"></textarea>
                             </div>
                           </div>
               
@@ -91,7 +91,7 @@
                               <button id="video-1-link-2" class="timestampBtn" >hh:mm:ss</button>  
                               <input id="video-1-time-2" type='time' class="without_ampm" value="00:00:00" step="1" required>  
                               <div>
-                                <textarea class="bookmark-notes" id="video-1-bm-2" placeholder="Bookmark notes" cols="35"></textarea>
+                                <textarea class="bookmark-notes" id="video-1-bm-2" cols="35"></textarea>
                                 <button type="button" id="video-1-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                               </div>
                               
@@ -217,10 +217,10 @@
            <div class="dialog-bookmarks">
               <div>
                 <div class="boxTitle"><b>Add Bookmarks</b></div>
-                <label for="dialog-Bookmarks">hh:mm:ss </label>   
-                <input id="dialog-time-1" type='time' class="without_ampm" step="1" required>  
+                <label for="dialog-Bookmarks">hh:mm:ss </label> 
+                <input id="dialog-time-1" type='time' class="without_ampm" step="1" min="00:00:00" max="20:00:00" required>  
                 <div>
-                  <textarea class="bookmark-notes" id="dialog-bm-1" placeholder="Bookmark notes" cols="35"></textarea>
+                  <textarea class="bookmark-notes" id="dialog-bm-1" cols="35"></textarea>
                   <button type="button" id="dialog-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                 </div>
                 
