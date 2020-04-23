@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm install && webpack --mode production && cd src && nodemon server.js",
+    "start": "npm install && cd src && nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

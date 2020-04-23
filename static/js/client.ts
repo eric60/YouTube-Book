@@ -5,7 +5,6 @@ import YouTubeLoader from './YouTubeLoader';
 
 declare var jquery: any;
 $(document).ready(function() {
-    let ytLoader = new YouTubeLoader();
 
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
@@ -21,6 +20,8 @@ $(document).ready(function() {
     let OLD_BOOKMARK_CNT = 1;
 
     let DIALOG_BOOKMARK_CNT= 1;
+
+    let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
