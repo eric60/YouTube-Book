@@ -1,6 +1,12 @@
+'use strict';
+import YouTubeLoader from './YouTubeLoader';
+
+
 
 declare var jquery: any;
 $(document).ready(function() {
+    let ytLoader = new YouTubeLoader();
+
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
     const url =  localUrl

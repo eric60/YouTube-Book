@@ -1,3 +1,4 @@
+'use strict';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,7 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+exports.__esModule = true;
+var YouTubeLoader_1 = require("./YouTubeLoader");
 $(document).ready(function () {
+    var ytLoader = new YouTubeLoader_1["default"]();
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
     var url = localUrl;
@@ -228,7 +232,7 @@ $(document).ready(function () {
     function videoDelete() {
     }
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
-    // CREATE
+    // CREATE get data from add video dialog
     function getDialogBookmarks() {
         var timestampDiv = "dialog-time-";
         var bmNotes = "dialog-bm-";
