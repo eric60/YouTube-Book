@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "cd static/js && tsc && cd .. & cd.. && webpack --mode production",
     "start": "npm install && cd src && nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

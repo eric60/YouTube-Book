@@ -1,6 +1,6 @@
 'use strict';
 // import YouTubeLoader from './YouTubeLoader';
-
+import VideoInserter from './VideoInserter';
 
 
 declare var jquery: any;
@@ -22,7 +22,13 @@ $(document).ready(function() {
     let DIALOG_BOOKMARK_CNT= 1;
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
+    let videoInserter = new VideoInserter(1);
+    videoInserter.sayHello();
+
+     // On page load trigger 
+     checkYoutubePlayerReady()
     
+
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
         alert("Book submitted");
@@ -471,9 +477,6 @@ $(document).ready(function() {
     });
 
     // --------------------- Accordion functions ---------------------
-    // On page load trigger 
-    checkYoutubePlayerReady()
-
     function initAccordion() {
         console.log('trigger initAccordion');
         console.log('---- Video players ---');

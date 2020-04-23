@@ -5,7 +5,9 @@ YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 
 ## To Run
 * In root type `npm start`
-* Type `tsc` in appropiate directory to compile ts to js. Nodemon will restart server automatically.
+
+## To Build
+* Type `npm run build` in root to bundle client js modules together.
 
 ## To compile
 Compile server files

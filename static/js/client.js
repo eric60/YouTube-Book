@@ -35,6 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+exports.__esModule = true;
+// import YouTubeLoader from './YouTubeLoader';
+var VideoInserter_1 = require("./VideoInserter");
 $(document).ready(function () {
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
@@ -47,6 +50,10 @@ $(document).ready(function () {
     var OLD_BOOKMARK_CNT = 1;
     var DIALOG_BOOKMARK_CNT = 1;
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
+    var videoInserter = new VideoInserter_1["default"](1);
+    videoInserter.sayHello();
+    // On page load trigger 
+    checkYoutubePlayerReady();
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
         alert("Book submitted");
@@ -67,6 +74,10 @@ $(document).ready(function () {
             primary: "ui-icon-trash"
         },
         text: false
+    });
+    $("#delete-video").click(function () {
+        alert("Book deleted");
+        videoDelete();
     });
     // ---------------------  init Video Data  -------------------------
     function initVideoData() {
@@ -228,6 +239,34 @@ $(document).ready(function () {
     function videoUpdate() {
     }
     function videoDelete() {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var category, label, newURL, resp, j;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("---- in videoDelete ----");
+                        category = "someCategroy";
+                        label = "someLabel";
+                        newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label;
+                        console.log("videoDelete: fetching " + category, +', ' + label);
+                        return [4 /*yield*/, fetch(newURL)];
+                    case 1:
+                        resp = _a.sent();
+                        return [4 /*yield*/, resp.json()];
+                    case 2:
+                        j = _a.sent();
+                        if (j['result'] !== 'error') {
+                            console.log("Video deleted. Data: " + JSON.stringify(j));
+                            document.getElementById("outputText").innerHTML = "Success; video deleted. Data: " + JSON.stringify(j);
+                        }
+                        else {
+                            document.getElementById("outputText").innerHTML = "Error; video not deleted.";
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
     }
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE get data from add video dialog
@@ -399,8 +438,6 @@ $(document).ready(function () {
         $("#dialog-edit-order").dialog("open");
     });
     // --------------------- Accordion functions ---------------------
-    // On page load trigger 
-    checkYoutubePlayerReady();
     function initAccordion() {
         console.log('trigger initAccordion');
         console.log('---- Video players ---');
