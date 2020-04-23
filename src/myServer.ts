@@ -74,6 +74,7 @@ export class MyServer {
 	}
 	
 	private async deleteVideoHandler(request, response) : Promise<void> {
+		console.log("in deleteVideoHandler")
 		// get video object from front end
 		let videoObj = {
 			"videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
@@ -86,6 +87,7 @@ export class MyServer {
 			}]
 		}
 		let username = request.param['username'];
+		console.log('------ username, video: ' + username + ', ' + videoObj);
 		await this.deleteVideo(username, videoObj, response);
     }
 ​
@@ -123,9 +125,9 @@ export class MyServer {
 	public async deleteVideo(username: string, videoObj: object, response) : Promise<void> {
 		console.log("deleting video")
 		// await this.theDatabase.del(videoObj);
-
 		response.write(JSON.stringify(
 						{'result' : 'deleted',
+						'username' : username,
 						'video' : videoObj
 						}));
 		response.end();

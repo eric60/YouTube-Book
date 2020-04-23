@@ -46,7 +46,12 @@ $(document).ready(function() {
            primary: "ui-icon-trash"  
         },  
         text: false  
-     });  
+     });
+     
+     $( "#delete-video" ).click(function() {  
+        alert("Book deleted");
+        videoDelete();
+     });
  
 
     // ---------------------  init Video Data  -------------------------
@@ -244,7 +249,24 @@ $(document).ready(function() {
     }
 
     function videoDelete() {
+        (async() => {
+            console.log("---- in videoDelete ----");
+            let category = "someCategroy";
+            let label : string = "someLabel";
+            const newURL : string = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label;
+            
+            console.log("videoDelete: fetching " + category, + ', ' + label);
+            
+            const resp = await fetch(newURL);
+            const j = await resp.json();
 
+            if (j['result'] !== 'error'){
+                console.log("Video deleted. Data: " + JSON.stringify(j));
+                document.getElementById("outputText").innerHTML = "Success; video deleted. Data: " + JSON.stringify(j); 
+            } else {
+                document.getElementById("outputText").innerHTML = "Error; video not deleted."
+            }
+            })();
     }
 
 
