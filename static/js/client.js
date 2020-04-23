@@ -35,8 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var YouTubeLoader_1 = require("./YouTubeLoader");
 $(document).ready(function () {
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
@@ -48,7 +46,7 @@ $(document).ready(function () {
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
     var DIALOG_BOOKMARK_CNT = 1;
-    var ytLoader = new YouTubeLoader_1["default"](TOTAL_VIDEO_CNT, videoWidth, videoHeight);
+    // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
         alert("Book submitted");

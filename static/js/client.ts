@@ -1,5 +1,5 @@
 'use strict';
-import YouTubeLoader from './YouTubeLoader';
+// import YouTubeLoader from './YouTubeLoader';
 
 
 
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     let DIALOG_BOOKMARK_CNT= 1;
 
-    let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
+    // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
