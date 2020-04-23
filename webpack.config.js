@@ -4,6 +4,6 @@ module.exports = {
   entry: './static/js/client.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'static/src')
+    path: path.resolve(__dirname, 'static/js')
   }
 }
