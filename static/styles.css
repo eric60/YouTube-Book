@@ -142,7 +142,7 @@ input[type=time]::-webkit-clear-button {
 .add-bookmark {
     margin-left: 7px;
     position: absolute;
-    margin-bottom: 35px;
+    margin-top: 5px;
 }
 
 .dialog-video {
