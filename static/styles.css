@@ -252,7 +252,13 @@ a:hover{
 }
 
 .video-section {
+    float: left;
+    width: 60%;
+}
 
+.video-text {
+    float: right;
+    width: 40%;
 }
 
 .bookmarks-section, .notes-section {

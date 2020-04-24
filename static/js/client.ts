@@ -67,7 +67,7 @@ $(document).ready(function() {
      });
      
      $( "#delete-video" ).click(function() {  
-        alert("Book deleted");
+        confirm("Are you sure you want to delete this book?");
         videoDelete();
      });
  
