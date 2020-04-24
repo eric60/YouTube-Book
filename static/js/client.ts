@@ -6,7 +6,6 @@ import VideoInserter from './VideoInserter';
 declare var jquery: any;
 $(document).ready(function() {
 
-    console.log('url: ' + window.location.href)
     let windowUrl = window.location.href
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
@@ -15,7 +14,8 @@ $(document).ready(function() {
     } else {
         var url =  herokuUrl
     }
-   
+    console.log('url set to ' + window.location.href)
+
 
     let windowWidth : number =  $(window).width(); 
     let windowHeight : number =  $(window).height();
