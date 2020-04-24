@@ -88,8 +88,8 @@ Eric
 
 John
 * Implemented delete video
-    a. UI
-    b. Client and server code
+    * UI
+    * Client and server code
 * Reformatted main video UI & add video modal
 
 
