@@ -152,10 +152,9 @@ $(document).ready(function() {
                 </div>  
             </div>
         `);
-        addNewBookmarkBtnAction(videoNum, bookmarkCnt);
-       // $(addBookmarkBtnDiv).click(function() {
-       //     addNewBookmarkBtnAction(videoNum, bookmarkCnt)
-      //  })
+        $(addBookmarkBtnDiv).click(function() {
+            addNewBookmarkBtnAction(videoNum, bookmarkCnt)
+        })
      }
 
 
