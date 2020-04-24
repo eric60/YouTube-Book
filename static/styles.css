@@ -1,12 +1,12 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 #loginBody, #signupBody{
     padding: 10px;
     text-align: center;
     background-color: #f2f2f2;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .column {
@@ -50,6 +50,7 @@ body {
 
 /* ------------------ Login ------------------ */
 #logintitle{
+    font-family: 'Poppins', sans-serif;
     font-weight: bolder;
 }
 
@@ -64,6 +65,7 @@ input:focus{
 }
 
 #loginbtn, #signupbtn{
+    font-family: 'Poppins', sans-serif;
     width: 100px;
     height: 60px;
     background-color: #47a88a;
@@ -124,7 +126,6 @@ input[type=time]::-webkit-clear-button {
     height: 10%;
     width: 100%;
     border: 1px;
-    font-family: 'Segoe UI';
     font-weight: bold;
 }
 
@@ -174,7 +175,6 @@ input[type=time]::-webkit-clear-button {
 
 #navbar{
     background-color: #f2f2f2;
-    font-family: 'Segoe UI';
     border-radius: 0px;
 }
 
@@ -226,8 +226,8 @@ a:hover{
 
 .boxTitle {
     color: #47a88a;
-    font-size: 18px;
-    margin: 8px 0px 5px 0px;
+    font-size: 20px;
+    margin: 12px 0px 5px 0px;
 }
 
 .panel-panel-primary-education{
@@ -252,7 +252,13 @@ a:hover{
 }
 
 .video-section {
+    float: left;
+    width: 60%;
+}
 
+.video-text {
+    float: right;
+    width: 40%;
 }
 
 .bookmarks-section, .notes-section {

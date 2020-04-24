@@ -7,8 +7,10 @@
     "doc": "docs"
   },
   "scripts": {
+    "heroku-postbuild": "echo hello",
     "build": "cd static/js && tsc && cd .. & cd.. && webpack --mode production",
-    "start": "npm install && cd src && nodemon server.js",
+    "start-dev": "npm install && cd src && nodemon server.js",
+    "start": "cd src && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

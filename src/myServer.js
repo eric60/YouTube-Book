@@ -56,8 +56,9 @@ var MyServer = /** @class */ (function () {
         });
         // Serve static pages from a particular path.
         this.server.use('/', express.static('../static'));
+        this.server.use(express.json());
         this.server.use('/', this.router);
-        this.router.all('/video/:username/create', this.createVideoHandler.bind(this));
+        this.router.post('/video/:username/create', this.createVideoHandler.bind(this));
         this.router.all('/video/:username/read', this.readVideoHandler.bind(this));
         this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
         // Set a fall-through handler if nothing matches.
@@ -74,25 +75,15 @@ var MyServer = /** @class */ (function () {
     // ------------------------- CRUD handlers ------------------------------------
     MyServer.prototype.createVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var videoObj, username, category, label;
+            var username, videoObj;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        videoObj = {
-                            "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
-                            "videoTitle": "calc1 video 1",
-                            "videoOrder": 2,
-                            "notes": "test- mongo notes",
-                            "bookmarks": [{
-                                    "timestamp": "00:01:10",
-                                    "timestampNotes": "hello hello 123"
-                                }]
-                        };
                         username = request.params['username'];
-                        category = request.query.category;
-                        label = request.query.label;
-                        console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
-                        return [4 /*yield*/, this.createVideo(username, category, label, videoObj, response)];
+                        console.log('username: ' + username);
+                        videoObj = request.body.videoObj;
+                        console.log(videoObj);
+                        return [4 /*yield*/, this.createVideo(username, videoObj, response)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -125,6 +116,7 @@ var MyServer = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log("in deleteVideoHandler");
                         videoObj = {
                             "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
                             "videoTitle": "calc1 video 1",
@@ -136,6 +128,7 @@ var MyServer = /** @class */ (function () {
                                 }]
                         };
                         username = request.param['username'];
+                        console.log('------ username, video: ' + username + ', ' + videoObj);
                         return [4 /*yield*/, this.deleteVideo(username, videoObj, response)];
                     case 1:
                         _a.sent();
@@ -145,14 +138,14 @@ var MyServer = /** @class */ (function () {
         });
     };
     // ---------------------------- CRUD functions -------------------------------------
-    MyServer.prototype.createVideo = function (username, category, label, videoObj, response) {
+    MyServer.prototype.createVideo = function (username, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 console.log("creating video...");
                 // await this.theDatabase.put(name, 0);
                 response.write(JSON.stringify({ 'result': 'created',
                     'username': username,
-                    'category': category
+                    'videoObj': videoObj
                 }));
                 response.end();
                 return [2 /*return*/];
@@ -183,6 +176,7 @@ var MyServer = /** @class */ (function () {
                 console.log("deleting video");
                 // await this.theDatabase.del(videoObj);
                 response.write(JSON.stringify({ 'result': 'deleted',
+                    'username': username,
                     'video': videoObj
                 }));
                 response.end();
