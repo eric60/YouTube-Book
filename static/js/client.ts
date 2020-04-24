@@ -428,6 +428,7 @@ $(document).ready(function() {
         }
         return true;
     }
+    
     // ------------------------- YouTube player functions -------------------------
     // Yt iframe API not synchronous, need to wait until ready
     function checkYoutubePlayerReady() {
