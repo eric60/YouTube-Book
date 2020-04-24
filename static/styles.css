@@ -156,6 +156,11 @@ input[type=time]::-webkit-clear-button {
     margin-top: 20px;
 }
 
+.dialog-other {
+    float: right;
+    width: 40%;
+}
+
 
 #modalTitle {
     color:#FF0000;
