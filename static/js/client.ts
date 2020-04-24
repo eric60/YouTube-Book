@@ -32,6 +32,7 @@ $(document).ready(function() {
     let OLD_BOOKMARK_CNT = 1;
     // -------------------------------------------------------------------
     let DIALOG_BOOKMARK_CNT= 1;
+    let MAINPG_BOOKMARK_CNT = 2;
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     let videoInserter = new VideoInserter(1);
@@ -52,6 +53,12 @@ $(document).ready(function() {
          alert("Book read");
          videoRead();
      });
+
+     $('#readAllTestBtn').click(function() {
+        alert("All books read");
+        readAll();
+    });
+
  
      $('.dialog-other').hide();
      $('#dialog-url').bind("paste", function() {
@@ -161,8 +168,8 @@ $(document).ready(function() {
     function addVideoSubmitBtn(videoNum : number) { //main screen submit button routing function
         let videoSubmitId = `#video-${videoNum}-submit-book`
         $(videoSubmitId).click(function() {
-            alert("Book submitted");
-            videoUpdate();
+            alert("Book updating...");
+            videoUpdate(videoNum);
          })
     }
 
@@ -303,20 +310,49 @@ $(document).ready(function() {
             })();
     }
 
-    function videoUpdate() {
-        (async () => {
-            let category = "someCategory" //to be deprecated.
-            let label = "someLabel" //to be deprecated.
-            const newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
-            console.log("videoUpdate: fetching " + newURL);
+    function readAll() {
+        (async() => {
+            console.log("readAll called");
+            const newURL : string = url + "/video" + "/eric" + "/readAll";
+            console.log("readAll: fetching all videos");
             const resp = await fetch(newURL);
             const j = await resp.json();
-            if (j['result'] !== 'error') {
+            if (j['result'] !== 'error'){
+                console.log("Video read. Data: " + JSON.stringify(j));
+                document.getElementById("outputText").innerHTML = "Success; video read. Data: " + JSON.stringify(j); 
+            } else {
+                document.getElementById("outputText").innerHTML = "Error; video not read."
+            }
+            })();
+    }
+
+    function videoUpdate(videoNum) {
+        (async () => {
+            let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
+            let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
+            const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+            let notes : any = $(`#video-${videoNum}-notes`).val();
+            let timestampDiv = `#video-${videoNum}-time-`;
+            let timestampNotes = `#video-${videoNum}-bm-`;
+            let bookmarks : Array<Object> = getBookmarks(timestampDiv, timestampNotes, MAINPG_BOOKMARK_CNT);
+            const data = {
+                videoObj: {
+                    category: category,
+                    label: label,
+                    bookmarks: bookmarks,
+                    notes: notes
+                }
+            }
+            console.log(data);
+            const resp = await postData(newURL, data);
+            const j = await resp.json();
+
+            if (j['result'] !== 'error'){
                 console.log("Video updated. Data: " + JSON.stringify(j));
                 document.getElementById("outputText").innerHTML = "Success; video updated. Data: " + JSON.stringify(j); 
             } else {
                 document.getElementById("outputText").innerHTML = "Error; video not updated."
-            }	    
+            }
             })();
     }
 
@@ -398,9 +434,9 @@ $(document).ready(function() {
 
    
     // --------------------  UPDATE TODO - get data from main screen ------------------------------
-    //gets category for current video based on the submit button id - e.g. the 1 from
+    //gets data for current video based on the submit button id - e.g. the 1 from
     // video-1-submit-book
-    function getMainPageCategory(videoNum : number) { 
+    function getMainPageVideoData(videoNum : number) { 
         
     }
 

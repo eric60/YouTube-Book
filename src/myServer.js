@@ -60,6 +60,8 @@ var MyServer = /** @class */ (function () {
         this.server.use('/', this.router);
         this.router.post('/video/:username/create', this.createVideoHandler.bind(this));
         this.router.all('/video/:username/read', this.readVideoHandler.bind(this));
+        this.router.all('/video/:username/readAll', this.readAllVideoHandler.bind(this));
+        this.router.all('/video/:username/update', this.updateVideoHandler.bind(this));
         this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this));
         // Set a fall-through handler if nothing matches.
         this.router.get('*', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
@@ -97,12 +99,42 @@ var MyServer = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("made it to readvidhandler");
                         username = request.params['username'];
                         category = request.query.category;
                         label = request.query.label;
                         console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
                         return [4 /*yield*/, this.readVideo(username, category, label, response)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MyServer.prototype.readAllVideoHandler = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var username;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        username = request.params['username'];
+                        return [4 /*yield*/, this.readAllVideos(username, response)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MyServer.prototype.updateVideoHandler = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var username, videoObj;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        username = request.params['username'];
+                        videoObj = request.body.videoObj;
+                        return [4 /*yield*/, this.updateVideo(username, videoObj, response)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -155,7 +187,7 @@ var MyServer = /** @class */ (function () {
     MyServer.prototype.readVideo = function (username, category, label, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log("reading video");
+                console.log("reading video...");
                 //await this.theDatabase.get(username, category, label);
                 response.write(JSON.stringify({ 'result': 'read',
                     'username': username,
@@ -164,6 +196,36 @@ var MyServer = /** @class */ (function () {
                     'title': faker.random.word() + " video",
                     'notes': faker.random.words() + " video",
                     'bookmarks': faker.date.recent() + " - " + faker.random.words() + ", " + faker.date.recent() + " - " + faker.random.words()
+                }));
+                response.end();
+                return [2 /*return*/];
+            });
+        });
+    };
+    MyServer.prototype.readAllVideos = function (username, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var arrOfVids;
+            return __generator(this, function (_a) {
+                console.log("reading all videos...");
+                arrOfVids = [["arrOfVideo1Data"], ["arrOfVideo2Data"], ["arrOfVideo3Data"]];
+                response.write(JSON.stringify({ 'result': 'read all videos',
+                    'username': username,
+                    'videoData': arrOfVids
+                }));
+                response.end();
+                return [2 /*return*/];
+            });
+        });
+    };
+    MyServer.prototype.updateVideo = function (username, videoObj, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log("updating video...");
+                //await this.theDatabase.put(username, videoObj);
+                response.write(JSON.stringify({
+                    'result': 'updated',
+                    'username': username,
+                    'updatedVideoData': videoObj
                 }));
                 response.end();
                 return [2 /*return*/];

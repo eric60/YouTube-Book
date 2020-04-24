@@ -61,6 +61,7 @@ $(document).ready(function () {
     var OLD_BOOKMARK_CNT = 1;
     // -------------------------------------------------------------------
     var DIALOG_BOOKMARK_CNT = 1;
+    var MAINPG_BOOKMARK_CNT = 2;
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     var videoInserter = new VideoInserter_1["default"](1);
     videoInserter.sayHello();
@@ -75,6 +76,10 @@ $(document).ready(function () {
     $('#readTestBtn').click(function () {
         alert("Book read");
         videoRead();
+    });
+    $('#readAllTestBtn').click(function () {
+        alert("All books read");
+        readAll();
     });
     $('.dialog-other').hide();
     $('#dialog-url').bind("paste", function () {
@@ -149,7 +154,8 @@ $(document).ready(function () {
     function addVideoSubmitBtn(videoNum) {
         var videoSubmitId = "#video-" + videoNum + "-submit-book";
         $(videoSubmitId).click(function () {
-            alert("Book submitted");
+            alert("Book updating...");
+            videoUpdate(videoNum);
         });
     }
     // ------- helper functions for Video add bookmark ---------
@@ -290,7 +296,74 @@ $(document).ready(function () {
             });
         }); })();
     }
-    function videoUpdate() {
+    function readAll() {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var newURL, resp, j;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("readAll called");
+                        newURL = url + "/video" + "/eric" + "/readAll";
+                        console.log("readAll: fetching all videos");
+                        return [4 /*yield*/, fetch(newURL)];
+                    case 1:
+                        resp = _a.sent();
+                        return [4 /*yield*/, resp.json()];
+                    case 2:
+                        j = _a.sent();
+                        if (j['result'] !== 'error') {
+                            console.log("Video read. Data: " + JSON.stringify(j));
+                            document.getElementById("outputText").innerHTML = "Success; video read. Data: " + JSON.stringify(j);
+                        }
+                        else {
+                            document.getElementById("outputText").innerHTML = "Error; video not read.";
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
+    }
+    function videoUpdate(videoNum) {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var category, label, newURL, notes, timestampDiv, timestampNotes, bookmarks, data, resp, j;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
+                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
+                        newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+                        notes = $("#video-" + videoNum + "-notes").val();
+                        timestampDiv = "#video-" + videoNum + "-time-";
+                        timestampNotes = "#video-" + videoNum + "-bm-";
+                        bookmarks = getBookmarks(timestampDiv, timestampNotes, MAINPG_BOOKMARK_CNT);
+                        data = {
+                            videoObj: {
+                                category: category,
+                                label: label,
+                                bookmarks: bookmarks,
+                                notes: notes
+                            }
+                        };
+                        console.log(data);
+                        return [4 /*yield*/, postData(newURL, data)];
+                    case 1:
+                        resp = _a.sent();
+                        return [4 /*yield*/, resp.json()];
+                    case 2:
+                        j = _a.sent();
+                        if (j['result'] !== 'error') {
+                            console.log("Video updated. Data: " + JSON.stringify(j));
+                            document.getElementById("outputText").innerHTML = "Success; video updated. Data: " + JSON.stringify(j);
+                        }
+                        else {
+                            document.getElementById("outputText").innerHTML = "Error; video not updated.";
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
     }
     // video-1-delete-video
     function videoDelete() {
@@ -369,9 +442,9 @@ $(document).ready(function () {
         return bookmarks;
     }
     // --------------------  UPDATE TODO - get data from main screen ------------------------------
-    //gets category for current video based on the submit button id - e.g. the 1 from
+    //gets data for current video based on the submit button id - e.g. the 1 from
     // video-1-submit-book
-    function getMainPageCategory(videoNum) {
+    function getMainPageVideoData(videoNum) {
     }
     // ---------------------  Add-video dialog functions  -------------------------------------------
     function handlePaste(callback) {

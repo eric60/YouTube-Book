@@ -28,6 +28,8 @@ export class MyServer {
 
 		this.router.post('/video/:username/create', this.createVideoHandler.bind(this))
 		this.router.all('/video/:username/read', this.readVideoHandler.bind(this))
+		this.router.all('/video/:username/readAll', this.readAllVideoHandler.bind(this))
+		this.router.all('/video/:username/update', this.updateVideoHandler.bind(this))
 		this.router.all('/video/:username/delete', this.deleteVideoHandler.bind(this))
 
 		// Set a fall-through handler if nothing matches.
@@ -56,12 +58,22 @@ export class MyServer {
 	}
 
 	private async readVideoHandler(request, response) : Promise<void> {
-		console.log("made it to readvidhandler");
 		let username = request.params['username'];
 		let category = request.query.category;
 		let label = request.query.label;
 		console.log('------ username, category, label: ' + username + ", " + category + " , " + label);
 		await this.readVideo(username, category, label, response);
+	}
+
+	private async readAllVideoHandler(request, response) : Promise<void> {
+		let username = request.params['username'];
+		await this.readAllVideos(username, response);
+	}
+
+	private async updateVideoHandler(request, response) : Promise<void> {
+		let username = request.params['username'];
+		let videoObj = request.body.videoObj;
+		await this.updateVideo(username, videoObj, response);
 	}
 	
 	private async deleteVideoHandler(request, response) : Promise<void> {
@@ -109,6 +121,34 @@ export class MyServer {
 			'notes' : faker.random.words() + " video",
 			'bookmarks' : faker.date.recent() + " - " + faker.random.words() + ", " + faker.date.recent() + " - " + faker.random.words(),
 		}
+		))
+		response.end();
+	}
+
+	public async readAllVideos(username : string, response) : Promise<void> {
+		console.log("reading all videos...");
+		//database operation to get array of all video objects for a certain user here
+		let arrOfVids : any[][] = [["arrOfVideo1Data"], ["arrOfVideo2Data"], ["arrOfVideo3Data"]];
+
+		response.write(JSON.stringify(
+			{'result' : 'read all videos',
+			'username' : username,
+			'videoData' : arrOfVids
+		}
+		))
+		response.end();
+	}
+
+	public async updateVideo(username : string, videoObj : object, response) : Promise<void> {
+		console.log("updating video...");
+		//await this.theDatabase.put(username, videoObj);
+
+		response.write(JSON.stringify(
+			{
+				'result' : 'updated',
+				'username' : username,
+				'updatedVideoData' : videoObj
+			}
 		))
 		response.end();
 	}
