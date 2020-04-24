@@ -16,43 +16,44 @@ Notes
 * All are required parameters if specified
 * All responses are JSON
 
-**Endpoints** 
+### Endpoints 
 NOTE: Italicized words in routes are subject to change depending on video
 1. POST Create video endpoint allows user to create a video on server
     * **/video/:username/create**
-    * Response:
-        a. result : string (“created” or “Error”)
-        b. videoObj : object (json of the video object sent including (if applicable) category, label, title, videoURL, bookmarks, and notes)
+    * **Response:**
+    * result : string (“created” or “Error”)
+    * videoObj : object (json of the video object sent including (if applicable) category, label, title, videoURL, bookmarks, and notes)
 
 2. POST Update video allows user to update their video book data
     * **/video/:username/update&videoId=*123***
     * Above route is a future plan for MongoDB implementation. Current route uses category and label from HTML: **/video/:username/update?category=*Coding*&label=*Web-Services***
-    * Response:
-        a. result : string (“updated” or “Error”)
-        b. videoObj : object (json of the video object sent including (if applicable) category, label, bookmarks, and notes)
+    * **Response:**
+    * result : string (“updated” or “Error”)
+    * videoObj : object (json of the video object sent including (if applicable) category, label, bookmarks, and notes)
 
 3. GET Read video endpoint allows user to read data from their video
     * **/video/:username/read?category=Coding&label=*Web-Services*&videoId=*123***
-    * Response: 
-        a. result : string (“Read” or “Error”)
-        b. Username : string (“eric” for now)
-        c. Category : string (“someCategory” for now)
-        d. Label : string (“someLabel” for now)
-        e. Title : string (faker string for now)    
-        f. Notes : string (faker string for now)
-        g. Bookmarks: string (faker string for now)
+    * **Response:** 
+    * result : string (“Read” or “Error”)
+    *  Username : string (“eric” for now)
+    *  Category : string (“someCategory” for now)
+    *  Label : string (“someLabel” for now)
+    *  Title : string (faker string for now)    
+    *  Notes : string (faker string for now)
+    *  Bookmarks: string (faker string for now)
 
 4. GET ReadAll video endpoint allows user to pull down all the video objects from the user from each label e.g. Label 1 -[], Label 2 -[]
 The data will be an array of arrays with the label’s video objects
     * **/video/:username/readAll**
-    * Response
-        a. result : string (“Read all videos” or “Error”)
-        b. Username : string (“eric” for now)
-        c. videoData: [][] - array of arrays, where each array is the list of video objects under the label
+    * **Response:**
+    * result : string (“Read all videos” or “Error”)
+    * Username : string (“eric” for now)
+    * videoData: [][] - array of arrays, where each array is the list of video objects under the label
 
 5. GET Delete video endpoint allows user to delete the video specified
     * **/video/:username/delete?category=*Coding*&label=*Web-Services*&videoId=*123***
-    * Response: result : string (“Deleted” or “Error”)
+    * **Response:**
+    * result : string (“Deleted” or “Error”)
     * videoObj : object (json of the video object sent including (if applicable) URL, title, videoOrder, bookmarks, and notes)
 
 ## Client Interface Descriptions
@@ -68,11 +69,11 @@ The data will be an array of arrays with the label’s video objects
 
 ![Video Screen](m2_images/videoscreen3.png)
 
-Selecting “add video” (top right of above screenshot) will bring up a modal like the one below, where you can input a YouTube URL and add some details in about the video you’re adding to your YouTube Book. Pressing “submit” will run our “update” function on that video.
+* Selecting “add video” (top right of above screenshot) will bring up a modal like the one below, where you can input a YouTube URL and add some details in about the video you’re adding to your YouTube Book. Pressing “submit” will run our “update” function on that video.
 
 ![Add Video Screen](m2_images/addvideo4.png)
 
-Finally, selecting “Go To” brings up a list of categories and labels that you can quickly click to jump to. The pencil icon next to “Add Video+” in the top right is for editing the ordering of videos, and will bring up a modal shown in the center of the screen below. But, functionality for this is not implemented yet. “Sign Out” will currently redirect you to the login screen.
+* Finally, selecting “Go To” brings up a list of categories and labels that you can quickly click to jump to. The pencil icon next to “Add Video+” in the top right is for editing the ordering of videos, and will bring up a modal shown in the center of the screen below. But, functionality for this is not implemented yet. “Sign Out” will currently redirect you to the login screen.
 
 ![Extras](m2_images/extras5.png)
 
