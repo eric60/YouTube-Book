@@ -45,9 +45,9 @@ body {
     color: #1E90FF;
 }
 
-#video-1-add-bookmark {
+#video-1-add-bookmark, #video-2-add-bookmark {
     position: relative;
-    margin-left: 200px;
+    float: center;
 }
 
 /* ------------------ End Buttons ------------------ */
