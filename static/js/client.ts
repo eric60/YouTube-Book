@@ -146,10 +146,11 @@ $(document).ready(function() {
      }
 
 
-    function addVideoSubmitBtn(videoNum : number) {
+    function addVideoSubmitBtn(videoNum : number) { //main screen submit button routing function
         let videoSubmitId = `#video-${videoNum}-submit-book`
         $(videoSubmitId).click(function() {
             alert("Book submitted");
+            videoUpdate();
          })
     }
 
@@ -251,7 +252,20 @@ $(document).ready(function() {
     }
 
     function videoUpdate() {
-
+        (async () => {
+            let category = "someCategory" //to be deprecated.
+            let label = "someLabel" //to be deprecated.
+            const newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+            console.log("videoUpdate: fetching " + newURL);
+            const resp = await fetch(newURL);
+            const j = await resp.json();
+            if (j['result'] !== 'error') {
+                console.log("Video updated. Data: " + JSON.stringify(j));
+                document.getElementById("outputText").innerHTML = "Success; video updated. Data: " + JSON.stringify(j); 
+            } else {
+                document.getElementById("outputText").innerHTML = "Error; video not updated."
+            }	    
+            })();
     }
 
     function videoDelete() {

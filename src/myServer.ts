@@ -106,7 +106,7 @@ export class MyServer {
 	}
 
 	public async readVideo(username : string, category : string, label: string, response) : Promise<void> {
-		console.log("reading video");
+		console.log("reading video...");
 		//await this.theDatabase.get(username, category, label);
 
 		response.write(JSON.stringify(

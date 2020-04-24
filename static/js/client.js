@@ -75,7 +75,7 @@ $(document).ready(function () {
         },
         text: false
     });
-    $("#delete-video").click(function () {
+    $("#delete-video-2").click(function () {
         alert("Book deleted");
         videoDelete();
     });
