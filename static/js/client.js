@@ -147,9 +147,10 @@ $(document).ready(function () {
         var addBookmarkBtnDiv = "#video-" + videoNum + "-add-bookmark";
         $(addBookmarkBtnDiv).remove();
         $(divInsert).before("\n            <div>\n                " + timestampBtn + "\n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"video-1-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
-        $(addBookmarkBtnDiv).click(function () {
-            addNewBookmarkBtnAction(videoNum, bookmarkCnt);
-        });
+        addNewBookmarkBtnAction(videoNum, bookmarkCnt);
+        // $(addBookmarkBtnDiv).click(function() {
+        //     addNewBookmarkBtnAction(videoNum, bookmarkCnt)
+        //  })
     }
     function addVideoSubmitBtn(videoNum) {
         var videoSubmitId = "#video-" + videoNum + "-submit-book";
