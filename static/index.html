@@ -175,31 +175,29 @@
         <div id="dialog-add-video" title="Add your YouTube Book">
           <div class="split dialog-Video">
             <label for="ytUrlInput">Paste your YouTube Video URL: </label>            
-            <input id="ytUrlInput" type="text" autocomplete="on">
+            <input id="dialog-url" type="text" autocomplete="on">
             <div class="video-section" id="player1"></div>
           </div>
 
           <div class="dialog-other">
             <label for="dialog-title-input"> </label>            
-            <input id="dialog-title-input" type="text" placeholder="Enter a Title">
+            <input id="dialog-title" type="text" placeholder="Enter a Title" required>
 
             <div class="dialog-category">
-              <select class="browser-default custom-select" id="select-category" required>
-                <option selected>Choose Category</option>
-                <option value="1">Custom</option>
-                <option value="2">Coding</option>
-                <option value="3">Math</option>
+              <select class="browser-default custom-select" id="dialog-select-category" required>
+                <option selected value="null">Choose Category</option>
+                <option value="Coding">Coding</option>
+                <option value="Math">Math</option>
               </select>
   
               <label for="dialog-category-input"> </label>            
               <input id="dialog-category-input" type="text" placeholder="Or add new category">
 
               <span>
-                <select class="browser-default custom-select" id="select-label" required>
-                  <option selected>Choose Label</option>
-                  <option value="1">Custom</option>
-                  <option value="2">Web Services</option>
-                  <option value="3">Databases</option>
+                <select class="browser-default custom-select" id="dialog-select-label" required>
+                  <option selected value="null">Choose Label</option>
+                  <option value="Web Services">Web Services</option>
+                  <option value="Databases">Databases</option>
                 </select>
             
                <input id="dialog-label-input" type="text" placeholder="Or add new label">
@@ -217,7 +215,7 @@
               <div>
                 <div class="boxTitle"><b>Add Bookmarks</b></div>
                 <label for="dialog-Bookmarks">hh:mm:ss </label> 
-                <input id="dialog-time-1" type='time' class="without_ampm" step="1" min="00:00:00" max="20:00:00" required>  
+                <input id="dialog-time-1" type='time' class="without_ampm" step="1" value="00:00:00">  
                 <div>
                   <textarea class="bookmark-notes" id="dialog-bm-1" cols="35"></textarea>
                   <button type="button" id="dialog-add-bookmark" class="add-bookmark btn btn-primary">Add</button>

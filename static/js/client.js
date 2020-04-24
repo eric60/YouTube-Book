@@ -40,9 +40,15 @@ exports.__esModule = true;
 var VideoInserter_1 = require("./VideoInserter");
 $(document).ready(function () {
     console.log('url: ' + window.location.href);
+    var windowUrl = window.location.href;
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
-    var url = localUrl;
+    if (windowUrl.indexOf("localhost")) {
+        var url = localUrl;
+    }
+    else {
+        var url = herokuUrl;
+    }
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
     console.log('windowWidth: ' + windowWidth + ", windowHeight:" + windowHeight);
@@ -50,8 +56,10 @@ $(document).ready(function () {
     var dialogHeight = dialogWidth * .67; // 800
     var videoWidth = dialogWidth * 0.85; // 1000
     var videoHeight = videoWidth * .5; // 500
+    // --------- TODO Data from GET call to user's video list -----------------
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
+    // -------------------------------------------------------------------
     var DIALOG_BOOKMARK_CNT = 1;
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     var videoInserter = new VideoInserter_1["default"](1);
@@ -69,7 +77,7 @@ $(document).ready(function () {
         videoRead();
     });
     $('.dialog-other').hide();
-    $('#ytUrlInput').bind("paste", function () {
+    $('#dialog-url').bind("paste", function () {
         handlePaste(insertVideo);
     });
     // @ts-ignore
@@ -175,28 +183,64 @@ $(document).ready(function () {
         var dialogNote = "dialog-bm-" + bookmarkCnt;
         var dialogAddBookmarkBtnDiv = "#dialog-add-bookmark";
         $(dialogAddBookmarkBtnDiv).remove();
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"dialog-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"dialog-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
         dialogAddBookmarkAction();
     }
     // --------------------- TODO CRUD functions -------------------------
+    function postData(url, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, fetch(url, {
+                            method: 'POST',
+                            mode: 'cors',
+                            cache: 'no-cache',
+                            credentials: 'same-origin',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            redirect: 'follow',
+                            body: JSON.stringify(data)
+                        })];
+                    case 1:
+                        resp = _a.sent();
+                        return [2 /*return*/, resp];
+                }
+            });
+        });
+    }
     function videoCreate() {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoUrl, category, label, bookmarks, notes, newUrl, resp, j;
+            var videoUrl, title, category, label, notes, bookmarks, username, newUrl, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log('----- In videoCreate -------');
-                        videoUrl = $('#ytUrlInput').val();
-                        category = getCategory();
-                        label = getLabel();
-                        bookmarks = getDialogBookmarks();
+                        videoUrl = $('#dialog-url').val();
+                        title = $('#dialog-title').val();
+                        category = getDialogCategory();
+                        label = getDialogLabel();
                         notes = $('#dialog-Notes').val();
-                        console.log("urlinput: " + videoUrl + ", category: " + category + ", label: " + label + ", notes: " + notes);
-                        console.log(bookmarks);
-                        newUrl = url + "/video" + "/eric" + "/create?category=" + category + "&label=" + label;
+                        bookmarks = getDialogBookmarks();
+                        console.log("url: " + videoUrl + "\n title: " + title + "\n category: " + category + "\n label: " + label + "\n notes: " + notes + "\n bookmarks:");
+                        username = "eric";
+                        newUrl = url + "/video/" + username + "/create";
                         console.log(newUrl);
-                        return [4 /*yield*/, fetch(newUrl)];
+                        data = {
+                            videoObj: {
+                                category: category,
+                                label: label,
+                                title: title,
+                                videoUrl: videoUrl,
+                                bookmarks: bookmarks,
+                                notes: notes
+                            }
+                        };
+                        console.log('in videoCreate video obj: ');
+                        console.log(data);
+                        return [4 /*yield*/, postData(newUrl, data)];
                     case 1:
                         resp = _a.sent();
                         return [4 /*yield*/, resp.json()];
@@ -248,18 +292,20 @@ $(document).ready(function () {
     }
     function videoUpdate() {
     }
+    // video-1-delete-video
     function videoDelete() {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var category, label, newURL, resp, j;
+            var category, label, videoId, newURL, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("---- in videoDelete ----");
                         category = "someCategroy";
                         label = "someLabel";
-                        newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label;
-                        console.log("videoDelete: fetching " + category, +', ' + label);
+                        videoId = "someID";
+                        newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
+                        console.log("videoDelete: fetching " + category, +', ' + label + ', ' + videoId);
                         return [4 /*yield*/, fetch(newURL)];
                     case 1:
                         resp = _a.sent();
@@ -281,52 +327,51 @@ $(document).ready(function () {
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE get data from add video dialog
     function getDialogBookmarks() {
-        var timestampDiv = "dialog-time-";
-        var bmNotes = "dialog-bm-";
-        return getBookmarks(timestampDiv, bmNotes);
+        var timestampDiv = "#dialog-time-";
+        var timestampNotes = "#dialog-bm-";
+        return getBookmarks(timestampDiv, timestampNotes, DIALOG_BOOKMARK_CNT);
     }
     function getDialogCategory() {
-    }
-    function getDialogLabel() {
-    }
-    // UPDATE - get data from main screen
-    function getBookmarks(timestamp, bmNotes) {
-        var bookmarks = [];
-        for (var i = 1; i < OLD_BOOKMARK_CNT + 1; i++) {
-            timestamp += "" + i;
-            bmNotes += "" + i;
-            var timestampVal = $(timestamp).val();
-            var bmNotesVal = $(bmNotes).val();
-            if (timestamp) {
-                bookmarks[i] = {
-                    timestamp: timestampVal,
-                    timestampNotes: bmNotesVal
-                };
-            }
-        }
-        return bookmarks;
-    }
-    function getCategory() {
         // no spaces in html or urls so replace spaces with dashes
-        var category = $('#select-category').find(":selected").text().replace(" ", "-");
-        if (!category) {
+        var category = $('#dialog-select-category').find(":selected").text();
+        if (category === "Choose Category") {
             category = $('#dialog-category-input').val();
         }
         return category;
     }
-    function getCategoryMainPage() {
-        var category = $('#Category-Coding').text().replace(" ", "-");
-        if (!category) {
-            category = "err";
-        }
-        return category;
-    }
-    function getLabel() {
-        var label = $('#select-label').find(":selected").text().replace(" ", "-");
-        if (!label) {
+    function getDialogLabel() {
+        var label = $('#dialog-select-label').find(":selected").text();
+        if (label === "Choose Label") {
             label = $('#dialog-label-input').val();
         }
         return label;
+    }
+    // general use for both CREATE and UPDATE
+    function getBookmarks(timestamp, timestampNotes, bookmarksCnt) {
+        var bookmarks = [];
+        for (var i = 0; i < bookmarksCnt; i++) {
+            var bookmarkIdx = i + 1;
+            var timestampDiv = timestamp + bookmarkIdx;
+            var timestampNotesDiv = timestampNotes + bookmarkIdx;
+            console.log('timestampdiv:' + timestampDiv + "\ntimestampNotesDiv: " + timestampNotesDiv);
+            var timestampVal = $(timestampDiv).val();
+            var timestampNotesVal = $(timestampNotesDiv).val();
+            if (timestampVal != "00:00:00") {
+                bookmarks[i] = {
+                    timestamp: timestampVal,
+                    timestampNotes: timestampNotesVal
+                };
+            }
+            else {
+                console.log(bookmarkIdx + ") Did not add timestamp.\nTimestampVal: " + timestampVal + ", timestampNotesVal: " + timestampNotesVal);
+            }
+        }
+        return bookmarks;
+    }
+    // --------------------  UPDATE TODO - get data from main screen ------------------------------
+    //gets category for current video based on the submit button id - e.g. the 1 from
+    // video-1-submit-book
+    function getMainPageCategory(videoNum) {
     }
     // ---------------------  Add-video dialog functions  -------------------------------------------
     function handlePaste(callback) {
