@@ -50,8 +50,10 @@ $(document).ready(function () {
     var dialogHeight = dialogWidth * .67; // 800
     var videoWidth = dialogWidth * 0.85; // 1000
     var videoHeight = videoWidth * .5; // 500
+    // --------- TODO Data from GET call to user's video list -----------------
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
+    // -------------------------------------------------------------------
     var DIALOG_BOOKMARK_CNT = 1;
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     var videoInserter = new VideoInserter_1["default"](1);
@@ -80,7 +82,7 @@ $(document).ready(function () {
         text: false
     });
     $("#delete-video").click(function () {
-        alert("Book deleted");
+        confirm("Are you sure you want to delete this book?");
         videoDelete();
     });
     // ---------------------  init Video Data  -------------------------
@@ -251,15 +253,16 @@ $(document).ready(function () {
     function videoDelete() {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var category, label, newURL, resp, j;
+            var category, label, videoId, newURL, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("---- in videoDelete ----");
                         category = "someCategroy";
                         label = "someLabel";
-                        newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label;
-                        console.log("videoDelete: fetching " + category, +', ' + label);
+                        videoId = "someID";
+                        newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
+                        console.log("videoDelete: fetching " + category, +', ' + label + ', ' + videoId);
                         return [4 /*yield*/, fetch(newURL)];
                     case 1:
                         resp = _a.sent();
