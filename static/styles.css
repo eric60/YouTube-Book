@@ -272,6 +272,11 @@ a:hover{
     font-weight: 500;
 }
 
+.all-bookmarks {
+    height: 400px;
+    overflow: auto;
+}
+
 h4 {
     margin: 0px;
 }
