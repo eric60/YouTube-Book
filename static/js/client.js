@@ -39,7 +39,6 @@ exports.__esModule = true;
 // import YouTubeLoader from './YouTubeLoader';
 var VideoInserter_1 = require("./VideoInserter");
 $(document).ready(function () {
-    console.log('url: ' + window.location.href);
     var windowUrl = window.location.href;
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
@@ -49,6 +48,7 @@ $(document).ready(function () {
     else {
         var url = herokuUrl;
     }
+    console.log('url set to ' + window.location.href);
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
     console.log('windowWidth: ' + windowWidth + ", windowHeight:" + windowHeight);
@@ -147,10 +147,9 @@ $(document).ready(function () {
         var addBookmarkBtnDiv = "#video-" + videoNum + "-add-bookmark";
         $(addBookmarkBtnDiv).remove();
         $(divInsert).before("\n            <div>\n                " + timestampBtn + "\n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"video-1-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
-        addNewBookmarkBtnAction(videoNum, bookmarkCnt);
-        // $(addBookmarkBtnDiv).click(function() {
-        //     addNewBookmarkBtnAction(videoNum, bookmarkCnt)
-        //  })
+        $(addBookmarkBtnDiv).click(function () {
+            addNewBookmarkBtnAction(videoNum, bookmarkCnt);
+        });
     }
     function addVideoSubmitBtn(videoNum) {
         var videoSubmitId = "#video-" + videoNum + "-submit-book";
