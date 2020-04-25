@@ -42,7 +42,9 @@ $(document).ready(function () {
     var windowUrl = window.location.href;
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
-    if (windowUrl.indexOf("localhost")) {
+    var urlLocalHostIndex = windowUrl.indexOf("localhost");
+    console.log(urlLocalHostIndex);
+    if (urlLocalHostIndex != -1) {
         var url = localUrl;
     }
     else {

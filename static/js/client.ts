@@ -9,7 +9,9 @@ $(document).ready(function() {
     let windowUrl = window.location.href
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
-    if (windowUrl.indexOf("localhost") != -1) {
+    let urlLocalHostIndex = windowUrl.indexOf("localhost")
+    console.log(urlLocalHostIndex)
+    if (urlLocalHostIndex != -1) {
         var url =  localUrl
     } else {
         var url =  herokuUrl
