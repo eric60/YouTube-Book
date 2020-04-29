@@ -45,10 +45,6 @@ body {
     color: #1E90FF;
 }
 
-#video-1-add-bookmark, #video-2-add-bookmark {
-    position: relative;
-    float: center;
-}
 
 /* ------------------ End Buttons ------------------ */
 
@@ -140,14 +136,17 @@ input[type=time]::-webkit-clear-button {
     font-size: 20px;
 }
 
-.bookmark-notes {
-
+.dialog-footer {
+    margin-top: 15px;
 }
 
 .add-bookmark {
-    margin-left: 7px;
-    position: absolute;
+    position: relative;
+    float: center;
     margin-top: 5px;
+    /* margin-left: 7px;
+    position: absolute;
+  */
 }
 
 .dialog-video {
@@ -155,7 +154,7 @@ input[type=time]::-webkit-clear-button {
     margin-bottom: 1em;
 }
 
-.dialog-other, .dialog-category, .dialog-label, .dialog-bookmarks, .dialog-notes, #dialog-add-video, .dialog-footer{
+.dialog-other, .dialog-category, .dialog-label, .dialog-bookmarks, .dialog-notes, #dialog-add-video {
     text-align: center;
     margin-top: 20px;
 }

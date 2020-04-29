@@ -157,8 +157,8 @@ $(document).ready(function() {
                 <input id="${bmTime}" type='time' class="without_ampm" step="1" value="00:00:00">   
                 <div>
                     <textarea id="${bmNote}" cols="35" placeholder="Bookmark notes"></textarea>
-                    <button type="button" id="video-1-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                 </div>  
+                <button type="button" id="video-${videoNum}-add-bookmark" class="add-bookmark btn btn-primary">Add New</button>
             </div>
         `);
         $(addBookmarkBtnDiv).click(function() {
@@ -220,8 +220,8 @@ $(document).ready(function() {
                 <input id="${dialogTime}" type='time' class="without_ampm" step="1" value="00:00:00">   
                 <div>
                     <textarea id="${dialogNote}" cols="35" placeholder="Bookmark notes"></textarea>
-                    <button type="button" id="dialog-add-bookmark" class="add-bookmark btn btn-primary">Add</button>
                 </div>  
+                <button type="button" id="dialog-add-bookmark" class="add-bookmark btn btn-primary">Add New</button>
             </div>
         `);
         dialogAddBookmarkAction();

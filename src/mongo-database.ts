@@ -13,6 +13,8 @@ constructor(collectionName) {
     if (!process.env.PASSWORD) {
         secrets = require('./secrets.json');
         password = secrets.password;
+    } else {
+        password = process.env.PASSWORD;
     }
     this.uri = `mongodb+srv://guest:${password}@cs326cluster-0pubh.mongodb.net/test?retryWrites=true&w=majority`
     this.collectionName = collectionName;

@@ -148,7 +148,7 @@ $(document).ready(function () {
         var timestampBtn = "<button id=\"video-" + videoNum + "-link-" + bookmarkCnt + "\" \n                        class=\"timestampBtn\">hh:mm:ss</button>";
         var addBookmarkBtnDiv = "#video-" + videoNum + "-add-bookmark";
         $(addBookmarkBtnDiv).remove();
-        $(divInsert).before("\n            <div>\n                " + timestampBtn + "\n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"video-1-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
+        $(divInsert).before("\n            <div>\n                " + timestampBtn + "\n                <input id=\"" + bmTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + bmNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n                <button type=\"button\" id=\"video-" + videoNum + "-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add New</button>\n            </div>\n        ");
         $(addBookmarkBtnDiv).click(function () {
             addNewBookmarkBtnAction(videoNum, bookmarkCnt);
         });
@@ -191,7 +191,7 @@ $(document).ready(function () {
         var dialogNote = "dialog-bm-" + bookmarkCnt;
         var dialogAddBookmarkBtnDiv = "#dialog-add-bookmark";
         $(dialogAddBookmarkBtnDiv).remove();
-        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                    <button type=\"button\" id=\"dialog-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add</button>\n                </div>  \n            </div>\n        ");
+        $(divInsert).before("\n            <div>\n                <label for=\"dialog-Bookmarks\">hh:mm:ss </label> \n                <input id=\"" + dialogTime + "\" type='time' class=\"without_ampm\" step=\"1\" value=\"00:00:00\">   \n                <div>\n                    <textarea id=\"" + dialogNote + "\" cols=\"35\" placeholder=\"Bookmark notes\"></textarea>\n                </div>  \n                <button type=\"button\" id=\"dialog-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add New</button>\n            </div>\n        ");
         dialogAddBookmarkAction();
     }
     // --------------------- TODO CRUD functions -------------------------
