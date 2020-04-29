@@ -41,12 +41,12 @@ var url = require('url');
 var express = require('express');
 var faker = require('faker');
 var MyServer = /** @class */ (function () {
-    function MyServer() {
+    function MyServer(db) {
         var _this = this;
         // Server stuff: use express instead of http.createServer
         this.server = express();
         this.router = express.Router();
-        // this.theDatabase = db;
+        this.theDatabase = db;
         // from https://enable-cors.org/server_expressjs.html
         this.router.use(function (request, response, next) {
             response.header('Content-Type', 'application/json');
@@ -173,14 +173,19 @@ var MyServer = /** @class */ (function () {
     MyServer.prototype.createVideo = function (username, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log("creating video...");
-                // await this.theDatabase.put(name, 0);
-                response.write(JSON.stringify({ 'result': 'created',
-                    'username': username,
-                    'videoObj': videoObj
-                }));
-                response.end();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log("creating video...");
+                        return [4 /*yield*/, this.theDatabase.put(username, videoObj)];
+                    case 1:
+                        _a.sent();
+                        response.write(JSON.stringify({ 'result': 'created',
+                            'username': username,
+                            'videoObj': videoObj
+                        }));
+                        response.end();
+                        return [2 /*return*/];
+                }
             });
         });
     };

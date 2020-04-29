@@ -12,8 +12,8 @@ export class MyServer {
 	private server = express();
 	private router = express.Router();
 
-	constructor() {
-		// this.theDatabase = db;
+	constructor(db) {
+		this.theDatabase = db;
 		// from https://enable-cors.org/server_expressjs.html
 		this.router.use((request, response, next) => {
 			response.header('Content-Type','application/json');
@@ -98,7 +98,7 @@ export class MyServer {
 
     public async createVideo(username: string, videoObj: object, response) : Promise<void> {
 		console.log("creating video...")
-		// await this.theDatabase.put(name, 0);
+		await this.theDatabase.put(username, videoObj);
 
 		response.write(JSON.stringify(
 						{'result' : 'created',

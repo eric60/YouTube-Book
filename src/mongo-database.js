@@ -41,8 +41,13 @@ var Database = /** @class */ (function () {
         var _this = this;
         //followed from tutorial here https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb--how-to-get-connected-to-your-database
         this.MongoClient = require('mongodb').MongoClient;
-        this.uri = "mongodb+srv://guest:guest@cs326cluster-0pubh.mongodb.net/test?retryWrites=true&w=majority";
         this.dbName = "db";
+        var secrets, password;
+        if (!process.env.PASSWORD) {
+            secrets = require('./secrets.json');
+            password = secrets.password;
+        }
+        this.uri = "mongodb+srv://guest:" + password + "@cs326cluster-0pubh.mongodb.net/test?retryWrites=true&w=majority";
         this.collectionName = collectionName;
         this.client = new this.MongoClient(this.uri, { useNewUrlParser: true });
         (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -56,7 +61,7 @@ var Database = /** @class */ (function () {
             });
         }); })();
     }
-    Database.prototype.put = function (key, value) {
+    Database.prototype.put = function (username, value) {
         return __awaiter(this, void 0, void 0, function () {
             var db, collection, result;
             return __generator(this, function (_a) {
@@ -64,8 +69,8 @@ var Database = /** @class */ (function () {
                     case 0:
                         db = this.client.db(this.dbName);
                         collection = db.collection(this.collectionName);
-                        console.log("put: key = " + key + ", value = " + value);
-                        return [4 /*yield*/, collection.updateOne({ 'name': key }, { $set: { 'value': value } }, { 'upsert': true })];
+                        console.log("put: username = " + username + ", value = " + value);
+                        return [4 /*yield*/, collection.updateOne({ 'name': username }, { $set: { 'value': value } }, { 'upsert': true })];
                     case 1:
                         result = _a.sent();
                         console.log("result = " + result);
