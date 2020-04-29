@@ -26,13 +26,28 @@ constructor(collectionName) {
 
 }
 
-public async put(username: string, value: object) : Promise<void> {
+public async put(username: string, videoObj) : Promise<void> {
     let db = this.client.db(this.dbName);
     let collection = db.collection(this.collectionName);
 
-    console.log("put: username = " + username + ", value = " + value);
-    let result = await collection.updateOne({'name' : username}, { $set : { 'value' : value} }, { 'upsert' : true } );
-    console.log("result = " + result);
+    let category = videoObj.category;
+    let label = "Web Services";
+
+    let insertVideoObj = {
+        videoUrl: videoObj.videoUrl,
+        videoTitle: videoObj.title,
+        videoOrder: 3,
+        notes: videoObj.notes,
+        bookmarks: videoObj.bookmarks
+    }
+
+    console.log("put: username = " + username + ", value = " + videoObj);
+    let result = await collection.updateOne({'username':'eric', 
+                                            'categories':{$elemMatch:{"categoryName":"Coding"}},
+                                            'categories.labels': { $elemMatch: {"labelName": "Web Services"}}},
+                                            { $push : { 'categories.0.labels.$.videos' : insertVideoObj} }, 
+                                            { 'upsert' : true });
+    console.log("\nresult = " + result);
 }
 
 public async get(key: string) : Promise<string> {

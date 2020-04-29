@@ -47,6 +47,9 @@ var Database = /** @class */ (function () {
             secrets = require('./secrets.json');
             password = secrets.password;
         }
+        else {
+            password = process.env.PASSWORD;
+        }
         this.uri = "mongodb+srv://guest:" + password + "@cs326cluster-0pubh.mongodb.net/test?retryWrites=true&w=majority";
         this.collectionName = collectionName;
         this.client = new this.MongoClient(this.uri, { useNewUrlParser: true });
@@ -61,19 +64,30 @@ var Database = /** @class */ (function () {
             });
         }); })();
     }
-    Database.prototype.put = function (username, value) {
+    Database.prototype.put = function (username, videoObj) {
         return __awaiter(this, void 0, void 0, function () {
-            var db, collection, result;
+            var db, collection, category, label, insertVideoObj, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         db = this.client.db(this.dbName);
                         collection = db.collection(this.collectionName);
-                        console.log("put: username = " + username + ", value = " + value);
-                        return [4 /*yield*/, collection.updateOne({ 'name': username }, { $set: { 'value': value } }, { 'upsert': true })];
+                        category = videoObj.category;
+                        label = "Web Services";
+                        insertVideoObj = {
+                            videoUrl: videoObj.videoUrl,
+                            videoTitle: videoObj.title,
+                            videoOrder: 3,
+                            notes: videoObj.notes,
+                            bookmarks: videoObj.bookmarks
+                        };
+                        console.log("put: username = " + username + ", value = " + videoObj);
+                        return [4 /*yield*/, collection.updateOne({ 'username': 'eric',
+                                'categories': { $elemMatch: { "categoryName": "Coding" } },
+                                'categories.labels': { $elemMatch: { "labelName": "Web Services" } } }, { $push: { 'categories.0.labels.$.videos': insertVideoObj } }, { 'upsert': true })];
                     case 1:
                         result = _a.sent();
-                        console.log("result = " + result);
+                        console.log("\nresult = " + result);
                         return [2 /*return*/];
                 }
             });

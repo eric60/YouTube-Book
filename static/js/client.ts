@@ -49,6 +49,7 @@ $(document).ready(function() {
         alert("Book submitted");
         (<any>$("#dialog-add-video")).dialog("close");
         videoCreate();
+        window.location.reload();
      })
 
      $('#readTestBtn').click(function() {
@@ -229,6 +230,8 @@ $(document).ready(function() {
 
    
     // --------------------- TODO CRUD functions -------------------------
+    let username = "eric";
+
     async function postData(url : string, data : Object) {
         const resp = await fetch(url,
         {
@@ -260,7 +263,7 @@ $(document).ready(function() {
 
             console.log(`url: ${videoUrl}\n title: ${title}\n category: ${category}\n label: ${label}\n notes: ${notes}\n bookmarks:`)
 
-            let username = "eric"
+    
             const newUrl : string = `${url}/video/${username}/create`
             console.log(newUrl);
 
@@ -290,8 +293,6 @@ $(document).ready(function() {
 
         })();
     }
-
-
 
 
     function videoRead() { //temporary, DB implementation to return proper data

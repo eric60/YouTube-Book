@@ -74,6 +74,7 @@ $(document).ready(function () {
         alert("Book submitted");
         $("#dialog-add-video").dialog("close");
         videoCreate();
+        window.location.reload();
     });
     $('#readTestBtn').click(function () {
         alert("Book read");
@@ -195,6 +196,7 @@ $(document).ready(function () {
         dialogAddBookmarkAction();
     }
     // --------------------- TODO CRUD functions -------------------------
+    var username = "eric";
     function postData(url, data) {
         return __awaiter(this, void 0, void 0, function () {
             var resp;
@@ -221,7 +223,7 @@ $(document).ready(function () {
     function videoCreate() {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoUrl, title, category, label, notes, bookmarks, username, newUrl, data, resp, j;
+            var videoUrl, title, category, label, notes, bookmarks, newUrl, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -233,7 +235,6 @@ $(document).ready(function () {
                         notes = $('#dialog-Notes').val();
                         bookmarks = getDialogBookmarks();
                         console.log("url: " + videoUrl + "\n title: " + title + "\n category: " + category + "\n label: " + label + "\n notes: " + notes + "\n bookmarks:");
-                        username = "eric";
                         newUrl = url + "/video/" + username + "/create";
                         console.log(newUrl);
                         data = {
