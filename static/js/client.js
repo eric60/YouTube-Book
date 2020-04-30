@@ -54,20 +54,29 @@ $(document).ready(function () {
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
     console.log('windowWidth: ' + windowWidth + ", windowHeight:" + windowHeight);
-    var dialogWidth = windowWidth * 0.8; // 1200
-    var dialogHeight = dialogWidth * .67; // 800
+    var dialogWidth = windowWidth * 0.90; // 1200
+    var dialogHeight = dialogWidth * .6; // 800
     var videoWidth = dialogWidth * 0.85; // 1000
     var videoHeight = videoWidth * .5; // 500
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     var videoInserter = new VideoInserter_1["default"](1);
-    videoInserter.sayHello();
-    // On page load trigger 
-    checkYoutubePlayerReady();
-    // --------------------- Get all video data trigger -----------------
+    // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
     var DIALOG_BOOKMARK_CNT = 1;
     var MAINPG_BOOKMARK_CNT = 2;
+    var username = "eric";
+    var labelVideos;
+    /*
+        1) readAll data
+        2) videoInserter insert all html structures looping through
+        3) checkYoutubePlayerReader
+            4) initYtData based on divs inserted
+            5) initVideoData - title, notes, bookmarks showing
+     */
+    readAll();
+    videoInserter.sayHello();
+    checkYoutubePlayerReady();
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
         if (!checkDialogInputs()) {
@@ -206,7 +215,6 @@ $(document).ready(function () {
         dialogAddBookmarkAction();
     }
     // --------------------- TODO CRUD functions -------------------------
-    var username = "eric";
     function postData(url, data) {
         return __awaiter(this, void 0, void 0, function () {
             var resp;
@@ -326,8 +334,8 @@ $(document).ready(function () {
                     case 2:
                         j = _a.sent();
                         if (j['result'] !== 'error') {
-                            console.log("Video read. Data: " + JSON.stringify(j));
-                            console.log(JSON.stringify(j));
+                            console.log("Label videos read. Data: " + JSON.stringify(j));
+                            labelVideos = j;
                         }
                         else {
                             console.log("Error; video not read.");

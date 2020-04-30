@@ -23,25 +23,33 @@ $(document).ready(function() {
     let windowHeight : number =  $(window).height();
     console.log('windowWidth: ' + windowWidth + ", windowHeight:" + windowHeight)
 
-    let dialogWidth : number = windowWidth * 0.8 // 1200
-    let dialogHeight : number = dialogWidth * .67 // 800
-    let videoWidth = dialogWidth * 0.85 // 1000
-    let videoHeight = videoWidth * .5 // 500
+    let dialogWidth : number = windowWidth * 0.90 // 1200
+    let dialogHeight : number = dialogWidth * .6 // 800
+    let videoWidth : number = dialogWidth * 0.85 // 1000
+    let videoHeight : number = videoWidth * .5 // 500
 
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     let videoInserter = new VideoInserter(1);
-    videoInserter.sayHello();
-
-     // On page load trigger 
-     checkYoutubePlayerReady()
+  
     
-     // --------------------- TODO: Get all video data trigger -----------------
+     // --------------------- TODO: Initial Screen Trigger -----------------
      let TOTAL_VIDEO_CNT : number = 3;
      let OLD_BOOKMARK_CNT = 1;
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
      let username = "eric";
+     let labelVideos;
+    /* 
+        1) readAll data
+        2) videoInserter insert all html structures looping through
+        3) checkYoutubePlayerReader
+            4) initYtData based on divs inserted
+            5) initVideoData - title, notes, bookmarks showing
+     */
+     readAll();
+     videoInserter.sayHello();
+     checkYoutubePlayerReady()
 
 
      // --------------------- Button trigger functions -------------------------
@@ -335,8 +343,8 @@ $(document).ready(function() {
             const j = await resp.json();
 
             if (j['result'] !== 'error'){
-                console.log("Video read. Data: " + JSON.stringify(j));
-                console.log(JSON.stringify(j)); 
+                console.log("Label videos read. Data: " + JSON.stringify(j));
+                labelVideos = j;
             } else {
                 console.log("Error; video not read.")
             }
