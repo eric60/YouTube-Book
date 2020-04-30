@@ -28,13 +28,6 @@ $(document).ready(function() {
     let videoWidth = dialogWidth * 0.85 // 1000
     let videoHeight = videoWidth * .5 // 500
 
-    // --------- TODO Data from GET call to user's video list -----------------
-    let TOTAL_VIDEO_CNT : number = 3;
-
-    let OLD_BOOKMARK_CNT = 1;
-    // -------------------------------------------------------------------
-    let DIALOG_BOOKMARK_CNT= 1;
-    let MAINPG_BOOKMARK_CNT = 2;
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     let videoInserter = new VideoInserter(1);
@@ -43,6 +36,12 @@ $(document).ready(function() {
      // On page load trigger 
      checkYoutubePlayerReady()
     
+     // --------------------- Get all video data trigger -----------------
+     let TOTAL_VIDEO_CNT : number = 3;
+     let OLD_BOOKMARK_CNT = 1;
+     let DIALOG_BOOKMARK_CNT= 1;
+     let MAINPG_BOOKMARK_CNT = 2;
+
 
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
@@ -118,7 +117,17 @@ $(document).ready(function() {
 
         let seconds = convertTimeToSeconds(timestampVal);
         console.log('--result seconds: ' + seconds);
+
         addTimeStamp(videoNum, timestampBtn, seconds)
+        
+        // @ts-ignore
+        $(timestampDiv).change(function() {
+            let changedTimestampVal = $(timestampDiv).val();
+            let changedSeconds = convertTimeToSeconds(changedTimestampVal);
+            console.log("Bookmark val changed: " + changedSeconds);
+            addTimeStamp(videoNum, timestampBtn, changedSeconds)
+        })
+    
     }   
 
     function addInitialNewBookmark(videoNum : number) {
