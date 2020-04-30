@@ -384,6 +384,7 @@ $(document).ready(function() {
     // video-1-delete-video
     function videoDelete() {
         (async() => {
+
             console.log("---- in videoDelete ----");
             let category = "someCategroy";
             let label : string = "someLabel";
