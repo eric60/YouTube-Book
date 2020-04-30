@@ -31,7 +31,7 @@ public async put(username: string, videoObj) : Promise<void> {
     let collection = db.collection(this.collectionName);
 
     let category = videoObj.category;
-    let label = "Web Services";
+    let label = videoObj.label;
 
     let insertVideoObj = {
         videoUrl: videoObj.videoUrl,
@@ -41,13 +41,28 @@ public async put(username: string, videoObj) : Promise<void> {
         bookmarks: videoObj.bookmarks
     }
 
-    console.log("put: username = " + username + ", value = " + videoObj);
-    let result = await collection.updateOne({'username':'eric', 
-                                            'categories':{$elemMatch:{"categoryName":"Coding"}},
-                                            'categories.labels': { $elemMatch: {"labelName": "Web Services"}}},
+    console.log("\nput: username = " + username + ", label: " + label);
+    let result = await collection.updateOne({'username': username, 
+                                            'categories.0.categoryName' : category, 
+                                            'categories.0.labels': { $elemMatch: {"labelName" : label}}},
                                             { $push : { 'categories.0.labels.$.videos' : insertVideoObj} }, 
                                             { 'upsert' : true });
     console.log("\nresult = " + result);
+}
+
+public async getAll(username: string) : Promise<string> {
+    let db = this.client.db(this.dbName); 
+    let collection = db.collection(this.collectionName);
+    console.log("getAll: key = " + username);
+
+    let result = await collection.findOne({'username' : username });
+    
+    console.log("\ngetAll: returned " + JSON.stringify(result));
+    if (result) {
+        return result;
+    } else {
+        return null;
+    }
 }
 
 public async get(key: string) : Promise<string> {

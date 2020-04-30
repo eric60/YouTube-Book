@@ -126,17 +126,25 @@ export class MyServer {
 	}
 
 	public async readAllVideos(username : string, response) : Promise<void> {
-		console.log("reading all videos...");
-		//database operation to get array of all video objects for a certain user here
-		let arrOfVids : any[][] = [["arrOfVideo1Data"], ["arrOfVideo2Data"], ["arrOfVideo3Data"]];
+		console.log("\n\nreading all videos...");
+
+		let userObj = await this.theDatabase.getAll(username);
+		let labelVideos = this.parseLabelVideos(userObj);
+
 
 		response.write(JSON.stringify(
 			{'result' : 'read all videos',
 			'username' : username,
-			'videoData' : arrOfVids
+			'videoData' : labelVideos
 		}
 		))
 		response.end();
+	}
+
+	public parseLabelVideos(videoObj : any) {
+		console.log("parsing usr obj");
+		let labelVideos = videoObj.categories[0].labels;
+		return labelVideos;
 	}
 
 	public async updateVideo(username : string, videoObj : object, response) : Promise<void> {

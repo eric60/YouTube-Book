@@ -46,10 +46,14 @@ $(document).ready(function() {
 
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
-        alert("Book submitted");
-        (<any>$("#dialog-add-video")).dialog("close");
-        videoCreate();
-        window.location.reload();
+        if (!checkDialogInputs()) {
+        } 
+        else {
+            alert("Book submitted");
+            (<any>$("#dialog-add-video")).dialog("close");
+            videoCreate();
+            window.location.reload();
+        }
      })
 
      $('#readTestBtn').click(function() {
@@ -253,7 +257,7 @@ $(document).ready(function() {
             console.log('----- In videoCreate -------')
 
             let videoUrl : any = $('#dialog-url').val();
-            let title : any = $('#dialog-title').val();
+            let title : any = getDialogTitle();
             let category = getDialogCategory();
             let label : string = getDialogLabel();
             let notes : any = $('#dialog-Notes').val();
@@ -317,14 +321,16 @@ $(document).ready(function() {
         (async() => {
             console.log("readAll called");
             const newURL : string = url + "/video" + "/eric" + "/readAll";
+
             console.log("readAll: fetching all videos");
             const resp = await fetch(newURL);
             const j = await resp.json();
+
             if (j['result'] !== 'error'){
                 console.log("Video read. Data: " + JSON.stringify(j));
-                document.getElementById("outputText").innerHTML = "Success; video read. Data: " + JSON.stringify(j); 
+                console.log(JSON.stringify(j)); 
             } else {
-                document.getElementById("outputText").innerHTML = "Error; video not read."
+                console.log("Error; video not read.")
             }
             })();
     }
@@ -386,6 +392,24 @@ $(document).ready(function() {
     
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE get data from add video dialog
+    
+    function checkDialogInputs() {
+        if (!getDialogCategory() || !getDialogLabel() || !getDialogTitle()) {
+            return false;
+        } 
+        return true;
+    }
+
+    function getDialogTitle() {
+        let title = $('#dialog-title').val()
+        console.log('-- getDialogTitle: ' + title)
+        if (!title) {
+            alert("Please enter a Title")
+            return false;
+        }
+        return title;
+    }
+
     function getDialogBookmarks() {
         let timestampDiv = `#dialog-time-`
         let timestampNotes = `#dialog-bm-`
@@ -396,17 +420,23 @@ $(document).ready(function() {
         // no spaces in html or urls so replace spaces with dashes
         let category : any = $('#dialog-select-category').find(":selected").text()
         if (category === "Choose Category") {
-            category = $('#dialog-category-input').val();
+            alert("Please select a Category. Sorry we are unable to process new categories currently.")
+            return false;
+            // category = $('#dialog-category-input').val();
+        } else {
+            return category;
         }
-        return category;
     }
 
     function getDialogLabel() {
         let label : any = $('#dialog-select-label').find(":selected").text()
         if (label === "Choose Label") {
-            label = $('#dialog-label-input').val();
+            // label = $('#dialog-label-input').val();
+            alert("Please select a Label. Sorry we are unable to process new labels currently.")
+            return false;
+        } else {
+            return label;
         }
-        return label;
     }
 
     // general use for both CREATE and UPDATE

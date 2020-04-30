@@ -73,7 +73,7 @@ var Database = /** @class */ (function () {
                         db = this.client.db(this.dbName);
                         collection = db.collection(this.collectionName);
                         category = videoObj.category;
-                        label = "Web Services";
+                        label = videoObj.label;
                         insertVideoObj = {
                             videoUrl: videoObj.videoUrl,
                             videoTitle: videoObj.title,
@@ -81,13 +81,37 @@ var Database = /** @class */ (function () {
                             notes: videoObj.notes,
                             bookmarks: videoObj.bookmarks
                         };
-                        console.log("put: username = " + username + ", value = " + videoObj);
-                        return [4 /*yield*/, collection.updateOne({ 'username': 'eric',
-                                'categories': { $elemMatch: { "categoryName": "Coding" } },
-                                'categories.labels': { $elemMatch: { "labelName": "Web Services" } } }, { $push: { 'categories.0.labels.$.videos': insertVideoObj } }, { 'upsert': true })];
+                        console.log("\nput: username = " + username + ", label: " + label);
+                        return [4 /*yield*/, collection.updateOne({ 'username': username,
+                                'categories.0.categoryName': category,
+                                'categories.0.labels': { $elemMatch: { "labelName": label } } }, { $push: { 'categories.0.labels.$.videos': insertVideoObj } }, { 'upsert': true })];
                     case 1:
                         result = _a.sent();
                         console.log("\nresult = " + result);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Database.prototype.getAll = function (username) {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, collection, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        db = this.client.db(this.dbName);
+                        collection = db.collection(this.collectionName);
+                        console.log("getAll: key = " + username);
+                        return [4 /*yield*/, collection.findOne({ 'username': username })];
+                    case 1:
+                        result = _a.sent();
+                        console.log("\ngetAll: returned " + JSON.stringify(result));
+                        if (result) {
+                            return [2 /*return*/, result];
+                        }
+                        else {
+                            return [2 /*return*/, null];
+                        }
                         return [2 /*return*/];
                 }
             });

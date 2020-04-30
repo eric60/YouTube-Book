@@ -71,10 +71,14 @@ $(document).ready(function () {
     checkYoutubePlayerReady();
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
-        alert("Book submitted");
-        $("#dialog-add-video").dialog("close");
-        videoCreate();
-        window.location.reload();
+        if (!checkDialogInputs()) {
+        }
+        else {
+            alert("Book submitted");
+            $("#dialog-add-video").dialog("close");
+            videoCreate();
+            window.location.reload();
+        }
     });
     $('#readTestBtn').click(function () {
         alert("Book read");
@@ -229,7 +233,7 @@ $(document).ready(function () {
                     case 0:
                         console.log('----- In videoCreate -------');
                         videoUrl = $('#dialog-url').val();
-                        title = $('#dialog-title').val();
+                        title = getDialogTitle();
                         category = getDialogCategory();
                         label = getDialogLabel();
                         notes = $('#dialog-Notes').val();
@@ -317,10 +321,10 @@ $(document).ready(function () {
                         j = _a.sent();
                         if (j['result'] !== 'error') {
                             console.log("Video read. Data: " + JSON.stringify(j));
-                            document.getElementById("outputText").innerHTML = "Success; video read. Data: " + JSON.stringify(j);
+                            console.log(JSON.stringify(j));
                         }
                         else {
-                            document.getElementById("outputText").innerHTML = "Error; video not read.";
+                            console.log("Error; video not read.");
                         }
                         return [2 /*return*/];
                 }
@@ -402,6 +406,21 @@ $(document).ready(function () {
     }
     // ------------------- TODO Helper functions for getting data for CRUD  --------------------------
     // CREATE get data from add video dialog
+    function checkDialogInputs() {
+        if (!getDialogCategory() || !getDialogLabel() || !getDialogTitle()) {
+            return false;
+        }
+        return true;
+    }
+    function getDialogTitle() {
+        var title = $('#dialog-title').val();
+        console.log('-- getDialogTitle: ' + title);
+        if (!title) {
+            alert("Please enter a Title");
+            return false;
+        }
+        return title;
+    }
     function getDialogBookmarks() {
         var timestampDiv = "#dialog-time-";
         var timestampNotes = "#dialog-bm-";
@@ -411,16 +430,24 @@ $(document).ready(function () {
         // no spaces in html or urls so replace spaces with dashes
         var category = $('#dialog-select-category').find(":selected").text();
         if (category === "Choose Category") {
-            category = $('#dialog-category-input').val();
+            alert("Please select a Category. Sorry we are unable to process new categories currently.");
+            return false;
+            // category = $('#dialog-category-input').val();
         }
-        return category;
+        else {
+            return category;
+        }
     }
     function getDialogLabel() {
         var label = $('#dialog-select-label').find(":selected").text();
         if (label === "Choose Label") {
-            label = $('#dialog-label-input').val();
+            // label = $('#dialog-label-input').val();
+            alert("Please select a Label. Sorry we are unable to process new labels currently.");
+            return false;
         }
-        return label;
+        else {
+            return label;
+        }
     }
     // general use for both CREATE and UPDATE
     function getBookmarks(timestamp, timestampNotes, bookmarksCnt) {

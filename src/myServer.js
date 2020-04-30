@@ -209,18 +209,29 @@ var MyServer = /** @class */ (function () {
     };
     MyServer.prototype.readAllVideos = function (username, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var arrOfVids;
+            var userObj, labelVideos;
             return __generator(this, function (_a) {
-                console.log("reading all videos...");
-                arrOfVids = [["arrOfVideo1Data"], ["arrOfVideo2Data"], ["arrOfVideo3Data"]];
-                response.write(JSON.stringify({ 'result': 'read all videos',
-                    'username': username,
-                    'videoData': arrOfVids
-                }));
-                response.end();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log("\n\nreading all videos...");
+                        return [4 /*yield*/, this.theDatabase.getAll(username)];
+                    case 1:
+                        userObj = _a.sent();
+                        labelVideos = this.parseLabelVideos(userObj);
+                        response.write(JSON.stringify({ 'result': 'read all videos',
+                            'username': username,
+                            'videoData': labelVideos
+                        }));
+                        response.end();
+                        return [2 /*return*/];
+                }
             });
         });
+    };
+    MyServer.prototype.parseLabelVideos = function (videoObj) {
+        console.log("parsing usr obj");
+        var labelVideos = videoObj.categories[0].labels;
+        return labelVideos;
     };
     MyServer.prototype.updateVideo = function (username, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
