@@ -79,13 +79,24 @@ public async get(key: string) : Promise<string> {
     }
 }
 
-public async del(key: string) : Promise<void> {
+public async del(username: string, videoObj) : Promise<void> {
     let db = this.client.db(this.dbName);
     let collection = db.collection(this.collectionName);
-    console.log("delete: key = " + key);
-    let result = await collection.deleteOne({'name' : key });
-    console.log("result = " + result);
-    // await this.db.del(key);
+
+    let category = videoObj.category;
+    let label = videoObj.label;
+    let url = videoObj.url;
+    let title = videoObj.title;
+
+    console.log("\ndelete: username = " + username + ", title: " + title);
+
+    let result = await collection.deleteOne({'username': username, 
+                                            'categories.0.categoryName' : category, 
+                                            'categories.0.labels': { $elemMatch: {"labelName" : label}},
+                                            'videoUrl' : url
+                                        });
+
+    console.log("\nresult = " + result);
 }
     
 public async isFound(key: string) : Promise<boolean>  {
