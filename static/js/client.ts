@@ -36,11 +36,12 @@ $(document).ready(function() {
      // On page load trigger 
      checkYoutubePlayerReady()
     
-     // --------------------- Get all video data trigger -----------------
+     // --------------------- TODO: Get all video data trigger -----------------
      let TOTAL_VIDEO_CNT : number = 3;
      let OLD_BOOKMARK_CNT = 1;
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
+     let username = "eric";
 
 
      // --------------------- Button trigger functions -------------------------
@@ -243,8 +244,6 @@ $(document).ready(function() {
 
    
     // --------------------- TODO CRUD functions -------------------------
-    let username = "eric";
-
     async function postData(url : string, data : Object) {
         const resp = await fetch(url,
         {
