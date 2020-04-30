@@ -15,7 +15,7 @@ body {
 }
 
 /* ------------------  Buttons ------------------ */
-.collapsible-btn, .timestampBtn, .label-btn{
+.category-btn, .timestampBtn, .label-btn{
     background:none!important;
     border:none; 
     padding:0!important;
@@ -30,9 +30,10 @@ body {
 
 .label-btn {
     font-size: 20px;
+    margin-top: 10px;
 }
 
-.collapsible-btn:hover, .label-btn:hover, .timestampBtn:hover{
+.category-btn:hover, .label-btn:hover, .timestampBtn:hover{
     text-decoration:underline;
 }
 
