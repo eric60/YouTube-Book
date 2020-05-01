@@ -18,25 +18,29 @@ export default class VideoInserter {
               <div id = 'label-insert-before-me'></div>
             </div>
         `);
+            this.insertLabelDiv(category); 
         });
     }
 
-    public insertLabelDiv(labels) {
+    public insertLabelDiv(category) {
         let divInsert = '#label-insert-before-me';
 
-        labels.forEach(label => {
+        category.forEach(label => {
             $(divInsert).before(`  
               <button class="label-btn" id="Label-${label}">${label}</button>  
                 <div class="Label-Body" id="Label-Body-${label}">
                     <div id = 'video-insert-before-me'></div>
                 </div>
         `);
+            label.forEach(video => {
+                this.insertVideoDiv(video.videoNum);
+            });
         });
     }
     
 
-    public insertVideoDiv(labelNum : number, videoNum : number) {
-        console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
+    public insertVideoDiv(videoNum : number) {
+        //console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
 
         let divInsert = '#video-insert-before-me';
 
