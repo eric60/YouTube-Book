@@ -1,12 +1,10 @@
 "use strict";
 exports.__esModule = true;
 var VideoInserter = /** @class */ (function () {
-    function VideoInserter(videoNum) {
-        this.videoNum = videoNum;
-        console.log("in video inserter: " + videoNum);
+    function VideoInserter() {
     }
-    VideoInserter.prototype.sayHello = function () {
-        console.log("---hello!");
+    VideoInserter.prototype.insertVideoDiv = function (labelNum, videoNum) {
+        console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
     };
     return VideoInserter;
 }());

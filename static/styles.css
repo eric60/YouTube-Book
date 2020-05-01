@@ -172,12 +172,18 @@ input[type=time]::-webkit-clear-button {
     width: 40%;
 }
 
-
-#modalTitle {
-    color:#FF0000;
-    font-style: bold;
+.ui-dialog .ui-dialog-title {
+    display: block;
     text-align: center;
-    font-size: 25px;
+    width: 100%;
+  }
+
+.ui-dialog-titlebar {
+    color: white;
+    background: #47a88a;
+}
+.ui-dialog .ui-dialog-content {
+    color: #47a88a;
 }
 /* ------------------ End Dialogs ------------------ */
 

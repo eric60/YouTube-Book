@@ -1,13 +1,11 @@
 export default class VideoInserter {
     private videoNum : number;
 
-    constructor(videoNum : number) {
-        this.videoNum = videoNum;
-        console.log("in video inserter: " + videoNum)
+    constructor() {
     }
 
-    public sayHello() {
-        console.log("---hello!");
+    public insertVideoDiv(labelNum : number, videoNum : number) {
+        console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
     }
 
 

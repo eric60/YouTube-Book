@@ -10,7 +10,7 @@ $(document).ready(function() {
     const localUrl = `http://localhost:8080`;
     const herokuUrl = 'https://cryptic-basin-95763.herokuapp.com'
     let urlLocalHostIndex = windowUrl.indexOf("localhost")
-    console.log(urlLocalHostIndex)
+  
     if (urlLocalHostIndex != -1) {
         var url =  localUrl
     } else {
@@ -30,15 +30,15 @@ $(document).ready(function() {
 
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
-    let videoInserter = new VideoInserter(1);
+    let videoInserter = new VideoInserter();
   
     
      // --------------------- TODO: Initial Screen Trigger -----------------
-     let TOTAL_VIDEO_CNT : number = 3;
+     const TOTAL_VIDEO_CNT : number = 3;
      let OLD_BOOKMARK_CNT = 1;
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
-     let username = "eric";
+     const username = "eric";
      let labelVideos;
     /* 
         1) readAll data
@@ -47,10 +47,19 @@ $(document).ready(function() {
             4) initYtData based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
      */
-     readAll();
-     videoInserter.sayHello();
+     readAll(processLabelVideos);
+
      checkYoutubePlayerReady()
 
+     // --------------------
+     function processLabelVideos() {
+         console.log(labelVideos);
+      
+         let label1 = labelVideos.videoData[0].videos;
+         let label2 = labelVideos.videoData[1].videos;
+        // TOTAL_VIDEO_CNT = label1.length + label2.length;
+        videoInserter.insertVideoDiv(1, 1);
+     }
 
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
@@ -71,7 +80,7 @@ $(document).ready(function() {
 
      $('#readAllTestBtn').click(function() {
         alert("All books read");
-        readAll();
+        readAll(processLabelVideos);
     });
 
  
@@ -333,7 +342,7 @@ $(document).ready(function() {
             })();
     }
 
-    function readAll() {
+    function readAll(processLabelVideos) {
         (async() => {
             console.log("readAll called");
             const newURL : string = url + "/video" + "/eric" + "/readAll";
@@ -345,6 +354,7 @@ $(document).ready(function() {
             if (j['result'] !== 'error'){
                 console.log("Label videos read. Data: " + JSON.stringify(j));
                 labelVideos = j;
+                processLabelVideos();
             } else {
                 console.log("Error; video not read.")
             }

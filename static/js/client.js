@@ -43,7 +43,6 @@ $(document).ready(function () {
     var localUrl = "http://localhost:8080";
     var herokuUrl = 'https://cryptic-basin-95763.herokuapp.com';
     var urlLocalHostIndex = windowUrl.indexOf("localhost");
-    console.log(urlLocalHostIndex);
     if (urlLocalHostIndex != -1) {
         var url = localUrl;
     }
@@ -59,7 +58,7 @@ $(document).ready(function () {
     var videoWidth = dialogWidth * 0.85; // 1000
     var videoHeight = videoWidth * .5; // 500
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
-    var videoInserter = new VideoInserter_1["default"](1);
+    var videoInserter = new VideoInserter_1["default"]();
     // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
@@ -74,9 +73,16 @@ $(document).ready(function () {
             4) initYtData based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
      */
-    readAll();
-    videoInserter.sayHello();
+    readAll(processLabelVideos);
     checkYoutubePlayerReady();
+    // --------------------
+    function processLabelVideos() {
+        console.log(labelVideos);
+        var label1 = labelVideos.videoData[0].videos;
+        var label2 = labelVideos.videoData[1].videos;
+        // TOTAL_VIDEO_CNT = label1.length + label2.length;
+        videoInserter.insertVideoDiv(1, 1);
+    }
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
         if (!checkDialogInputs()) {
@@ -94,7 +100,7 @@ $(document).ready(function () {
     });
     $('#readAllTestBtn').click(function () {
         alert("All books read");
-        readAll();
+        readAll(processLabelVideos);
     });
     $('.dialog-other').hide();
     $('#dialog-url').bind("paste", function () {
@@ -317,7 +323,7 @@ $(document).ready(function () {
             });
         }); })();
     }
-    function readAll() {
+    function readAll(processLabelVideos) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
             var newURL, resp, j;
@@ -336,6 +342,7 @@ $(document).ready(function () {
                         if (j['result'] !== 'error') {
                             console.log("Label videos read. Data: " + JSON.stringify(j));
                             labelVideos = j;
+                            processLabelVideos();
                         }
                         else {
                             console.log("Error; video not read.");
