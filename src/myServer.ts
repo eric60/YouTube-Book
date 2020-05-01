@@ -79,18 +79,10 @@ export class MyServer {
 	private async deleteVideoHandler(request, response) : Promise<void> {
 		console.log("in deleteVideoHandler")
 		// get video object from front end
-		let videoObj = {
-			"videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
-			"videoTitle": "calc1 video 1",
-			"videoOrder": 2,
-			"notes": "test- mongo notes",
-			"bookmarks": [{
-				"timestamp": "00:01:10",
-				"timestampNotes": "hello hello 123"
-			}]
-		}
+		let videoObj = request.body.videoObj;
+		
 		let username = request.param['username'];
-		console.log('------ username, video: ' + username + ', ' + videoObj);
+		console.log('deleting ', videoObj);
 		await this.deleteVideo(username, videoObj, response);
     }
 ​
@@ -163,7 +155,7 @@ export class MyServer {
 	
 	public async deleteVideo(username: string, videoObj: object, response) : Promise<void> {
 		console.log("deleting video")
-		// await this.theDatabase.del(videoObj);
+		await this.theDatabase.del(username, videoObj);
 		response.write(JSON.stringify(
 						{'result' : 'deleted',
 						'username' : username,

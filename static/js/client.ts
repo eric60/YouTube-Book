@@ -97,9 +97,14 @@ $(document).ready(function() {
         text: false  
      });
      
-     $( "#delete-video" ).click(function() {  
+     $( "#delete-video" ).click(function(videoNum : number) {  
         confirm("Are you sure you want to delete this book?");
-        videoDelete();
+        let videoDeleteId = `#video-${videoNum}-submit-book`
+        $(videoDeleteId).click(function() {
+            alert("Deleing book.");
+            videoUpdate(videoNum);
+         })
+        videoDelete(videoNum);
      });
  
 
@@ -392,13 +397,15 @@ $(document).ready(function() {
     }
 
     // video-1-delete-video
-    function videoDelete() {
+    function videoDelete(videoNum) {
         (async() => {
 
             console.log("---- in videoDelete ----");
-            let category = "someCategroy";
-            let label : string = "someLabel";
-            let videoId : string = "someID";
+
+
+            let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
+            let label : string = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
+           
             const newURL : string = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
             
             console.log("videoDelete: fetching " + category, + ', ' + label + ', ' + videoId);
