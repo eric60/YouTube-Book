@@ -7,12 +7,31 @@ export default class VideoInserter {
         this.videoNum = videoNum;
     }
 
-    public insertVideos(categories) {
+
+    public insertCategoryDiv(categories) {
+        let divInsert = '#category-insert-before-me';
+
         categories.forEach(category => {
-            category.labels.forEach(label => {
-                this.insertVideoDiv(label, this.videoNum);
-            }); 
-         });
+            $(divInsert).before(`
+            <button class="category-btn" id="Category-${category}" >${category}</button>
+            <div class="${category}" id="Category-${category}">     
+              <div id = 'label-insert-before-me'></div>
+            </div>
+        `);
+        });
+    }
+
+    public insertLabelDiv(labels) {
+        let divInsert = '#label-insert-before-me';
+
+        labels.forEach(label => {
+            $(divInsert).before(`  
+              <button class="label-btn" id="Label-${label}">${label}</button>  
+                <div class="Label-Body" id="Label-Body-${label}">
+                    <div id = 'video-insert-before-me'></div>
+                </div>
+        `);
+        });
     }
     
 
@@ -28,11 +47,8 @@ export default class VideoInserter {
         let timestampNotes = `#video-${videoNum}-bm-`;
 
         $(divInsert).before(`
-            <div class="Label-Video" id="Web-Services-video1">
-            <h3 id="video-1-title-Web-Services-Video-1">Web services video 1</h3>   
-            
             <div class="panel-body">
-                <div class = "video-section" id="video-1"></div>
+                <div class = "video-section" id="video-${videoNum}"></div>
                 <div class="video-text">
                     <p class = "video-${videoNum}-category" id = "Category-${category}"></p>
                     <p class = "video-${videoNum}-label" id = "Label-${label}"></p>
@@ -80,10 +96,6 @@ export default class VideoInserter {
                     <button onClick="deleteVideo()" id ="delete-video">Delete</button>
                 </div>
             </div>
-            <!-- Video-1 Panel body end -->
-        </div>
         `);
     }
-
-
 }
