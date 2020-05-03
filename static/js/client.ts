@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
-    let videoInserter = new VideoInserter();
+    let videoInserter = new VideoInserter(1);
   
     
      // --------------------- TODO: Initial Screen Trigger -----------------
@@ -58,7 +58,9 @@ $(document).ready(function() {
          let label1 = labelVideos.videoData[0].videos;
          let label2 = labelVideos.videoData[1].videos;
         // TOTAL_VIDEO_CNT = label1.length + label2.length;
-        videoInserter.insertVideoDiv(1, 1);
+
+        //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
+        //videoInserter.insertVideoDiv(1);
      }
 
      // --------------------- Button trigger functions -------------------------
@@ -97,11 +99,11 @@ $(document).ready(function() {
         text: false  
      });
      
-     $( "#delete-video" ).click(function(videoNum : number) {  
+     $( "#delete-video" ).click(function(videoNum) {  
         confirm("Are you sure you want to delete this book?");
         let videoDeleteId = `#video-${videoNum}-submit-book`
         $(videoDeleteId).click(function() {
-            alert("Deleing book.");
+            alert("Deleting book.");
             videoUpdate(videoNum);
          })
         videoDelete(videoNum);
@@ -317,6 +319,8 @@ $(document).ready(function() {
 
             const resp = await postData(newUrl, data);
             const j = await resp.json();
+
+
 
             if (j['result'] !== 'error'){
                 console.log("Video created. Data: " + JSON.stringify(j));

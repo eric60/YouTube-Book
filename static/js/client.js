@@ -58,7 +58,7 @@ $(document).ready(function () {
     var videoWidth = dialogWidth * 0.85; // 1000
     var videoHeight = videoWidth * .5; // 500
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
-    var videoInserter = new VideoInserter_1["default"]();
+    var videoInserter = new VideoInserter_1["default"](1);
     // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT = 3;
     var OLD_BOOKMARK_CNT = 1;
@@ -81,7 +81,7 @@ $(document).ready(function () {
         var label1 = labelVideos.videoData[0].videos;
         var label2 = labelVideos.videoData[1].videos;
         // TOTAL_VIDEO_CNT = label1.length + label2.length;
-        videoInserter.insertVideoDiv(1, 1);
+        //videoInserter.insertVideoDiv(1);
     }
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
@@ -113,9 +113,14 @@ $(document).ready(function () {
         },
         text: false
     });
-    $("#delete-video").click(function () {
+    $("#delete-video").click(function (videoNum) {
         confirm("Are you sure you want to delete this book?");
-        videoDelete();
+        var videoDeleteId = "#video-" + videoNum + "-submit-book";
+        $(videoDeleteId).click(function () {
+            alert("Deleting book.");
+            videoUpdate(videoNum);
+        });
+        videoDelete(videoNum);
     });
     // ---------------------  init Video Data  -------------------------
     function initVideoData() {
@@ -394,17 +399,16 @@ $(document).ready(function () {
         }); })();
     }
     // video-1-delete-video
-    function videoDelete() {
+    function videoDelete(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var category, label, videoId, newURL, resp, j;
+            var category, label, newURL, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("---- in videoDelete ----");
-                        category = "someCategroy";
-                        label = "someLabel";
-                        videoId = "someID";
+                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
+                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
                         newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
                         console.log("videoDelete: fetching " + category, +', ' + label + ', ' + videoId);
                         return [4 /*yield*/, fetch(newURL)];

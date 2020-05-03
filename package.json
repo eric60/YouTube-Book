@@ -21,6 +21,7 @@
     "@types/jquery": "^3.3.35",
     "express": "^4.17.1",
     "faker": "^4.1.0",
+    "mongo": "^0.1.0",
     "mongodb": "^3.5.6"
   },
   "devDependencies": {

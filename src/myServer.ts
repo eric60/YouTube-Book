@@ -102,7 +102,7 @@ export class MyServer {
 
 	public async readVideo(username : string, category : string, label: string, response) : Promise<void> {
 		console.log("reading video...");
-		//await this.theDatabase.get(username, category, label);
+		await this.theDatabase.get(username); //can't be right, what does get() use as the key?
 
 		response.write(JSON.stringify(
 			{'result' : 'read',
@@ -134,14 +134,14 @@ export class MyServer {
 	}
 
 	public parseLabelVideos(videoObj : any) {
-		console.log("parsing usr obj");
+		console.log("parsing user obj");
 		let labelVideos = videoObj.categories[0].labels;
 		return labelVideos;
 	}
 
 	public async updateVideo(username : string, videoObj : object, response) : Promise<void> {
 		console.log("updating video...");
-		//await this.theDatabase.put(username, videoObj);
+		await this.theDatabase.put(username, videoObj);
 
 		response.write(JSON.stringify(
 			{
