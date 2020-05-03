@@ -81,7 +81,9 @@ $(document).ready(function () {
         var label1 = labelVideos.videoData[0].videos;
         var label2 = labelVideos.videoData[1].videos;
         // TOTAL_VIDEO_CNT = label1.length + label2.length;
-        //videoInserter.insertVideoDiv(1);
+        //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
+        videoInserter.insertLabelDiv("Databases");
+        videoInserter.insertVideoDiv(1);
     }
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
@@ -364,8 +366,9 @@ $(document).ready(function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
-                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
+                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9).replace(/-/g, " ");
+                        ;
+                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6).replace(/-/g, " ");
                         newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
                         notes = $("#video-" + videoNum + "-notes").val();
                         timestampDiv = "#video-" + videoNum + "-time-";

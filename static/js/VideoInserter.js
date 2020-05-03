@@ -26,8 +26,9 @@ var VideoInserter = /** @class */ (function () {
     VideoInserter.prototype.insertVideoDiv = function (videoNum) {
         //console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
         var divInsert = '#video-insert-before-me';
-        var category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
-        var label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
+        var category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9).replace(/-/g, " ");
+        ;
+        var label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6).replace(/-/g, " ");
         var notes = $("#video-" + videoNum + "-notes").val();
         var timestampDiv = "#video-" + videoNum + "-time-";
         var timestampNotes = "#video-" + videoNum + "-bm-";

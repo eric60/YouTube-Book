@@ -60,7 +60,8 @@ $(document).ready(function() {
         // TOTAL_VIDEO_CNT = label1.length + label2.length;
 
         //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
-        //videoInserter.insertVideoDiv(1);
+        videoInserter.insertLabelDiv("Databases");
+        videoInserter.insertVideoDiv(1);
      }
 
      // --------------------- Button trigger functions -------------------------
@@ -372,8 +373,8 @@ $(document).ready(function() {
 
     function videoUpdate(videoNum) {
         (async () => {
-            let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
-            let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
+            let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
+            let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
             const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
             let notes : any = $(`#video-${videoNum}-notes`).val();
             let timestampDiv = `#video-${videoNum}-time-`;

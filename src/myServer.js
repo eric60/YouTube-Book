@@ -149,18 +149,9 @@ var MyServer = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log("in deleteVideoHandler");
-                        videoObj = {
-                            "videoUrl": "https://www.youtube.com/watch?v=SfruceeKV54",
-                            "videoTitle": "calc1 video 1",
-                            "videoOrder": 2,
-                            "notes": "test- mongo notes",
-                            "bookmarks": [{
-                                    "timestamp": "00:01:10",
-                                    "timestampNotes": "hello hello 123"
-                                }]
-                        };
+                        videoObj = request.body.videoObj;
                         username = request.param['username'];
-                        console.log('------ username, video: ' + username + ', ' + videoObj);
+                        console.log('deleting ', videoObj);
                         return [4 /*yield*/, this.deleteVideo(username, videoObj, response)];
                     case 1:
                         _a.sent();
@@ -192,18 +183,23 @@ var MyServer = /** @class */ (function () {
     MyServer.prototype.readVideo = function (username, category, label, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log("reading video...");
-                //await this.theDatabase.get(username, category, label);
-                response.write(JSON.stringify({ 'result': 'read',
-                    'username': username,
-                    'category': category,
-                    'label': label,
-                    'title': faker.random.word() + " video",
-                    'notes': faker.random.words() + " video",
-                    'bookmarks': faker.date.recent() + " - " + faker.random.words() + ", " + faker.date.recent() + " - " + faker.random.words()
-                }));
-                response.end();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log("reading video...");
+                        return [4 /*yield*/, this.theDatabase.get(username)];
+                    case 1:
+                        _a.sent(); //can't be right, what does get() use as the key?
+                        response.write(JSON.stringify({ 'result': 'read',
+                            'username': username,
+                            'category': category,
+                            'label': label,
+                            'title': faker.random.word() + " video",
+                            'notes': faker.random.words() + " video",
+                            'bookmarks': faker.date.recent() + " - " + faker.random.words() + ", " + faker.date.recent() + " - " + faker.random.words()
+                        }));
+                        response.end();
+                        return [2 /*return*/];
+                }
             });
         });
     };
@@ -229,36 +225,46 @@ var MyServer = /** @class */ (function () {
         });
     };
     MyServer.prototype.parseLabelVideos = function (videoObj) {
-        console.log("parsing usr obj");
+        console.log("parsing user obj");
         var labelVideos = videoObj.categories[0].labels;
         return labelVideos;
     };
     MyServer.prototype.updateVideo = function (username, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log("updating video...");
-                //await this.theDatabase.put(username, videoObj);
-                response.write(JSON.stringify({
-                    'result': 'updated',
-                    'username': username,
-                    'updatedVideoData': videoObj
-                }));
-                response.end();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log("updating video...");
+                        return [4 /*yield*/, this.theDatabase.put(username, videoObj)];
+                    case 1:
+                        _a.sent();
+                        response.write(JSON.stringify({
+                            'result': 'updated',
+                            'username': username,
+                            'updatedVideoData': videoObj
+                        }));
+                        response.end();
+                        return [2 /*return*/];
+                }
             });
         });
     };
     MyServer.prototype.deleteVideo = function (username, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                console.log("deleting video");
-                // await this.theDatabase.del(videoObj);
-                response.write(JSON.stringify({ 'result': 'deleted',
-                    'username': username,
-                    'video': videoObj
-                }));
-                response.end();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log("deleting video");
+                        return [4 /*yield*/, this.theDatabase.del(username, videoObj)];
+                    case 1:
+                        _a.sent();
+                        response.write(JSON.stringify({ 'result': 'deleted',
+                            'username': username,
+                            'video': videoObj
+                        }));
+                        response.end();
+                        return [2 /*return*/];
+                }
             });
         });
     };
