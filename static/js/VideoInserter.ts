@@ -44,17 +44,8 @@ export default class VideoInserter {
 
         let divInsert = '#video-insert-before-me';
 
-        // let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
-        // let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
-
-        
-
-        let notes : any = $(`#video-${videoNum}-notes`).val();
-        let timestampDiv = `#video-${videoNum}-time-`;
-        let timestampNotes = `#video-${videoNum}-bm-`;
-
         $(divInsert).before(`
-            <h1>Hello!</h1>
+            <h1>Hello! ${videoNum} </h1>
             <div class="panel-body">
                 <div class = "video-section" id="video-${videoNum}"></div>
                 <div class="video-text">

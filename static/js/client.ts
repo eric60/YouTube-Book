@@ -34,7 +34,7 @@ $(document).ready(function() {
   
     
      // --------------------- TODO: Initial Screen Trigger -----------------
-     const TOTAL_VIDEO_CNT : number = 3;
+     let TOTAL_VIDEO_CNT : number;
    
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
@@ -42,6 +42,8 @@ $(document).ready(function() {
      let labelVideos;
      let videoPlayers : Array<any> = []
      let videoId = "XlvsJLer_No"
+
+     let label1Videos: Array<any>;
 
     /* 
         1) readAll data
@@ -59,12 +61,13 @@ $(document).ready(function() {
          console.log("--------- Label Videos Array ---------")
          console.log(labelVideos);
       
-         let label1Videos = labelVideos.videoData[0].videos; // 2 videos
-    
-
-        //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
-        // videoInserter.insertLabelDiv("Databases");
-        videoInserter.insertVideoDiv(2);
+        label1Videos = labelVideos.videoData[0].videos; // 2 videos
+        TOTAL_VIDEO_CNT = label1Videos.length;
+        
+        for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
+            videoInserter.insertVideoDiv(i);
+        }
+       
      }
 
     function initYtVideos() {
@@ -72,6 +75,7 @@ $(document).ready(function() {
             let divInsert = "video-" + i;
             console.log(divInsert)
             
+            // let videoId = 
             let lastVideo = false
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;

@@ -60,13 +60,14 @@ $(document).ready(function () {
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
     var videoInserter = new VideoInserter_1["default"](1);
     // --------------------- TODO: Initial Screen Trigger -----------------
-    var TOTAL_VIDEO_CNT = 3;
+    var TOTAL_VIDEO_CNT;
     var DIALOG_BOOKMARK_CNT = 1;
     var MAINPG_BOOKMARK_CNT = 2;
     var username = "eric";
     var labelVideos;
     var videoPlayers = [];
     var videoId = "XlvsJLer_No";
+    var label1Videos;
     /*
         1) readAll data
         2) videoInserter insert all html structures looping through
@@ -80,15 +81,17 @@ $(document).ready(function () {
     function processLabelVideos() {
         console.log("--------- Label Videos Array ---------");
         console.log(labelVideos);
-        var label1Videos = labelVideos.videoData[0].videos; // 2 videos
-        //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
-        // videoInserter.insertLabelDiv("Databases");
-        videoInserter.insertVideoDiv(2);
+        label1Videos = labelVideos.videoData[0].videos; // 2 videos
+        TOTAL_VIDEO_CNT = label1Videos.length;
+        for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
+            videoInserter.insertVideoDiv(i);
+        }
     }
     function initYtVideos() {
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             var divInsert = "video-" + i;
             console.log(divInsert);
+            // let videoId = 
             var lastVideo = false;
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;
