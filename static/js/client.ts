@@ -111,8 +111,9 @@ $(document).ready(function() {
             let oldBookmarks = currVideo.bookmarks;
             let oldNumBookmarks = currVideo.bookmarks.length;
 
-
-            $(`#video-${videoIdx}-notes`).val(notes);
+            let videoId = `#video-${videoIdx}-`
+            $(videoId + "title").text(videoTitle);
+            $(videoId + "notes").val(notes);
 
             addOldVideoBookmarks(videoIdx, oldNumBookmarks)
 

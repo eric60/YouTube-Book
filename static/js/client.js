@@ -117,7 +117,9 @@ $(document).ready(function () {
             var notes = currVideo.notes;
             var oldBookmarks = currVideo.bookmarks;
             var oldNumBookmarks = currVideo.bookmarks.length;
-            $("#video-" + videoIdx + "-notes").val(notes);
+            var videoId = "#video-" + videoIdx + "-";
+            $(videoId + "title").text(videoTitle);
+            $(videoId + "notes").val(notes);
             addOldVideoBookmarks(videoIdx, oldNumBookmarks);
             addNewVideoBookmarks(videoIdx, oldNumBookmarks);
             addVideoSubmitBtn(videoIdx);
