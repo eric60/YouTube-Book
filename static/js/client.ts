@@ -53,6 +53,7 @@ $(document).ready(function() {
 
      // --------------------
      function processLabelVideos() {
+         console.log("--------- Label Videos Array ---------")
          console.log(labelVideos);
       
          let label1 = labelVideos.videoData[0].videos;
