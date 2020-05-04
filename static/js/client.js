@@ -165,7 +165,7 @@ $(document).ready(function () {
         for (var i = 1; i < oldNumBookmarks + 1; i++) {
             addTimestampBtn(videoNum, i);
         }
-        addInitialNewBookmarkDiv(videoNum);
+        addInitialNewBookmarkDiv(videoNum, oldNumBookmarks + 1);
     }
     function addTimestampBtn(videoNum, bookmarkIdx) {
         // video-1-time-1
@@ -184,7 +184,11 @@ $(document).ready(function () {
             addTimeStamp(videoNum, timestampBtn, changedSeconds);
         });
     }
-    function addInitialNewBookmarkDiv(videoNum) {
+    function addInitialNewBookmarkDiv(videoNum, newBookmarkIdx) {
+        console.log("addInitialNewBookDiv for: " + videoNum);
+        var entryDiv = "#video-" + videoNum + "-new-bm";
+        var divAppend = "\n            <div class=\"boxTitle\"><b>Add New Bookmarks</b></div>\n                <button id=\"video-" + videoNum + "-link-" + newBookmarkIdx + "\" class=\"timestampBtn\" >hh:mm:ss</button>  \n                <input id=\"video-" + videoNum + "-time-" + newBookmarkIdx + "\" type='time' class=\"without_ampm\" value=\"00:00:00\" step=\"1\" required>  \n               \n                <div>\n                <textarea class=\"bookmark-notes\" id=\"video-" + videoNum + "-bm-" + newBookmarkIdx + "\" cols=\"35\"></textarea>\n                </div>\n\n                <button type=\"button\" id=\"video-" + videoNum + "-add-bookmark\" class=\"add-bookmark btn btn-primary\">Add New</button>\n            <div id=\"video-1-insert-before-me\"></div>\n         ";
+        $(entryDiv).append(divAppend);
     }
     // ------------------ New bookmarks ------------------------
     function addNewVideoBookmarks(videoNum, oldNumBookmarks) {

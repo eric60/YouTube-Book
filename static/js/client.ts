@@ -173,7 +173,7 @@ $(document).ready(function() {
         for (let i = 1; i < oldNumBookmarks + 1; i++) {
             addTimestampBtn(videoNum, i);
         }
-        addInitialNewBookmarkDiv(videoNum);
+        addInitialNewBookmarkDiv(videoNum, oldNumBookmarks + 1);
     }
 
     function addTimestampBtn(videoNum : number, bookmarkIdx : number) {
@@ -198,9 +198,26 @@ $(document).ready(function() {
     
     }   
 
-    function addInitialNewBookmarkDiv(videoNum : number) {
+    function addInitialNewBookmarkDiv(videoNum : number, newBookmarkIdx : number) {
+        console.log("addInitialNewBookDiv for: " + videoNum);
 
+        let entryDiv = `#video-${videoNum}-new-bm`
+
+        let divAppend = `
+            <div class="boxTitle"><b>Add New Bookmarks</b></div>
+                <button id="video-${videoNum}-link-${newBookmarkIdx}" class="timestampBtn" >hh:mm:ss</button>  
+                <input id="video-${videoNum}-time-${newBookmarkIdx}" type='time' class="without_ampm" value="00:00:00" step="1" required>  
+               
+                <div>
+                <textarea class="bookmark-notes" id="video-${videoNum}-bm-${newBookmarkIdx}" cols="35"></textarea>
+                </div>
+
+                <button type="button" id="video-${videoNum}-add-bookmark" class="add-bookmark btn btn-primary">Add New</button>
+            <div id="video-1-insert-before-me"></div>
+         `
+         $(entryDiv).append(divAppend);
     }
+    
 
     // ------------------ New bookmarks ------------------------
     function addNewVideoBookmarks(videoNum : number,  oldNumBookmarks: number) {

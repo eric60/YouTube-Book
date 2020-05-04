@@ -79,10 +79,10 @@ export default class VideoInserter {
                        ${bookmarksDiv}
                     </div>
 
-
+                    <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">
+                   
+                    </div>
                 
-
-                    
                     <div class="dialog-footer">
                         <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
                     </div>
