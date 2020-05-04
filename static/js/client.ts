@@ -160,8 +160,9 @@ $(document).ready(function() {
         text: false  
      });
      
-     $( "#delete-video" ).click(function(videoNum) {  
+     $( ".videoDeleteButtons" ).click(function() {  
         confirm("Are you sure you want to delete this book?");
+        let videoNum = 300;
         let videoDeleteId = `#video-${videoNum}-submit-book`
         $(videoDeleteId).click(function() {
             alert("Deleting book.");
