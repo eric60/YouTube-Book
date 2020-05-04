@@ -56,30 +56,43 @@ export default class VideoInserter {
     public insertVideoDiv(videoNum : number, oldNumBookmarks: number, videoId: string) {
         //console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
         this.videoNum = videoNum;
-        let divInsert = '#video-insert-before-me';
+        let divInsert = '.Label-Body';
         let bookmarksDiv : String = this.getBookmarksDiv(oldNumBookmarks);
 
-        $(divInsert).before(`
-            <h1>Hello! ${videoNum} </h1>
+        $(divInsert).append(`
+            <div class="Label-Video">
+                <h3 id="video-${videoNum}-title">Placeholder Title for ${videoNum}</h3>   
 
-            <div class="panel-body">
-                <div class = "video-section" id="video-${videoNum}"></div>
-                <p id="video-${videoNum}-vid" style="color:white;">${videoId}</p>
+                <div class="panel-body">
+                    <div class = "video-section" id="video-${videoNum}"></div>
+                    <p id="video-${videoNum}-vid" style="color:white;">${videoId}</p>
 
-                <div class="video-text">
-        
-                    <div class="dialog-notes">
-                    <label for="dialog-Notes" class="boxTitle">Notes</label> 
-                    <div>
-                        <textarea id="video-${videoNum}-notes" cols="35"></textarea>
-                    </div>           
-                    </div>
+                    <div class="video-text">
+            
+                        <div class="dialog-notes">
+                        <label for="dialog-Notes" class="boxTitle">Notes</label> 
+                        <div>
+                            <textarea id="video-${videoNum}-notes" cols="35"></textarea>
+                        </div>           
+                        </div>
 
-                    <div class="boxTitle"><b>Bookmarks</b></div>
+                        <div class="boxTitle"><b>Bookmarks</b></div>
 
-                    <div class="all-bookmarks">
-                    <div class="video-bookmarks">                        
-                       ${bookmarksDiv}
+                        <div class="all-bookmarks">
+                        <div class="video-bookmarks">                        
+                        ${bookmarksDiv}
+                        </div>
+
+                        <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">
+                    
+                        </div>
+                    
+                        <div class="dialog-footer">
+                            <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
+                        </div>
+                        </div>
+
+                        <button onClick="deleteVideo()" id ="delete-video">Delete</button>
                     </div>
 
                     <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">
