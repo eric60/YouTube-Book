@@ -44,19 +44,21 @@ export default class VideoInserter {
 
         let divInsert = '#video-insert-before-me';
 
-        let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
-        let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
+        // let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
+        // let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
+
+        
+
         let notes : any = $(`#video-${videoNum}-notes`).val();
         let timestampDiv = `#video-${videoNum}-time-`;
         let timestampNotes = `#video-${videoNum}-bm-`;
 
         $(divInsert).before(`
+            <h1>Hello!</h1>
             <div class="panel-body">
                 <div class = "video-section" id="video-${videoNum}"></div>
                 <div class="video-text">
-                    <p class = "video-${videoNum}-category" id = "Category-${category}"></p>
-                    <p class = "video-${videoNum}-label" id = "Label-${label}"></p>
-                    <p id = "videoNum-${videoNum}"></p>
+        
                     <div class="dialog-notes">
                     <label for="dialog-Notes" class="boxTitle">Notes</label> 
                     <div>
@@ -68,7 +70,6 @@ export default class VideoInserter {
 
                     <div class="all-bookmarks">
                     <div class="video-bookmarks">
-                        <!-- TODO TRENT UPDATE get data from fields on submit when edited-->
                         
                         <button id="video-${videoNum}-link-1" class="timestampBtn" >hh:mm:ss</button>  
 
@@ -80,7 +81,6 @@ export default class VideoInserter {
 
 
                     <div class="dialog-bookmarks">
-                        <!-- TODO TRENT UPDATE get data from fields on submit when edited-->  
                         <div class="boxTitle"><b>Add New Bookmarks</b></div>
                         <button id="video-${videoNum}-link-2" class="timestampBtn" >hh:mm:ss</button>  
                         <input id="video-${videoNum}-time-2" type='time' class="without_ampm" value="00:00:00" step="1" required>  

@@ -35,7 +35,7 @@ $(document).ready(function() {
     
      // --------------------- TODO: Initial Screen Trigger -----------------
      const TOTAL_VIDEO_CNT : number = 3;
-     let OLD_BOOKMARK_CNT = 1;
+   
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
      const username = "eric";
@@ -59,13 +59,12 @@ $(document).ready(function() {
          console.log("--------- Label Videos Array ---------")
          console.log(labelVideos);
       
-         let label1 = labelVideos.videoData[0].videos;
-         let label2 = labelVideos.videoData[1].videos;
-        // TOTAL_VIDEO_CNT = label1.length + label2.length;
+         let label1Videos = labelVideos.videoData[0].videos; // 2 videos
+    
 
         //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
-        videoInserter.insertLabelDiv("Databases");
-        videoInserter.insertVideoDiv(1);
+        // videoInserter.insertLabelDiv("Databases");
+        videoInserter.insertVideoDiv(2);
      }
 
     function initYtVideos() {
@@ -87,9 +86,11 @@ $(document).ready(function() {
         for (let videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
             console.log('------initvideodata for video ' + videoIdx)
 
-            addOldVideoBookmarks(videoIdx)
+            let oldNumBookmarks = 1;
 
-            addNewVideoBookmarks(videoIdx);
+            addOldVideoBookmarks(videoIdx, oldNumBookmarks)
+
+            addNewVideoBookmarks(videoIdx, oldNumBookmarks);
           
             addVideoSubmitBtn(videoIdx);
           
@@ -147,8 +148,8 @@ $(document).ready(function() {
   
   
 
-    function addOldVideoBookmarks(videoNum : number) {
-        for (let i = 1; i < OLD_BOOKMARK_CNT + 1; i++) {
+    function addOldVideoBookmarks(videoNum : number, oldNumBookmarks: number) {
+        for (let i = 1; i < oldNumBookmarks + 1; i++) {
             addTimestampBtn(videoNum, i);
         }
         addInitialNewBookmark(videoNum);
@@ -181,11 +182,11 @@ $(document).ready(function() {
     }
 
     // ------------------ New bookmarks ------------------------
-    function addNewVideoBookmarks(videoNum : number) {
+    function addNewVideoBookmarks(videoNum : number,  oldNumBookmarks: number) {
         let add_bookmark_div = `#video-${videoNum}-add-bookmark`
         // for video 1 we have old bookmark 1, start on bookmark 2
        
-        let newBookmarkIdx = OLD_BOOKMARK_CNT + 1;
+        let newBookmarkIdx =  oldNumBookmarks + 1;
 
         $(add_bookmark_div).click(function() {
             addNewBookmarkBtnAction(videoNum, newBookmarkIdx)

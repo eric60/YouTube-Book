@@ -61,7 +61,6 @@ $(document).ready(function () {
     var videoInserter = new VideoInserter_1["default"](1);
     // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT = 3;
-    var OLD_BOOKMARK_CNT = 1;
     var DIALOG_BOOKMARK_CNT = 1;
     var MAINPG_BOOKMARK_CNT = 2;
     var username = "eric";
@@ -72,7 +71,7 @@ $(document).ready(function () {
         1) readAll data
         2) videoInserter insert all html structures looping through
         3) checkYoutubePlayerReader
-            4) initYtData based on divs inserted
+            4) initYtVideos based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
      */
     readAll(processLabelVideos);
@@ -81,12 +80,10 @@ $(document).ready(function () {
     function processLabelVideos() {
         console.log("--------- Label Videos Array ---------");
         console.log(labelVideos);
-        var label1 = labelVideos.videoData[0].videos;
-        var label2 = labelVideos.videoData[1].videos;
-        // TOTAL_VIDEO_CNT = label1.length + label2.length;
+        var label1Videos = labelVideos.videoData[0].videos; // 2 videos
         //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
-        videoInserter.insertLabelDiv("Databases");
-        videoInserter.insertVideoDiv(1);
+        // videoInserter.insertLabelDiv("Databases");
+        videoInserter.insertVideoDiv(2);
     }
     function initYtVideos() {
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
@@ -104,8 +101,9 @@ $(document).ready(function () {
         // video-1, video-2
         for (var videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
             console.log('------initvideodata for video ' + videoIdx);
-            addOldVideoBookmarks(videoIdx);
-            addNewVideoBookmarks(videoIdx);
+            var oldNumBookmarks = 1;
+            addOldVideoBookmarks(videoIdx, oldNumBookmarks);
+            addNewVideoBookmarks(videoIdx, oldNumBookmarks);
             addVideoSubmitBtn(videoIdx);
         }
     }
@@ -149,8 +147,8 @@ $(document).ready(function () {
         videoDelete(videoNum);
     });
     // ---------------------  init Video Data  -------------------------
-    function addOldVideoBookmarks(videoNum) {
-        for (var i = 1; i < OLD_BOOKMARK_CNT + 1; i++) {
+    function addOldVideoBookmarks(videoNum, oldNumBookmarks) {
+        for (var i = 1; i < oldNumBookmarks + 1; i++) {
             addTimestampBtn(videoNum, i);
         }
         addInitialNewBookmark(videoNum);
@@ -175,10 +173,10 @@ $(document).ready(function () {
     function addInitialNewBookmark(videoNum) {
     }
     // ------------------ New bookmarks ------------------------
-    function addNewVideoBookmarks(videoNum) {
+    function addNewVideoBookmarks(videoNum, oldNumBookmarks) {
         var add_bookmark_div = "#video-" + videoNum + "-add-bookmark";
         // for video 1 we have old bookmark 1, start on bookmark 2
-        var newBookmarkIdx = OLD_BOOKMARK_CNT + 1;
+        var newBookmarkIdx = oldNumBookmarks + 1;
         $(add_bookmark_div).click(function () {
             addNewBookmarkBtnAction(videoNum, newBookmarkIdx);
         });
