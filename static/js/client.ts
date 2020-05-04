@@ -118,6 +118,8 @@ $(document).ready(function() {
             addNewVideoBookmarks(videoIdx, oldNumBookmarks);
           
             addVideoSubmitBtn(videoIdx);
+            
+            addDeleteButton(videoIdx);
           
         }
     }
@@ -159,16 +161,23 @@ $(document).ready(function() {
         text: false  
      });
      
-     $( ".videoDeleteButtons" ).click(function() {  
+     /*$( ".videoDeleteButtons" ).click(function() {  
         confirm("Are you sure you want to delete this book?");
         let videoNum = 300;
         let videoDeleteId = `#video-${videoNum}-submit-book`
         $(videoDeleteId).click(function() {
             alert("Deleting book.");
-            videoUpdate(videoNum);
+            videoDelete(videoNum);
+         });
+     }); */
+
+     function addDeleteButton(videoNum : number) { //main screen submit button routing function
+        let videoDeleteId = `#video-${videoNum}-delete-book`
+        $(videoDeleteId).click(function() {
+            alert("Book deleting...");
+            videoDelete(videoNum);
          })
-        videoDelete(videoNum);
-     });
+    }
  
 
     // ---------------------  init Video Data  -------------------------
