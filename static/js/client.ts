@@ -43,6 +43,7 @@ $(document).ready(function() {
      let videoPlayers : Array<any> = []
      let videoId = "XlvsJLer_No"
 
+
      let label1Videos: Array<any>;
 
     /* 
@@ -52,12 +53,13 @@ $(document).ready(function() {
             4) initYtVideos based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
      */
-     readAll(processLabelVideos);
+     readAll(processLabelVideosHtml);
 
      checkYoutubePlayerReady()
 
      // --------------------
-     function processLabelVideos() {
+
+     function processLabelVideosHtml() {
          console.log("--------- Label Videos Array ---------")
          console.log(labelVideos);
       
@@ -65,17 +67,22 @@ $(document).ready(function() {
         TOTAL_VIDEO_CNT = label1Videos.length;
         
         for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
-            videoInserter.insertVideoDiv(i);
+            let oldNumBookmarks = label1Videos[i-1].bookmarks.length;
+            console.log("----- processing labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
+            videoInserter.insertVideoDiv(i, oldNumBookmarks);
+
         }
-       
      }
 
     function initYtVideos() {
+        // Need to process all html first, then init yt players, then init video data
         for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             let divInsert = "video-" + i;
             console.log(divInsert)
             
-            // let videoId = 
+            let currVideoUrl = label1Videos[i-1].videoUrl
+            let videoId = parseYoutubeUrl(currVideoUrl)
+           
             let lastVideo = false
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;
@@ -89,8 +96,17 @@ $(document).ready(function() {
         // video-1, video-2
         for (let videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
             console.log('------initvideodata for video ' + videoIdx)
+            let currVideo = label1Videos[videoIdx-1];
+            console.log(currVideo);
+            
+            let videoTitle = currVideo.videoTitle;
+            let url = currVideo.videoUrl;
+            let notes = currVideo.notes;
+            let oldBookmarks = currVideo.bookmarks;
+            let oldNumBookmarks = currVideo.bookmarks.length;
 
-            let oldNumBookmarks = 1;
+
+            $(`#video-${videoIdx}-notes`).val(notes);
 
             addOldVideoBookmarks(videoIdx, oldNumBookmarks)
 
@@ -100,6 +116,7 @@ $(document).ready(function() {
           
         }
     }
+
 
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
@@ -118,10 +135,10 @@ $(document).ready(function() {
          videoRead();
      });
 
-     $('#readAllTestBtn').click(function() {
+  /*    $('#readAllTestBtn').click(function() {
         alert("All books read");
         readAll(processLabelVideos);
-    });
+    }); */
 
  
      $('.dialog-other').hide();
@@ -156,7 +173,7 @@ $(document).ready(function() {
         for (let i = 1; i < oldNumBookmarks + 1; i++) {
             addTimestampBtn(videoNum, i);
         }
-        addInitialNewBookmark(videoNum);
+        addInitialNewBookmarkDiv(videoNum);
     }
 
     function addTimestampBtn(videoNum : number, bookmarkIdx : number) {
@@ -181,7 +198,7 @@ $(document).ready(function() {
     
     }   
 
-    function addInitialNewBookmark(videoNum : number) {
+    function addInitialNewBookmarkDiv(videoNum : number) {
 
     }
 

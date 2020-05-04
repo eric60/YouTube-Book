@@ -75,28 +75,32 @@ $(document).ready(function () {
             4) initYtVideos based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
      */
-    readAll(processLabelVideos);
+    readAll(processLabelVideosHtml);
     checkYoutubePlayerReady();
     // --------------------
-    function processLabelVideos() {
+    function processLabelVideosHtml() {
         console.log("--------- Label Videos Array ---------");
         console.log(labelVideos);
         label1Videos = labelVideos.videoData[0].videos; // 2 videos
         TOTAL_VIDEO_CNT = label1Videos.length;
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
-            videoInserter.insertVideoDiv(i);
+            var oldNumBookmarks = label1Videos[i - 1].bookmarks.length;
+            console.log("----- processing labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
+            videoInserter.insertVideoDiv(i, oldNumBookmarks);
         }
     }
     function initYtVideos() {
+        // Need to process all html first, then init yt players, then init video data
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             var divInsert = "video-" + i;
             console.log(divInsert);
-            // let videoId = 
+            var currVideoUrl = label1Videos[i - 1].videoUrl;
+            var videoId_1 = parseYoutubeUrl(currVideoUrl);
             var lastVideo = false;
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;
             }
-            onYouTubeIframeAPIReady(null, i, divInsert, videoId, lastVideo);
+            onYouTubeIframeAPIReady(null, i, divInsert, videoId_1, lastVideo);
         }
         initVideoData();
     }
@@ -104,7 +108,14 @@ $(document).ready(function () {
         // video-1, video-2
         for (var videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
             console.log('------initvideodata for video ' + videoIdx);
-            var oldNumBookmarks = 1;
+            var currVideo = label1Videos[videoIdx - 1];
+            console.log(currVideo);
+            var videoTitle = currVideo.videoTitle;
+            var url_1 = currVideo.videoUrl;
+            var notes = currVideo.notes;
+            var oldBookmarks = currVideo.bookmarks;
+            var oldNumBookmarks = currVideo.bookmarks.length;
+            $("#video-" + videoIdx + "-notes").val(notes);
             addOldVideoBookmarks(videoIdx, oldNumBookmarks);
             addNewVideoBookmarks(videoIdx, oldNumBookmarks);
             addVideoSubmitBtn(videoIdx);
@@ -125,10 +136,10 @@ $(document).ready(function () {
         alert("Book read");
         videoRead();
     });
-    $('#readAllTestBtn').click(function () {
-        alert("All books read");
-        readAll(processLabelVideos);
-    });
+    /*    $('#readAllTestBtn').click(function() {
+          alert("All books read");
+          readAll(processLabelVideos);
+      }); */
     $('.dialog-other').hide();
     $('#dialog-url').bind("paste", function () {
         handlePaste(insertVideo);
@@ -154,7 +165,7 @@ $(document).ready(function () {
         for (var i = 1; i < oldNumBookmarks + 1; i++) {
             addTimestampBtn(videoNum, i);
         }
-        addInitialNewBookmark(videoNum);
+        addInitialNewBookmarkDiv(videoNum);
     }
     function addTimestampBtn(videoNum, bookmarkIdx) {
         // video-1-time-1
@@ -173,7 +184,7 @@ $(document).ready(function () {
             addTimeStamp(videoNum, timestampBtn, changedSeconds);
         });
     }
-    function addInitialNewBookmark(videoNum) {
+    function addInitialNewBookmarkDiv(videoNum) {
     }
     // ------------------ New bookmarks ------------------------
     function addNewVideoBookmarks(videoNum, oldNumBookmarks) {
@@ -530,9 +541,9 @@ $(document).ready(function () {
             alert("Please enter a valid YouTube Video URL");
         }
         else {
-            var videoId_1 = parseYoutubeUrl(url);
-            console.log(videoId_1);
-            onYouTubeIframeAPIReady(addPlayer, 0, "player1", videoId_1, false);
+            var videoId_2 = parseYoutubeUrl(url);
+            console.log(videoId_2);
+            onYouTubeIframeAPIReady(addPlayer, 0, "player1", videoId_2, false);
             $('.dialog-other').show();
         }
     }
