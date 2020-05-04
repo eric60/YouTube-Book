@@ -154,10 +154,8 @@ var Database = /** @class */ (function () {
                         url = videoObj.url;
                         title = videoObj.title;
                         console.log("\ndelete: username = " + username + ", title: " + title);
-                        return [4 /*yield*/, collection.deleteOne({ 'username': username,
-                                'categories.0.categoryName': category,
-                                'categories.0.labels': { $elemMatch: { "labelName": label } },
-                                'videoUrl': url
+                        return [4 /*yield*/, collection.deleteOne({ 'username': username, 'categories.0.categoryName': category,
+                                'categories.0.labels': { $elemMatch: { "labelName": label } } }, { 'categories.0.labels.$.videos': { $elemMatch: { "videoUrl": url } }
                             })];
                     case 1:
                         result = _a.sent();
