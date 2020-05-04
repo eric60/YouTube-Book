@@ -66,6 +66,8 @@ $(document).ready(function () {
     var MAINPG_BOOKMARK_CNT = 2;
     var username = "eric";
     var labelVideos;
+    var videoPlayers = [];
+    var videoId = "XlvsJLer_No";
     /*
         1) readAll data
         2) videoInserter insert all html structures looping through
@@ -77,6 +79,7 @@ $(document).ready(function () {
     checkYoutubePlayerReady();
     // --------------------
     function processLabelVideos() {
+        console.log("--------- Label Videos Array ---------");
         console.log(labelVideos);
         var label1 = labelVideos.videoData[0].videos;
         var label2 = labelVideos.videoData[1].videos;
@@ -84,6 +87,27 @@ $(document).ready(function () {
         //----------------- LINE BELOW CURRENTLY BREAKS PAGE BY INSERTING VIDEO ABOVE THE JQUERY ACCORDION------------------------
         videoInserter.insertLabelDiv("Databases");
         videoInserter.insertVideoDiv(1);
+    }
+    function initYtVideos() {
+        for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
+            var divInsert = "video-" + i;
+            console.log(divInsert);
+            var lastVideo = false;
+            if (i == TOTAL_VIDEO_CNT) {
+                lastVideo = true;
+            }
+            onYouTubeIframeAPIReady(null, i, divInsert, videoId, lastVideo);
+        }
+        initVideoData();
+    }
+    function initVideoData() {
+        // video-1, video-2
+        for (var videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
+            console.log('------initvideodata for video ' + videoIdx);
+            addOldVideoBookmarks(videoIdx);
+            addNewVideoBookmarks(videoIdx);
+            addVideoSubmitBtn(videoIdx);
+        }
     }
     // --------------------- Button trigger functions -------------------------
     $('#dialog-submit-book').click(function () {
@@ -125,15 +149,6 @@ $(document).ready(function () {
         videoDelete(videoNum);
     });
     // ---------------------  init Video Data  -------------------------
-    function initVideoData() {
-        // video-1, video-2
-        for (var videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
-            console.log('------initvideodata for video ' + videoIdx);
-            addOldVideoBookmarks(videoIdx);
-            addNewVideoBookmarks(videoIdx);
-            addVideoSubmitBtn(videoIdx);
-        }
-    }
     function addOldVideoBookmarks(videoNum) {
         for (var i = 1; i < OLD_BOOKMARK_CNT + 1; i++) {
             addTimestampBtn(videoNum, i);
@@ -545,20 +560,6 @@ $(document).ready(function () {
         else {
             setTimeout(checkYoutubePlayerReady, 100);
         }
-    }
-    var videoPlayers = [];
-    var videoId = "XlvsJLer_No";
-    function initYtVideos() {
-        for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
-            var divInsert = "video-" + i;
-            console.log(divInsert);
-            var lastVideo = false;
-            if (i == TOTAL_VIDEO_CNT) {
-                lastVideo = true;
-            }
-            onYouTubeIframeAPIReady(null, i, divInsert, videoId, lastVideo);
-        }
-        initVideoData();
     }
     // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
     function onYouTubeIframeAPIReady(player, videoPlayerIdx, divInsert, videoId, lastVideo) {

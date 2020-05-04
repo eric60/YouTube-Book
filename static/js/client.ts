@@ -40,11 +40,14 @@ $(document).ready(function() {
      let MAINPG_BOOKMARK_CNT = 2;
      const username = "eric";
      let labelVideos;
+     let videoPlayers : Array<any> = []
+     let videoId = "XlvsJLer_No"
+
     /* 
         1) readAll data
         2) videoInserter insert all html structures looping through
         3) checkYoutubePlayerReader
-            4) initYtData based on divs inserted
+            4) initYtVideos based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
      */
      readAll(processLabelVideos);
@@ -64,6 +67,34 @@ $(document).ready(function() {
         videoInserter.insertLabelDiv("Databases");
         videoInserter.insertVideoDiv(1);
      }
+
+    function initYtVideos() {
+        for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
+            let divInsert = "video-" + i;
+            console.log(divInsert)
+            
+            let lastVideo = false
+            if (i == TOTAL_VIDEO_CNT) {
+                lastVideo = true;
+            }
+            onYouTubeIframeAPIReady(null, i ,divInsert, videoId, lastVideo);
+        }
+        initVideoData();
+    }
+
+    function initVideoData() {
+        // video-1, video-2
+        for (let videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
+            console.log('------initvideodata for video ' + videoIdx)
+
+            addOldVideoBookmarks(videoIdx)
+
+            addNewVideoBookmarks(videoIdx);
+          
+            addVideoSubmitBtn(videoIdx);
+          
+        }
+    }
 
      // --------------------- Button trigger functions -------------------------
      $('#dialog-submit-book').click(function() {
@@ -114,19 +145,7 @@ $(document).ready(function() {
 
     // ---------------------  init Video Data  -------------------------
   
-    function initVideoData() {
-        // video-1, video-2
-        for (let videoIdx = 1; videoIdx < TOTAL_VIDEO_CNT + 1; videoIdx++) {
-            console.log('------initvideodata for video ' + videoIdx)
-
-            addOldVideoBookmarks(videoIdx)
-
-            addNewVideoBookmarks(videoIdx);
-          
-            addVideoSubmitBtn(videoIdx);
-          
-        }
-    }
+  
 
     function addOldVideoBookmarks(videoNum : number) {
         for (let i = 1; i < OLD_BOOKMARK_CNT + 1; i++) {
@@ -563,24 +582,7 @@ $(document).ready(function() {
     }
 
     
-    let videoPlayers : Array<any> = []
-    let videoId = "XlvsJLer_No"
-
-    function initYtVideos() {
-        for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
-            let divInsert = "video-" + i;
-            console.log(divInsert)
-            
-            let lastVideo = false
-            if (i == TOTAL_VIDEO_CNT) {
-                lastVideo = true;
-            }
-            onYouTubeIframeAPIReady(null, i ,divInsert, videoId, lastVideo);
-        }
-        initVideoData();
-    }
-
-
+    
     // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
     function onYouTubeIframeAPIReady(player : any, videoPlayerIdx: number, divInsert : string, videoId : string, lastVideo : boolean) {
         console.log('trigger youtube player')
