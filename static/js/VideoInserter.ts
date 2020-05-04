@@ -53,7 +53,7 @@ export default class VideoInserter {
         return div;
     }
 
-    public insertVideoDiv(videoNum : number, oldNumBookmarks: number) {
+    public insertVideoDiv(videoNum : number, oldNumBookmarks: number, videoId: string) {
         //console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
         this.videoNum = videoNum;
         let divInsert = '#video-insert-before-me';
@@ -61,8 +61,11 @@ export default class VideoInserter {
 
         $(divInsert).before(`
             <h1>Hello! ${videoNum} </h1>
+
             <div class="panel-body">
                 <div class = "video-section" id="video-${videoNum}"></div>
+                <p id="video-${videoNum}-vid" style="color:white;">${videoId}</p>
+
                 <div class="video-text">
         
                     <div class="dialog-notes">

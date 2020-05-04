@@ -66,11 +66,11 @@ $(document).ready(function () {
     var username = "eric";
     var labelVideos;
     var videoPlayers = [];
-    var videoId = "XlvsJLer_No";
     var label1Videos;
     /*
         1) readAll data
-        2) videoInserter insert all html structures looping through
+        2) processLabelVideosHtml -> videoInserter insert all html structures looping through
+
         3) checkYoutubePlayerReader
             4) initYtVideos based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
@@ -84,9 +84,11 @@ $(document).ready(function () {
         label1Videos = labelVideos.videoData[0].videos; // 2 videos
         TOTAL_VIDEO_CNT = label1Videos.length;
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
+            var currVideoUrl = label1Videos[i - 1].videoUrl;
+            var videoId = parseYoutubeUrl(currVideoUrl);
             var oldNumBookmarks = label1Videos[i - 1].bookmarks.length;
             console.log("----- processing labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
-            videoInserter.insertVideoDiv(i, oldNumBookmarks);
+            videoInserter.insertVideoDiv(i, oldNumBookmarks, videoId);
         }
     }
     function initYtVideos() {
@@ -95,12 +97,12 @@ $(document).ready(function () {
             var divInsert = "video-" + i;
             console.log(divInsert);
             var currVideoUrl = label1Videos[i - 1].videoUrl;
-            var videoId_1 = parseYoutubeUrl(currVideoUrl);
+            var videoId = parseYoutubeUrl(currVideoUrl);
             var lastVideo = false;
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;
             }
-            onYouTubeIframeAPIReady(null, i, divInsert, videoId_1, lastVideo);
+            onYouTubeIframeAPIReady(null, i, divInsert, videoId, lastVideo);
         }
         initVideoData();
     }
@@ -393,10 +395,12 @@ $(document).ready(function () {
     function videoUpdate(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var category, label, newURL, notes, timestampDiv, timestampNotes, bookmarks, data, resp, j;
+            var videoId, category, label, newURL, notes, timestampDiv, timestampNotes, bookmarks, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        videoId = $("#video-" + videoNum + "-vid").text();
+                        console.log("----------- Video Id: " + videoId + " for : " + videoNum);
                         category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9).replace(/-/g, " ");
                         ;
                         label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6).replace(/-/g, " ");
@@ -436,11 +440,13 @@ $(document).ready(function () {
     function videoDelete(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var category, label, newURL, resp, j;
+            var videoId, category, label, newURL, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("---- in videoDelete ----");
+                        videoId = $("#video-" + videoNum + "-vid").text();
+                        console.log("----------- Video Id: " + videoId + " for : " + videoNum);
                         category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
                         label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
                         newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
@@ -545,9 +551,9 @@ $(document).ready(function () {
             alert("Please enter a valid YouTube Video URL");
         }
         else {
-            var videoId_2 = parseYoutubeUrl(url);
-            console.log(videoId_2);
-            onYouTubeIframeAPIReady(addPlayer, 0, "player1", videoId_2, false);
+            var videoId = parseYoutubeUrl(url);
+            console.log(videoId);
+            onYouTubeIframeAPIReady(addPlayer, 0, "player1", videoId, false);
             $('.dialog-other').show();
         }
     }

@@ -41,14 +41,15 @@ $(document).ready(function() {
      const username = "eric";
      let labelVideos;
      let videoPlayers : Array<any> = []
-     let videoId = "XlvsJLer_No"
+ 
 
 
      let label1Videos: Array<any>;
 
     /* 
         1) readAll data
-        2) videoInserter insert all html structures looping through
+        2) processLabelVideosHtml -> videoInserter insert all html structures looping through
+
         3) checkYoutubePlayerReader
             4) initYtVideos based on divs inserted
             5) initVideoData - title, notes, bookmarks showing
@@ -66,10 +67,15 @@ $(document).ready(function() {
         label1Videos = labelVideos.videoData[0].videos; // 2 videos
         TOTAL_VIDEO_CNT = label1Videos.length;
         
+
         for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
+            let currVideoUrl = label1Videos[i-1].videoUrl
+            let videoId = parseYoutubeUrl(currVideoUrl)
+
+
             let oldNumBookmarks = label1Videos[i-1].bookmarks.length;
             console.log("----- processing labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
-            videoInserter.insertVideoDiv(i, oldNumBookmarks);
+            videoInserter.insertVideoDiv(i, oldNumBookmarks, videoId);
 
         }
      }
@@ -432,6 +438,10 @@ $(document).ready(function() {
 
     function videoUpdate(videoNum) {
         (async () => {
+
+            let videoId = $(`#video-${videoNum}-vid`).text();
+            console.log("----------- Video Id: " + videoId + " for : " + videoNum);
+
             let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
             let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
             const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
@@ -465,7 +475,8 @@ $(document).ready(function() {
         (async() => {
 
             console.log("---- in videoDelete ----");
-
+            let videoId = $(`#video-${videoNum}-vid`).text();
+            console.log("----------- Video Id: " + videoId + " for : " + videoNum);
 
             let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
             let label : string = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
