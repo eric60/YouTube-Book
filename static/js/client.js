@@ -70,10 +70,9 @@ $(document).ready(function () {
     /*
         1) readAll data
         2) processLabelVideosHtml -> videoInserter insert all html structures looping through
-
         3) checkYoutubePlayerReader
-            4) initYtVideos based on divs inserted
-            5) initVideoData - title, notes, bookmarks showing
+        4) initYtVideos based on divs inserted
+        5) initVideoData - title, notes, bookmarks showing
      */
     readAll(processLabelVideosHtml);
     checkYoutubePlayerReady();
@@ -92,7 +91,8 @@ $(document).ready(function () {
         }
     }
     function initYtVideos() {
-        // Need to process all html first, then init yt players, then init video data
+        // Need to process all html first, then init yt players, then init video data due to having to load all yt videos 
+        // before the accordion can load. This is why we are duplicating our for loops multiple times.
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             var divInsert = "video-" + i;
             console.log(divInsert);
@@ -560,6 +560,9 @@ $(document).ready(function () {
         }
     }
     function parseYoutubeUrl(url) {
+        if (!url) {
+            throw "url null";
+        }
         var regEx = /v=([^&]+)/;
         var match = url.match(regEx);
         console.log(match);

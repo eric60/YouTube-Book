@@ -80,7 +80,7 @@ export default class VideoInserter {
 
                         <div class="all-bookmarks">
                         <div class="video-bookmarks">                        
-                        ${bookmarksDiv}
+                            ${bookmarksDiv}
                         </div>
 
                         <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">
