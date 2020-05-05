@@ -251,6 +251,7 @@ $(document).ready(function() {
             <div id="video-${videoNum}-insert-before-me"></div>
          `
          $(entryDiv).append(divAppend);
+         addTimestampBtn(videoNum, newBookmarkIdx);
     }
     
 
@@ -295,6 +296,7 @@ $(document).ready(function() {
                 <button type="button" id="video-${videoNum}-add-bookmark" class="add-bookmark btn btn-primary">Add New</button>
             </div>
         `);
+        addTimestampBtn(videoNum, bookmarkCnt);
         $(addBookmarkBtnDiv).click(function() {
             addNewBookmarkBtnAction(videoNum, bookmarkCnt)
         })
