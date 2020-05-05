@@ -54,8 +54,7 @@ public async putUpdate(username: string, videoObj) : Promise<void> {
     let db = this.client.db(this.dbName);
     let collection = db.collection(this.collectionName);
 
-    let category = videoObj.category;
-    let label = videoObj.label;
+    console.log("Updating for: " + username);
 
     let insertVideoObj = {
         videoUrl: videoObj.videoUrl,
@@ -65,15 +64,13 @@ public async putUpdate(username: string, videoObj) : Promise<void> {
         bookmarks: videoObj.bookmarks
     }
 
-    console.log("\nputUpdate: username = " + username + ", label: " + label + ", video URL: " + videoObj.videoUrl);
-    let result = await collection.updateOne({'username': username, 
-                                            'categories.0.categoryName' : category, 
-                                            'categories.0.labels' : {$elemMatch: {"labelName" : label}}}, 
-                                            {$set: {'categories.0.labels.$.videos.0': insertVideoObj}}, 
-                                            {'upsert' : true});
+    let result = await collection.updateOne({'username': username, 	   
+                                            'categories.0.labels.0.videos' : {$elemMatch: {"videoUrl" : videoObj.videoUrl }}}, 
+                                            {$set: {'categories.0.labels.0.videos.$': insertVideoObj}}
+                                            )
 
                                             
-    console.log("\nresult = " + result);
+    console.log("\nUpdate result = " + result);
 }
 
 public async getAll(username: string) : Promise<string> {

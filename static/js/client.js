@@ -62,7 +62,6 @@ $(document).ready(function () {
     // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT;
     var DIALOG_BOOKMARK_CNT = 1;
-    var MAINPG_BOOKMARK_CNT = 2;
     var username = 'productionUser2';
     var labelVideos;
     var videoPlayers = [];
@@ -82,17 +81,21 @@ $(document).ready(function () {
         console.log(labelVideos);
         label1Videos = labelVideos.videoData[0].videos; // 2 videos
         TOTAL_VIDEO_CNT = label1Videos.length;
+        console.log("TOTAL_VIDEO_CNT: " + TOTAL_VIDEO_CNT);
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             var currVideoUrl = label1Videos[i - 1].videoUrl;
-            var videoId = parseYoutubeUrl(currVideoUrl);
+            if (!currVideoUrl) {
+                continue;
+            }
             var oldNumBookmarks = label1Videos[i - 1].bookmarks.length;
-            console.log("----- processing labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
-            videoInserter.insertVideoDiv(i, oldNumBookmarks, videoId);
+            console.log("----- Inserting labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
+            videoInserter.insertVideoDiv(i, oldNumBookmarks, currVideoUrl);
         }
     }
     function initYtVideos() {
         // Need to process all html first, then init yt players, then init video data due to having to load all yt videos 
         // before the accordion can load. This is why we are duplicating our for loops multiple times.
+        console.log("In initYtVideos()");
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             var divInsert = "video-" + i;
             console.log(divInsert);
@@ -419,19 +422,19 @@ $(document).ready(function () {
     function videoUpdate(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoId, category, label, videoTitle, videoURL, newURL, notes, bookmarks, data, resp, j;
+            var htmlVideoUrl, category, label, videoTitle, videoURL, newURL, notes, bookmarks, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        videoId = $("#video-" + videoNum + "-vid").text();
-                        console.log("----------- Video Id: " + videoId + " for video number: " + videoNum);
+                        htmlVideoUrl = $("#video-" + videoNum + "-vid").text();
+                        console.log("----------- Video Id: " + htmlVideoUrl + " for video number: " + videoNum);
                         category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
                         label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
                         videoTitle = $("#video-" + videoNum + "-title").text();
-                        videoURL = "https://www.youtube.com/watch?v=" + videoId;
+                        videoURL = htmlVideoUrl;
                         console.log("VIDEO TITLE: " + videoTitle);
                         console.log("VIDEO URL: " + videoURL);
-                        newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
+                        newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label + '&videoId=' + videoURL;
                         notes = $("#video-" + videoNum + "-notes").val();
                         bookmarks = [];
                         data = {
@@ -453,7 +456,7 @@ $(document).ready(function () {
                         j = _a.sent();
                         if (j['result'] !== 'error') {
                             console.log("Video updated. Data: " + JSON.stringify(j));
-                            videoInserter.insertVideoDiv(videoNum, 0, videoId);
+                            // videoInserter.insertVideoDiv(videoNum, 0, htmlVideoUrl);
                         }
                         else {
                             console.log("Error. video not updated");
@@ -600,7 +603,7 @@ $(document).ready(function () {
     }
     function parseYoutubeUrl(url) {
         if (!url) {
-            throw "url null";
+            return null;
         }
         var regEx = /v=([^&]+)/;
         var match = url.match(regEx);

@@ -53,8 +53,8 @@ export default class VideoInserter {
         return div;
     }
 
-    public insertVideoDiv(videoNum : number, oldNumBookmarks: number, videoId: string) {
-        //console.log("Inserting labelNum: " + labelNum + ", videoNum: " + videoNum);
+    public insertVideoDiv(videoNum : number, oldNumBookmarks: number, videoUrl: string) {
+        console.log("In Video Inserter insertVideoDiv for: " + videoNum);
         this.videoNum = videoNum;
         let divInsert = '.Label-Body';
         let bookmarksDiv : String = this.getBookmarksDiv(oldNumBookmarks);
@@ -65,7 +65,7 @@ export default class VideoInserter {
 
                 <div class="panel-body">
                     <div class = "video-section" id="video-${videoNum}"></div>
-                    <p id="video-${videoNum}-vid" style="color:white;">${videoId}</p>
+                    <p id="video-${videoNum}-vid" style="color:white;">${videoUrl}</p>
 
                     <div class="video-text">            
                         <div class="dialog-notes">
