@@ -39,7 +39,7 @@ $(document).ready(function() {
      let DIALOG_BOOKMARK_CNT= 1;
 
 
-     const username = 'productionUser2';
+     const username = 'productionUser11';
      let labelVideos;
      let videoPlayers : Array<any> = []
      let label1Videos: Array<any>;
@@ -503,36 +503,33 @@ $(document).ready(function() {
 
             if (j['result'] !== 'error'){
                 console.log("Video updated. Data: " + JSON.stringify(j));
-                // videoInserter.insertVideoDiv(videoNum, 0, htmlVideoUrl);
             } else {
                 console.log("Error. video not updated");
             }
             })();
     }
-
     // video-1-delete-video
     function videoDelete(videoNum) {
         (async() => {
 
-            console.log("---- in videoDelete ----");
-            let videoId = $(`#video-${videoNum}-vid`).text();
-            console.log("----------- Video Id: " + videoId + " for : " + videoNum);
+            let videoURL = $(`#video-${videoNum}-vid`).text(); //gets URL of the video in question
+            console.log("----------- Video Id: " + videoURL + " for video number: " + videoNum);
 
+            const newURL : string = url + "/video" + `/${username}` + "/delete?videoId=" + videoURL;
 
-            const newURL : string = url + "/video" + `/${username}` + "/delete?" + '&videoId=' + videoId;
-            
-            console.log("videoDelete: fetching " + videoId);
-
-            const data = {}
-            
+            const data = {
+                videoObj: {
+                    videoUrl : videoURL
+                }
+            }
+            console.log(data);
             const resp = await postData(newURL, data);
             const j = await resp.json();
 
             if (j['result'] !== 'error'){
-                console.log("Video deleted. Data: " + JSON.stringify(j));
-                document.getElementById("outputText").innerHTML = "Success; video deleted. Data: " + JSON.stringify(j); 
+                console.log("Video updated. Data: " + JSON.stringify(j));
             } else {
-                document.getElementById("outputText").innerHTML = "Error; video not deleted."
+                console.log("Error. video not updated");
             }
             })();
     }

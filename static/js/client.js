@@ -62,7 +62,7 @@ $(document).ready(function () {
     // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT;
     var DIALOG_BOOKMARK_CNT = 1;
-    var username = 'productionUser2';
+    var username = 'productionUser11';
     var labelVideos;
     var videoPlayers = [];
     var label1Videos;
@@ -458,7 +458,6 @@ $(document).ready(function () {
                         j = _a.sent();
                         if (j['result'] !== 'error') {
                             console.log("Video updated. Data: " + JSON.stringify(j));
-                            // videoInserter.insertVideoDiv(videoNum, 0, htmlVideoUrl);
                         }
                         else {
                             console.log("Error. video not updated");
@@ -472,16 +471,19 @@ $(document).ready(function () {
     function videoDelete(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoId, newURL, data, resp, j;
+            var videoURL, newURL, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("---- in videoDelete ----");
-                        videoId = $("#video-" + videoNum + "-vid").text();
-                        console.log("----------- Video Id: " + videoId + " for : " + videoNum);
-                        newURL = url + "/video" + ("/" + username) + "/delete?" + '&videoId=' + videoId;
-                        console.log("videoDelete: fetching " + videoId);
-                        data = {};
+                        videoURL = $("#video-" + videoNum + "-vid").text();
+                        console.log("----------- Video Id: " + videoURL + " for video number: " + videoNum);
+                        newURL = url + "/video" + ("/" + username) + "/delete?videoId=" + videoURL;
+                        data = {
+                            videoObj: {
+                                videoUrl: videoURL
+                            }
+                        };
+                        console.log(data);
                         return [4 /*yield*/, postData(newURL, data)];
                     case 1:
                         resp = _a.sent();
@@ -489,11 +491,10 @@ $(document).ready(function () {
                     case 2:
                         j = _a.sent();
                         if (j['result'] !== 'error') {
-                            console.log("Video deleted. Data: " + JSON.stringify(j));
-                            document.getElementById("outputText").innerHTML = "Success; video deleted. Data: " + JSON.stringify(j);
+                            console.log("Video updated. Data: " + JSON.stringify(j));
                         }
                         else {
-                            document.getElementById("outputText").innerHTML = "Error; video not deleted.";
+                            console.log("Error. video not updated");
                         }
                         return [2 /*return*/];
                 }

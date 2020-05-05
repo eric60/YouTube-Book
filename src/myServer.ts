@@ -81,12 +81,13 @@ export class MyServer {
 	private async deleteVideoHandler(request, response) : Promise<void> {
 		console.log("in deleteVideoHandler")
 		// get video object from front end
-		let videoObj = request.body.videoObj;
+		//let videoObj = request.body.videoObj;
 		
-		let username = request.param['username'];
-		let videoId = request.params['videoId'];
-		console.log('deleting ', videoObj);
-		await this.deleteVideo(username, videoId, videoObj, response);
+		let username = request.params['username'];
+		let videoId = request.body.videoObj.videoUrl;
+		console.log("delvideoHandler username: " + username);
+		console.log("delvideoHandler videoId: " + videoId);
+		await this.deleteVideo(username, videoId, response);
     }
 ​
    // ---------------------------- CRUD functions -------------------------------------
@@ -159,8 +160,8 @@ export class MyServer {
 		response.end();
 	}
 	
-	public async deleteVideo(username: string, videoId : string, videoObj: object, response) : Promise<void> {
-		console.log("deleting video")
+	public async deleteVideo(username: string, videoId : string, response) : Promise<void> {
+		console.log("deleting video. Username: " + username);
 		await this.theDatabase.del(username, videoId);
 
 		console.log('DELETED VID');
@@ -168,7 +169,6 @@ export class MyServer {
 						{'result' : 'deleted',
 						'username' : username,
 						'videoId' : videoId,
-						'videoObj' : videoObj
 						}));
 		response.end();
     }

@@ -176,14 +176,13 @@ var Database = /** @class */ (function () {
                         db = this.client.db(this.dbName);
                         collection = db.collection(this.collectionName);
                         console.log("\ndelete: username = " + username);
-                        return [4 /*yield*/, collection.updateOne({ 'username': 'productionUser2',
-                                'categories.0.categoryName': 'Coding',
-                                'categories.0.labels': { $elemMatch: { "labelName": 'Web Services' } } }, { $unset: { 'categories.0.labels.$.videos.0': "" } }, { 'upsert': true })];
+                        //had to hardcode some fields here, issues with matching. There's a problem with our variable values
+                        console.log("DB del Video URL: " + videoId);
+                        return [4 /*yield*/, collection.updateOne({ 'username': username,
+                                'categories.0.labels.0.videos': { $elemMatch: { "videoUrl": videoId } } }, { $unset: { 'categories.0.labels.0.videos.$': "" } }, { 'upsert': true })];
                     case 1:
                         result = _a.sent();
-                        return [4 /*yield*/, collection.updateOne({ 'username': 'productionUser2',
-                                'categories.0.categoryName': 'Coding',
-                                'categories.0.labels': { $elemMatch: { "labelName": 'Web Services' } } }, { $pull: { 'categories.0.labels.$.videos': null } }, { 'upsert': true })];
+                        return [4 /*yield*/, collection.updateOne({ 'username': username }, { $pull: { 'categories.0.labels.0.videos': null } }, { 'upsert': true })];
                     case 2:
                         _a.sent();
                         console.log("\nresult = " + result);
