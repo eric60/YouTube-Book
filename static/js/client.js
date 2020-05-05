@@ -63,7 +63,7 @@ $(document).ready(function () {
     var TOTAL_VIDEO_CNT;
     var DIALOG_BOOKMARK_CNT = 1;
     var MAINPG_BOOKMARK_CNT = 2;
-    var username = "trent";
+    var username = 'productionUser2';
     var labelVideos;
     var videoPlayers = [];
     var label1Videos;
@@ -183,6 +183,7 @@ $(document).ready(function () {
         $(videoDeleteId).click(function () {
             alert("Book deleting...");
             videoDelete(videoNum);
+            window.location.reload();
         });
     }
     // ---------------------  init Video Data  -------------------------
@@ -247,7 +248,7 @@ $(document).ready(function () {
         $(videoSubmitId).click(function () {
             alert("Book updating...");
             videoUpdate(videoNum);
-            window.location.reload;
+            window.location.reload();
         });
     }
     // ------- helper functions for Video add bookmark ---------
@@ -466,18 +467,32 @@ $(document).ready(function () {
     function videoDelete(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoId, category, label, newURL, resp, j;
+            var videoId, category, label, videoTitle, videoURL, notes, bookmarks, newURL, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("---- in videoDelete ----");
                         videoId = $("#video-" + videoNum + "-vid").text();
                         console.log("----------- Video Id: " + videoId + " for : " + videoNum);
-                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
-                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
+                        category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
+                        label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
+                        videoTitle = $("#video-" + videoNum + "-title").text();
+                        videoURL = "https://www.youtube.com/watch?v=" + videoId;
+                        notes = $("#video-" + videoNum + "-notes").val();
+                        bookmarks = [];
                         newURL = url + "/video" + ("/" + username) + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
                         console.log("videoDelete: fetching " + category, +', ' + label + ', ' + videoId);
-                        return [4 /*yield*/, fetch(newURL)];
+                        data = {
+                            videoObj: {
+                                category: category,
+                                label: label,
+                                title: videoTitle,
+                                videoUrl: videoURL,
+                                bookmarks: bookmarks,
+                                notes: notes
+                            }
+                        };
+                        return [4 /*yield*/, postData(newURL, data)];
                     case 1:
                         resp = _a.sent();
                         return [4 /*yield*/, resp.json()];

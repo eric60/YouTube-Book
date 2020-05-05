@@ -39,7 +39,7 @@ $(document).ready(function() {
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
 
-     const username = "trent";
+     const username = 'productionUser2';
      let labelVideos;
      let videoPlayers : Array<any> = []
      let label1Videos: Array<any>;
@@ -190,6 +190,7 @@ $(document).ready(function() {
         $(videoDeleteId).click(function() {
             alert("Book deleting...");
             videoDelete(videoNum);
+            window.location.reload();
          })
     }
  
@@ -300,7 +301,7 @@ $(document).ready(function() {
         $(videoSubmitId).click(function() {
             alert("Book updating...");
             videoUpdate(videoNum);
-            window.location.reload;
+            window.location.reload();
          })
     }
 
@@ -509,14 +510,32 @@ $(document).ready(function() {
             let videoId = $(`#video-${videoNum}-vid`).text();
             console.log("----------- Video Id: " + videoId + " for : " + videoNum);
 
-            let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
-            let label : string = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
+            let category = $(`.Category`).attr('id').substring(9).replace(/-/g, " "); //gets category of the video in question
+            let label = $(`.label-btn`).attr('id').substring(6).replace(/-/g, " "); //gets label of the video in question
+            let videoTitle = $(`#video-${videoNum}-title`).text();
+            let videoURL = "https://www.youtube.com/watch?v=" + videoId;
+
+            let notes : any = $(`#video-${videoNum}-notes`).val();
+           // let timestampDiv = `#video-${videoNum}-time-`;
+           // let timestampNotes = `#video-${videoNum}-bm-`;
+           let bookmarks : Array<Object> = [];
            
             const newURL : string = url + "/video" + `/${username}` + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
             
             console.log("videoDelete: fetching " + category, + ', ' + label + ', ' + videoId);
+
+            const data = {
+                videoObj: {
+                    category: category,
+                    label: label,
+                    title : videoTitle,
+                    videoUrl : videoURL,
+                    bookmarks: bookmarks,
+                    notes: notes,
+                }
+            }
             
-            const resp = await fetch(newURL);
+            const resp = await postData(newURL, data);
             const j = await resp.json();
 
             if (j['result'] !== 'error'){

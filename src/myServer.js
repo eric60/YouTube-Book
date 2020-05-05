@@ -146,15 +146,16 @@ var MyServer = /** @class */ (function () {
     };
     MyServer.prototype.deleteVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var videoObj, username;
+            var videoObj, username, videoId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("in deleteVideoHandler");
                         videoObj = request.body.videoObj;
                         username = request.param['username'];
+                        videoId = request.params['videoId'];
                         console.log('deleting ', videoObj);
-                        return [4 /*yield*/, this.deleteVideo(username, videoObj, response)];
+                        return [4 /*yield*/, this.deleteVideo(username, videoId, videoObj, response)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -253,7 +254,7 @@ var MyServer = /** @class */ (function () {
             });
         });
     };
-    MyServer.prototype.deleteVideo = function (username, videoObj, response) {
+    MyServer.prototype.deleteVideo = function (username, videoId, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -262,9 +263,11 @@ var MyServer = /** @class */ (function () {
                         return [4 /*yield*/, this.theDatabase.del(username, videoObj)];
                     case 1:
                         _a.sent();
+                        console.log('DELETED VID');
                         response.write(JSON.stringify({ 'result': 'deleted',
                             'username': username,
-                            'video': videoObj
+                            'videoId': videoId,
+                            'videoObj': videoObj
                         }));
                         response.end();
                         return [2 /*return*/];

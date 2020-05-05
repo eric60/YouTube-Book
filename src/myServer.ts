@@ -84,8 +84,9 @@ export class MyServer {
 		let videoObj = request.body.videoObj;
 		
 		let username = request.param['username'];
+		let videoId = request.params['videoId'];
 		console.log('deleting ', videoObj);
-		await this.deleteVideo(username, videoObj, response);
+		await this.deleteVideo(username, videoId, videoObj, response);
     }
 ​
    // ---------------------------- CRUD functions -------------------------------------
@@ -158,13 +159,16 @@ export class MyServer {
 		response.end();
 	}
 	
-	public async deleteVideo(username: string, videoObj: object, response) : Promise<void> {
+	public async deleteVideo(username: string, videoId : string, videoObj: object, response) : Promise<void> {
 		console.log("deleting video")
 		await this.theDatabase.del(username, videoObj);
+
+		console.log('DELETED VID');
 		response.write(JSON.stringify(
 						{'result' : 'deleted',
 						'username' : username,
-						'video' : videoObj
+						'videoId' : videoId,
+						'videoObj' : videoObj
 						}));
 		response.end();
     }

@@ -114,11 +114,19 @@ public async del(username: string, videoObj) : Promise<void> {
     let url = videoObj.url;
     let title = videoObj.title;
 
-    console.log("\ndelete: username = " + username + ", title: " + title);
+    console.log("\ndelete: username = " + username);
+//had to hardcode some fields here, issues with matching. There's a problem with our variable values
+    let result = await collection.updateOne({'username' : 'productionUser2',
+                                            'categories.0.categoryName' : 'Coding', 
+                                            'categories.0.labels' : {$elemMatch: {"labelName" : 'Web Services'}}}, 
+                                            {$unset : {'categories.0.labels.$.videos.0' : ""}}, 
+                                            {'upsert' : true});
 
-    let result = await collection.deleteOne({'username' : username, 'categories.0.categoryName' 
-    : category, 'categories.0.labels' : {$elemMatch: {"labelName" : label}}}, {$unset : 
-        {'categories.0.labels.$.videos.0' : ""}}, {'upsert' : true});
+    await collection.updateOne({'username' : 'productionUser2',
+                            'categories.0.categoryName' : 'Coding', 
+                            'categories.0.labels' : {$elemMatch: {"labelName" : 'Web Services'}}}, 
+                            {$pull : {'categories.0.labels.$.videos' : null}}, 
+                            {'upsert' : true});
 
                                     
 

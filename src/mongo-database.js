@@ -182,10 +182,17 @@ var Database = /** @class */ (function () {
                         label = videoObj.label;
                         url = videoObj.url;
                         title = videoObj.title;
-                        console.log("\ndelete: username = " + username + ", title: " + title);
-                        return [4 /*yield*/, collection.deleteOne({ 'username': username, 'categories.0.categoryName': category, 'categories.0.labels': { $elemMatch: { "labelName": label } } }, { $unset: { 'categories.0.labels.$.videos.0': "" } }, { 'upsert': true })];
+                        console.log("\ndelete: username = " + username);
+                        return [4 /*yield*/, collection.updateOne({ 'username': 'productionUser2',
+                                'categories.0.categoryName': 'Coding',
+                                'categories.0.labels': { $elemMatch: { "labelName": 'Web Services' } } }, { $unset: { 'categories.0.labels.$.videos.0': "" } }, { 'upsert': true })];
                     case 1:
                         result = _a.sent();
+                        return [4 /*yield*/, collection.updateOne({ 'username': 'productionUser2',
+                                'categories.0.categoryName': 'Coding',
+                                'categories.0.labels': { $elemMatch: { "labelName": 'Web Services' } } }, { $pull: { 'categories.0.labels.$.videos': null } }, { 'upsert': true })];
+                    case 2:
+                        _a.sent();
                         console.log("\nresult = " + result);
                         return [2 /*return*/];
                 }
