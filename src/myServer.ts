@@ -161,7 +161,7 @@ export class MyServer {
 	
 	public async deleteVideo(username: string, videoId : string, videoObj: object, response) : Promise<void> {
 		console.log("deleting video")
-		await this.theDatabase.del(username, videoObj);
+		await this.theDatabase.del(username, videoId);
 
 		console.log('DELETED VID');
 		response.write(JSON.stringify(

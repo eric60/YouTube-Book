@@ -102,14 +102,10 @@ public async get(key: string) : Promise<string> {
     }
 }
 
-public async del(username: string, videoObj) : Promise<void> {
+public async del(username: string, videoId : string) : Promise<void> {
     let db = this.client.db(this.dbName);
     let collection = db.collection(this.collectionName);
 
-    let category = videoObj.category;
-    let label = videoObj.label;
-    let url = videoObj.url;
-    let title = videoObj.title;
 
     console.log("\ndelete: username = " + username);
 //had to hardcode some fields here, issues with matching. There's a problem with our variable values

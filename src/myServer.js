@@ -260,7 +260,7 @@ var MyServer = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log("deleting video");
-                        return [4 /*yield*/, this.theDatabase.del(username, videoObj)];
+                        return [4 /*yield*/, this.theDatabase.del(username, videoId)];
                     case 1:
                         _a.sent();
                         console.log('DELETED VID');

@@ -167,18 +167,14 @@ var Database = /** @class */ (function () {
             });
         });
     };
-    Database.prototype.del = function (username, videoObj) {
+    Database.prototype.del = function (username, videoId) {
         return __awaiter(this, void 0, void 0, function () {
-            var db, collection, category, label, url, title, result;
+            var db, collection, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         db = this.client.db(this.dbName);
                         collection = db.collection(this.collectionName);
-                        category = videoObj.category;
-                        label = videoObj.label;
-                        url = videoObj.url;
-                        title = videoObj.title;
                         console.log("\ndelete: username = " + username);
                         return [4 /*yield*/, collection.updateOne({ 'username': 'productionUser2',
                                 'categories.0.categoryName': 'Coding',
