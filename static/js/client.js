@@ -428,7 +428,7 @@ $(document).ready(function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        htmlVideoUrl = $("#video-" + videoNum + "-vid").text();
+                        htmlVideoUrl = $(".video-" + videoNum + "-vid").attr('id');
                         console.log("----------- Video Id: " + htmlVideoUrl + " for video number: " + videoNum);
                         category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
                         label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
@@ -475,7 +475,7 @@ $(document).ready(function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        videoURL = $("#video-" + videoNum + "-vid").text();
+                        videoURL = $(".video-" + videoNum + "-vid").attr('id');
                         console.log("----------- Video Id: " + videoURL + " for video number: " + videoNum);
                         newURL = url + "/video" + ("/" + username) + "/delete?videoId=" + videoURL;
                         data = {

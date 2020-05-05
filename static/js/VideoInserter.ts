@@ -65,7 +65,7 @@ export default class VideoInserter {
 
                 <div class="panel-body">
                     <div class = "video-section" id="video-${videoNum}"></div>
-                    <p id="video-${videoNum}-vid" style="color:white;">${videoUrl}</p>
+                    <p class="video-${videoNum}-vid" id=${videoUrl} style="color:white;"></p>
 
                     <div class="video-text">            
                         <div class="dialog-notes">

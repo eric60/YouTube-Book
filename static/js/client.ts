@@ -39,7 +39,7 @@ $(document).ready(function() {
      let DIALOG_BOOKMARK_CNT= 1;
 
 
-     const username = 'productionUser2';
+     const username = 'productionUser11';
      let labelVideos;
      let videoPlayers : Array<any> = []
      let label1Videos: Array<any>;
@@ -468,7 +468,7 @@ $(document).ready(function() {
     function videoUpdate(videoNum) {
         (async () => {
 
-            let htmlVideoUrl = $(`#video-${videoNum}-vid`).text(); //gets URL of the video in question
+            let htmlVideoUrl = $(`.video-${videoNum}-vid`).attr('id'); //gets URL of the video in question
             console.log("----------- Video Id: " + htmlVideoUrl + " for video number: " + videoNum);
 
             let category = $(`.Category`).attr('id').substring(9).replace(/-/g, " "); //gets category of the video in question
@@ -512,7 +512,7 @@ $(document).ready(function() {
     function videoDelete(videoNum) {
         (async() => {
 
-            let videoURL = $(`#video-${videoNum}-vid`).text(); //gets URL of the video in question
+            let videoURL = $(`.video-${videoNum}-vid`).attr('id'); //gets URL of the video in question
             console.log("----------- Video Id: " + videoURL + " for video number: " + videoNum);
 
             const newURL : string = url + "/video" + `/${username}` + "/delete?videoId=" + videoURL;
