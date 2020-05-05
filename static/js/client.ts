@@ -516,30 +516,12 @@ $(document).ready(function() {
             let videoId = $(`#video-${videoNum}-vid`).text();
             console.log("----------- Video Id: " + videoId + " for : " + videoNum);
 
-            let category = $(`.Category`).attr('id').substring(9).replace(/-/g, " "); //gets category of the video in question
-            let label = $(`.label-btn`).attr('id').substring(6).replace(/-/g, " "); //gets label of the video in question
-            let videoTitle = $(`#video-${videoNum}-title`).text();
-            let videoURL = "https://www.youtube.com/watch?v=" + videoId;
 
-            let notes : any = $(`#video-${videoNum}-notes`).val();
-           // let timestampDiv = `#video-${videoNum}-time-`;
-           // let timestampNotes = `#video-${videoNum}-bm-`;
-           let bookmarks : Array<Object> = [];
-           
-            const newURL : string = url + "/video" + `/${username}` + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
+            const newURL : string = url + "/video" + `/${username}` + "/delete?" + '&videoId=' + videoId;
             
-            console.log("videoDelete: fetching " + category, + ', ' + label + ', ' + videoId);
+            console.log("videoDelete: fetching " + videoId);
 
-            const data = {
-                videoObj: {
-                    category: category,
-                    label: label,
-                    title : videoTitle,
-                    videoUrl : videoURL,
-                    bookmarks: bookmarks,
-                    notes: notes,
-                }
-            }
+            const data = {}
             
             const resp = await postData(newURL, data);
             const j = await resp.json();

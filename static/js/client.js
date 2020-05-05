@@ -470,31 +470,16 @@ $(document).ready(function () {
     function videoDelete(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoId, category, label, videoTitle, videoURL, notes, bookmarks, newURL, data, resp, j;
+            var videoId, newURL, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("---- in videoDelete ----");
                         videoId = $("#video-" + videoNum + "-vid").text();
                         console.log("----------- Video Id: " + videoId + " for : " + videoNum);
-                        category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
-                        label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
-                        videoTitle = $("#video-" + videoNum + "-title").text();
-                        videoURL = "https://www.youtube.com/watch?v=" + videoId;
-                        notes = $("#video-" + videoNum + "-notes").val();
-                        bookmarks = [];
-                        newURL = url + "/video" + ("/" + username) + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
-                        console.log("videoDelete: fetching " + category, +', ' + label + ', ' + videoId);
-                        data = {
-                            videoObj: {
-                                category: category,
-                                label: label,
-                                title: videoTitle,
-                                videoUrl: videoURL,
-                                bookmarks: bookmarks,
-                                notes: notes
-                            }
-                        };
+                        newURL = url + "/video" + ("/" + username) + "/delete?" + '&videoId=' + videoId;
+                        console.log("videoDelete: fetching " + videoId);
+                        data = {};
                         return [4 /*yield*/, postData(newURL, data)];
                     case 1:
                         resp = _a.sent();
