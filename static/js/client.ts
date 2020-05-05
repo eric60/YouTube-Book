@@ -38,21 +38,18 @@ $(document).ready(function() {
    
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
-     const username = "eric";
+
+     const username = "trent";
      let labelVideos;
      let videoPlayers : Array<any> = []
- 
-
-
      let label1Videos: Array<any>;
 
     /* 
         1) readAll data
         2) processLabelVideosHtml -> videoInserter insert all html structures looping through
-
         3) checkYoutubePlayerReader
-            4) initYtVideos based on divs inserted
-            5) initVideoData - title, notes, bookmarks showing
+        4) initYtVideos based on divs inserted
+        5) initVideoData - title, notes, bookmarks showing
      */
      readAll(processLabelVideosHtml);
 
@@ -81,7 +78,8 @@ $(document).ready(function() {
      }
 
     function initYtVideos() {
-        // Need to process all html first, then init yt players, then init video data
+        // Need to process all html first, then init yt players, then init video data due to having to load all yt videos 
+        // before the accordion can load. This is why we are duplicating our for loops multiple times.
         for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             let divInsert = "video-" + i;
             console.log(divInsert)
@@ -114,13 +112,29 @@ $(document).ready(function() {
             let videoId = `#video-${videoIdx}-`
             $(videoId + "title").text(videoTitle);
             $(videoId + "notes").val(notes);
+            insertBookMarkData(videoIdx, oldBookmarks);
 
             addOldVideoBookmarks(videoIdx, oldNumBookmarks)
 
             addNewVideoBookmarks(videoIdx, oldNumBookmarks);
           
             addVideoSubmitBtn(videoIdx);
+            
+            addDeleteButton(videoIdx);
           
+        }
+    }
+
+    function insertBookMarkData(videoNum : number, oldBookmarks : Array<any>) {
+        let len = oldBookmarks.length;
+        for (let i = 1; i < len + 1; i++) {
+            let bookmarkTimeDiv = `#video-${videoNum}-time-${i}`;
+            let bookmarkNotesDiv = `#video-${videoNum}-bm-${i}`;
+            let bookmarkObj = oldBookmarks[i - 1]
+            let timestamp = bookmarkObj.timestamp;
+            let timestampNotes = bookmarkObj.timestampNotes;
+            $(bookmarkTimeDiv).val(timestamp);
+            $(bookmarkNotesDiv).val(timestampNotes);
         }
     }
 
@@ -161,15 +175,23 @@ $(document).ready(function() {
         text: false  
      });
      
-     $( "#delete-video" ).click(function(videoNum) {  
+     /*$( ".videoDeleteButtons" ).click(function() {  
         confirm("Are you sure you want to delete this book?");
+        let videoNum = 300;
         let videoDeleteId = `#video-${videoNum}-submit-book`
         $(videoDeleteId).click(function() {
             alert("Deleting book.");
-            videoUpdate(videoNum);
+            videoDelete(videoNum);
+         });
+     }); */
+
+     function addDeleteButton(videoNum : number) { //main screen submit button routing function
+        let videoDeleteId = `#video-${videoNum}-delete-book`
+        $(videoDeleteId).click(function() {
+            alert("Book deleting...");
+            videoDelete(videoNum);
          })
-        videoDelete(videoNum);
-     });
+    }
  
 
     // ---------------------  init Video Data  -------------------------
@@ -220,7 +242,7 @@ $(document).ready(function() {
                 </div>
 
                 <button type="button" id="video-${videoNum}-add-bookmark" class="add-bookmark btn btn-primary">Add New</button>
-            <div id="video-1-insert-before-me"></div>
+            <div id="video-${videoNum}-insert-before-me"></div>
          `
          $(entryDiv).append(divAppend);
     }
@@ -405,7 +427,7 @@ $(document).ready(function() {
             console.log("videoRead called");
             let category = "someCategory" //to be deprecated.
             let label = "someLabel" //to be deprecated.
-            const newURL : string = url + "/video" + "/eric" + "/read?category=" + category + "&label=" + label;
+            const newURL : string = url + "/video" + `/${username}` + "/read?category=" + category + "&label=" + label;
             console.log("videoRead: fetching " + newURL);
             const resp = await fetch(newURL);
             const j = await resp.json();
@@ -421,7 +443,7 @@ $(document).ready(function() {
     function readAll(processLabelVideos) {
         (async() => {
             console.log("readAll called");
-            const newURL : string = url + "/video" + "/eric" + "/readAll";
+            const newURL : string = url + "/video" + `/${username}` + "/readAll";
 
             console.log("readAll: fetching all videos");
             const resp = await fetch(newURL);
@@ -490,7 +512,7 @@ $(document).ready(function() {
             let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
             let label : string = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
            
-            const newURL : string = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
+            const newURL : string = url + "/video" + `/${username}` + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
             
             console.log("videoDelete: fetching " + category, + ', ' + label + ', ' + videoId);
             
@@ -614,6 +636,9 @@ $(document).ready(function() {
     }
 
     function parseYoutubeUrl(url : string) {
+        if (!url) {
+            throw "url null"
+        }
         let regEx = /v=([^&]+)/
         var match = url.match(regEx)
         console.log(match)

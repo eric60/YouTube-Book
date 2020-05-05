@@ -67,33 +67,31 @@ export default class VideoInserter {
                     <div class = "video-section" id="video-${videoNum}"></div>
                     <p id="video-${videoNum}-vid" style="color:white;">${videoId}</p>
 
-                    <div class="video-text">
-            
+                    <div class="video-text">            
                         <div class="dialog-notes">
-                        <label for="dialog-Notes" class="boxTitle">Notes</label> 
-                        <div>
-                            <textarea id="video-${videoNum}-notes" cols="35"></textarea>
-                        </div>           
+                            <label for="dialog-Notes" class="boxTitle">Notes</label> 
+                            <div>
+                                <textarea id="video-${videoNum}-notes" cols="35"></textarea>
+                            </div>           
                         </div>
 
-                        <div class="boxTitle"><b>Bookmarks</b></div>
+                        <div class="boxTitle"><b>Old Bookmarks</b></div>
 
                         <div class="all-bookmarks">
-                        <div class="video-bookmarks">                        
-                        ${bookmarksDiv}
+                            <div class="video-bookmarks">                        
+                                ${bookmarksDiv}
+                            </div>
+
+                            <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">                    
+                            </div>
+                        
+                            <div class="dialog-footer">
+                                <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
+                            </div>
                         </div>
 
-                        <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">
-                    
-                        </div>
-                    
-                        <div class="dialog-footer">
-                            <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
-                        </div>
-                        </div>
-
-                        <button onClick="deleteVideo()" id ="delete-video">Delete</button>
-                    </div>
+                        <button onClick="deleteVideo()" id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
+                    </div>                                   
                 </div>
             </div>
         `);
