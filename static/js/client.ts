@@ -267,9 +267,7 @@ $(document).ready(function() {
         })
     }
 
-    function addNewBookmarkBtnAction(videoNum : number, bookmarkCnt : number) {
-        addTimestampBtn(videoNum, bookmarkCnt);
-            
+    function addNewBookmarkBtnAction(videoNum : number, bookmarkCnt : number) {            
         bookmarkCnt++; // start bookmark 2 -> bookmark 3
         let insertDiv = `#video-${videoNum}-insert-before-me`
         console.log('add video bookmarkCnt: ' + bookmarkCnt)

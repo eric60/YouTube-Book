@@ -231,7 +231,6 @@ $(document).ready(function () {
         });
     }
     function addNewBookmarkBtnAction(videoNum, bookmarkCnt) {
-        addTimestampBtn(videoNum, bookmarkCnt);
         bookmarkCnt++; // start bookmark 2 -> bookmark 3
         var insertDiv = "#video-" + videoNum + "-insert-before-me";
         console.log('add video bookmarkCnt: ' + bookmarkCnt);
