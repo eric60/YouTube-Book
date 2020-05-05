@@ -92,19 +92,13 @@ export default class VideoInserter {
                         </div>
                         </div>
 
-                        <button onClick="deleteVideo()" id ="delete-video">Delete</button>
+                        <button onClick="deleteVideo()" id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
                     </div>
 
                     <div class="dialog-bookmarks" id="video-${videoNum}-new-bm">
-                   
                     </div>
                 
-                    <div class="dialog-footer">
-                        <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
-                    </div>
-                    </div>
 
-                    <button onClick="deleteVideo()" id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
                 </div>
             </div>
         `);

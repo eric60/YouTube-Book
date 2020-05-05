@@ -112,6 +112,7 @@ $(document).ready(function() {
             let videoId = `#video-${videoIdx}-`
             $(videoId + "title").text(videoTitle);
             $(videoId + "notes").val(notes);
+            insertBookMarkData(videoIdx, oldBookmarks);
 
             addOldVideoBookmarks(videoIdx, oldNumBookmarks)
 
@@ -119,6 +120,19 @@ $(document).ready(function() {
           
             addVideoSubmitBtn(videoIdx);
           
+        }
+    }
+
+    function insertBookMarkData(videoNum : number, oldBookmarks : Array<any>) {
+        let len = oldBookmarks.length;
+        for (let i = 1; i < len + 1; i++) {
+            let bookmarkTimeDiv = `#video-${videoNum}-time-${i}`;
+            let bookmarkNotesDiv = `#video-${videoNum}-bm-${i}`;
+            let bookmarkObj = oldBookmarks[i - 1]
+            let timestamp = bookmarkObj.timestamp;
+            let timestampNotes = bookmarkObj.timestampNotes;
+            $(bookmarkTimeDiv).val(timestamp);
+            $(bookmarkNotesDiv).val(timestampNotes);
         }
     }
 
@@ -219,7 +233,7 @@ $(document).ready(function() {
                 </div>
 
                 <button type="button" id="video-${videoNum}-add-bookmark" class="add-bookmark btn btn-primary">Add New</button>
-            <div id="video-1-insert-before-me"></div>
+            <div id="video-${videoNum}-insert-before-me"></div>
          `
          $(entryDiv).append(divAppend);
     }
