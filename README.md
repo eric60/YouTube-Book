@@ -1,4 +1,4 @@
-# [Youtube-Book](https://cryptic-basin-95763.herokuapp.com/)
+# [Youtube Book](https://cryptic-basin-95763.herokuapp.com/)
 
 ## Description
 YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
