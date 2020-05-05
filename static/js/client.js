@@ -67,14 +67,16 @@ $(document).ready(function () {
     var videoPlayers = [];
     var label1Videos;
     /*
+     *  Need to process all html first, then init yt players, then init video data due to having to load all YT videos
+     *  before the accordion can load. This is why we are duplicating our for loops multiple times.
+
         1) readAll data
         2) processLabelVideosHtml -> videoInserter insert all html structures looping through
         3) checkYoutubePlayerReader
         4) initYtVideos based on divs inserted
-        5) initVideoData - title, notes, bookmarks showing
+        5) initVideoData onto the divs - title, notes, bookmarks
      */
     readAll(processLabelVideosHtml);
-    checkYoutubePlayerReady();
     // --------------------
     function processLabelVideosHtml() {
         console.log("--------- Label Videos Array ---------");
@@ -91,10 +93,9 @@ $(document).ready(function () {
             console.log("----- Inserting labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
             videoInserter.insertVideoDiv(i, oldNumBookmarks, currVideoUrl);
         }
+        checkYoutubePlayerReady();
     }
     function initYtVideos() {
-        // Need to process all html first, then init yt players, then init video data due to having to load all yt videos 
-        // before the accordion can load. This is why we are duplicating our for loops multiple times.
         console.log("In initYtVideos()");
         for (var i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             var divInsert = "video-" + i;
@@ -612,7 +613,7 @@ $(document).ready(function () {
             initYtVideos();
         }
         else {
-            setTimeout(checkYoutubePlayerReady, 100);
+            setTimeout(checkYoutubePlayerReady, 200);
         }
     }
     // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.

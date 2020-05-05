@@ -45,15 +45,18 @@ $(document).ready(function() {
      let label1Videos: Array<any>;
 
     /* 
+     *  Need to process all html first, then init yt players, then init video data due to having to load all YT videos 
+     *  before the accordion can load. This is why we are duplicating our for loops multiple times.
+
         1) readAll data
         2) processLabelVideosHtml -> videoInserter insert all html structures looping through
         3) checkYoutubePlayerReader
         4) initYtVideos based on divs inserted
-        5) initVideoData - title, notes, bookmarks showing
+        5) initVideoData onto the divs - title, notes, bookmarks
      */
      readAll(processLabelVideosHtml);
 
-     checkYoutubePlayerReady()
+     
 
      // --------------------
 
@@ -77,11 +80,10 @@ $(document).ready(function() {
             videoInserter.insertVideoDiv(i, oldNumBookmarks, currVideoUrl);
 
         }
+        checkYoutubePlayerReady()
      }
 
     function initYtVideos() {
-        // Need to process all html first, then init yt players, then init video data due to having to load all yt videos 
-        // before the accordion can load. This is why we are duplicating our for loops multiple times.
         console.log("In initYtVideos()")
         for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
             let divInsert = "video-" + i;
@@ -668,7 +670,7 @@ $(document).ready(function() {
         if (typeof YT !== "undefined" && (YT && YT.Player)) {
             initYtVideos();
         } else {
-            setTimeout(checkYoutubePlayerReady, 100)
+            setTimeout(checkYoutubePlayerReady, 200)
         }
     }
 
