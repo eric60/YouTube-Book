@@ -75,7 +75,7 @@ export default class VideoInserter {
                             </div>           
                         </div>
 
-                        <div class="boxTitle"><b>Bookmarks</b></div>
+                        <div class="boxTitle"><b>Old Bookmarks</b></div>
 
                         <div class="all-bookmarks">
                             <div class="video-bookmarks">                        
@@ -89,7 +89,7 @@ export default class VideoInserter {
                                 <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
                             </div>
                         </div>
-                        
+
                         <button onClick="deleteVideo()" id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
                     </div>                                   
                 </div>

@@ -39,7 +39,7 @@ $(document).ready(function() {
      let DIALOG_BOOKMARK_CNT= 1;
      let MAINPG_BOOKMARK_CNT = 2;
 
-     const username = "eric";
+     const username = "trent";
      let labelVideos;
      let videoPlayers : Array<any> = []
      let label1Videos: Array<any>;
@@ -427,7 +427,7 @@ $(document).ready(function() {
             console.log("videoRead called");
             let category = "someCategory" //to be deprecated.
             let label = "someLabel" //to be deprecated.
-            const newURL : string = url + "/video" + "/eric" + "/read?category=" + category + "&label=" + label;
+            const newURL : string = url + "/video" + `/${username}` + "/read?category=" + category + "&label=" + label;
             console.log("videoRead: fetching " + newURL);
             const resp = await fetch(newURL);
             const j = await resp.json();
@@ -443,7 +443,7 @@ $(document).ready(function() {
     function readAll(processLabelVideos) {
         (async() => {
             console.log("readAll called");
-            const newURL : string = url + "/video" + "/eric" + "/readAll";
+            const newURL : string = url + "/video" + `/${username}` + "/readAll";
 
             console.log("readAll: fetching all videos");
             const resp = await fetch(newURL);
@@ -467,7 +467,7 @@ $(document).ready(function() {
 
             let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
             let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
-            const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+            const newURL : string = url + "/video" + `/${username}` + "/update?category=" + category + "&label=" + label;
             let notes : any = $(`#video-${videoNum}-notes`).val();
             let timestampDiv = `#video-${videoNum}-time-`;
             let timestampNotes = `#video-${videoNum}-bm-`;
@@ -504,7 +504,7 @@ $(document).ready(function() {
             let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9);
             let label : string = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6);
            
-            const newURL : string = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
+            const newURL : string = url + "/video" + `/${username}` + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
             
             console.log("videoDelete: fetching " + category, + ', ' + label + ', ' + videoId);
             

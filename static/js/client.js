@@ -63,7 +63,7 @@ $(document).ready(function () {
     var TOTAL_VIDEO_CNT;
     var DIALOG_BOOKMARK_CNT = 1;
     var MAINPG_BOOKMARK_CNT = 2;
-    var username = "eric";
+    var username = "trent";
     var labelVideos;
     var videoPlayers = [];
     var label1Videos;
@@ -366,7 +366,7 @@ $(document).ready(function () {
                         ;
                         label = "someLabel" //to be deprecated.
                         ;
-                        newURL = url + "/video" + "/eric" + "/read?category=" + category + "&label=" + label;
+                        newURL = url + "/video" + ("/" + username) + "/read?category=" + category + "&label=" + label;
                         console.log("videoRead: fetching " + newURL);
                         return [4 /*yield*/, fetch(newURL)];
                     case 1:
@@ -394,7 +394,7 @@ $(document).ready(function () {
                 switch (_a.label) {
                     case 0:
                         console.log("readAll called");
-                        newURL = url + "/video" + "/eric" + "/readAll";
+                        newURL = url + "/video" + ("/" + username) + "/readAll";
                         console.log("readAll: fetching all videos");
                         return [4 /*yield*/, fetch(newURL)];
                     case 1:
@@ -427,7 +427,7 @@ $(document).ready(function () {
                         category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9).replace(/-/g, " ");
                         ;
                         label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6).replace(/-/g, " ");
-                        newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+                        newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label;
                         notes = $("#video-" + videoNum + "-notes").val();
                         timestampDiv = "#video-" + videoNum + "-time-";
                         timestampNotes = "#video-" + videoNum + "-bm-";
@@ -472,7 +472,7 @@ $(document).ready(function () {
                         console.log("----------- Video Id: " + videoId + " for : " + videoNum);
                         category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9);
                         label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6);
-                        newURL = url + "/video" + "/eric" + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
+                        newURL = url + "/video" + ("/" + username) + "/delete?category=" + category + "&label=" + label + '&videoId=' + videoId;
                         console.log("videoDelete: fetching " + category, +', ' + label + ', ' + videoId);
                         return [4 /*yield*/, fetch(newURL)];
                     case 1:
