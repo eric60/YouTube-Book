@@ -226,6 +226,7 @@ $(document).ready(function () {
         $(videoSubmitId).click(function () {
             alert("Book updating...");
             videoUpdate(videoNum);
+            window.location.reload;
         });
     }
     // ------- helper functions for Video add bookmark ---------
@@ -323,10 +324,9 @@ $(document).ready(function () {
                         j = _a.sent();
                         if (j['result'] !== 'error') {
                             console.log("Video created. Data: " + JSON.stringify(j));
-                            document.getElementById("outputText").innerHTML = "Success; video created. Data: " + JSON.stringify(j);
                         }
                         else {
-                            document.getElementById("outputText").innerHTML = "Error; video not created.";
+                            console.log("Error; video not created.");
                         }
                         return [2 /*return*/];
                 }
@@ -397,24 +397,27 @@ $(document).ready(function () {
     function videoUpdate(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var videoId, category, label, newURL, notes, timestampDiv, timestampNotes, bookmarks, data, resp, j;
+            var videoId, category, label, videoTitle, videoURL, newURL, notes, bookmarks, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         videoId = $("#video-" + videoNum + "-vid").text();
-                        console.log("----------- Video Id: " + videoId + " for : " + videoNum);
-                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9).replace(/-/g, " ");
-                        ;
-                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6).replace(/-/g, " ");
-                        newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+                        console.log("----------- Video Id: " + videoId + " for video number: " + videoNum);
+                        category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
+                        label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
+                        videoTitle = $("#video-" + videoNum + "-title").text();
+                        videoURL = "https://www.youtube.com/watch?v=" + videoId;
+                        console.log("VIDEO TITLE: " + videoTitle);
+                        console.log("VIDEO URL: " + videoURL);
+                        newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
                         notes = $("#video-" + videoNum + "-notes").val();
-                        timestampDiv = "#video-" + videoNum + "-time-";
-                        timestampNotes = "#video-" + videoNum + "-bm-";
-                        bookmarks = getBookmarks(timestampDiv, timestampNotes, MAINPG_BOOKMARK_CNT);
+                        bookmarks = [];
                         data = {
                             videoObj: {
                                 category: category,
                                 label: label,
+                                title: videoTitle,
+                                videoUrl: videoURL,
                                 bookmarks: bookmarks,
                                 notes: notes
                             }
@@ -428,10 +431,10 @@ $(document).ready(function () {
                         j = _a.sent();
                         if (j['result'] !== 'error') {
                             console.log("Video updated. Data: " + JSON.stringify(j));
-                            document.getElementById("outputText").innerHTML = "Success; video updated. Data: " + JSON.stringify(j);
+                            videoInserter.insertVideoDiv(videoNum, 0, videoId);
                         }
                         else {
-                            document.getElementById("outputText").innerHTML = "Error; video not updated.";
+                            console.log("Error. video not updated");
                         }
                         return [2 /*return*/];
                 }

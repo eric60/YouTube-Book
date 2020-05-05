@@ -278,6 +278,7 @@ $(document).ready(function() {
         $(videoSubmitId).click(function() {
             alert("Book updating...");
             videoUpdate(videoNum);
+            window.location.reload;
          })
     }
 
@@ -391,9 +392,8 @@ $(document).ready(function() {
 
             if (j['result'] !== 'error'){
                 console.log("Video created. Data: " + JSON.stringify(j));
-                document.getElementById("outputText").innerHTML = "Success; video created. Data: " + JSON.stringify(j); 
             } else {
-                document.getElementById("outputText").innerHTML = "Error; video not created."
+                console.log("Error; video not created.");
             }
 
         })();
@@ -440,22 +440,30 @@ $(document).ready(function() {
     function videoUpdate(videoNum) {
         (async () => {
 
-            let videoId = $(`#video-${videoNum}-vid`).text();
-            console.log("----------- Video Id: " + videoId + " for : " + videoNum);
+            let videoId = $(`#video-${videoNum}-vid`).text(); //gets URL of the video in question
+            console.log("----------- Video Id: " + videoId + " for video number: " + videoNum);
 
-            let category = document.getElementsByClassName(`video-${videoNum}-category`)[0].id.substring(9).replace(/-/g, " ");;
-            let label = document.getElementsByClassName(`video-${videoNum}-label`)[0].id.substring(6).replace(/-/g, " ");
-            const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label;
+            let category = $(`.Category`).attr('id').substring(9).replace(/-/g, " "); //gets category of the video in question
+            let label = $(`.label-btn`).attr('id').substring(6).replace(/-/g, " "); //gets label of the video in question
+            let videoTitle = $(`#video-${videoNum}-title`).text();
+            let videoURL = "https://www.youtube.com/watch?v=" + videoId;
+
+            console.log("VIDEO TITLE: " + videoTitle);
+            console.log("VIDEO URL: " + videoURL);
+
+            const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
             let notes : any = $(`#video-${videoNum}-notes`).val();
-            let timestampDiv = `#video-${videoNum}-time-`;
-            let timestampNotes = `#video-${videoNum}-bm-`;
-            let bookmarks : Array<Object> = getBookmarks(timestampDiv, timestampNotes, MAINPG_BOOKMARK_CNT);
+           // let timestampDiv = `#video-${videoNum}-time-`;
+           // let timestampNotes = `#video-${videoNum}-bm-`;
+           let bookmarks : Array<Object> = [];
             const data = {
                 videoObj: {
                     category: category,
                     label: label,
+                    title : videoTitle,
+                    videoUrl : videoURL,
                     bookmarks: bookmarks,
-                    notes: notes
+                    notes: notes,
                 }
             }
             console.log(data);
@@ -464,9 +472,9 @@ $(document).ready(function() {
 
             if (j['result'] !== 'error'){
                 console.log("Video updated. Data: " + JSON.stringify(j));
-                document.getElementById("outputText").innerHTML = "Success; video updated. Data: " + JSON.stringify(j); 
+                videoInserter.insertVideoDiv(videoNum, 0, videoId);
             } else {
-                document.getElementById("outputText").innerHTML = "Error; video not updated."
+                console.log("Error. video not updated");
             }
             })();
     }

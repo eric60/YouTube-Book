@@ -128,13 +128,15 @@ var MyServer = /** @class */ (function () {
     };
     MyServer.prototype.updateVideoHandler = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var username, videoObj;
+            var username, videoId, videoObj;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log("in updateVideoHandler");
                         username = request.params['username'];
+                        videoId = request.params['videoId'];
                         videoObj = request.body.videoObj;
-                        return [4 /*yield*/, this.updateVideo(username, videoObj, response)];
+                        return [4 /*yield*/, this.updateVideo(username, videoId, videoObj, response)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -229,18 +231,20 @@ var MyServer = /** @class */ (function () {
         var labelVideos = videoObj.categories[0].labels;
         return labelVideos;
     };
-    MyServer.prototype.updateVideo = function (username, videoObj, response) {
+    MyServer.prototype.updateVideo = function (username, videoId, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("updating video...");
-                        return [4 /*yield*/, this.theDatabase.put(username, videoObj)];
+                        return [4 /*yield*/, this.theDatabase.putUpdate(username, videoObj)];
                     case 1:
                         _a.sent();
+                        console.log("INSERTED UPDATED VID INTO DB");
                         response.write(JSON.stringify({
                             'result': 'updated',
                             'username': username,
+                            'video ID': videoId,
                             'updatedVideoData': videoObj
                         }));
                         response.end();

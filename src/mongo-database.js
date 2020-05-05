@@ -93,6 +93,35 @@ var Database = /** @class */ (function () {
             });
         });
     };
+    Database.prototype.putUpdate = function (username, videoObj) {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, collection, category, label, insertVideoObj, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        db = this.client.db(this.dbName);
+                        collection = db.collection(this.collectionName);
+                        category = videoObj.category;
+                        label = videoObj.label;
+                        insertVideoObj = {
+                            videoUrl: videoObj.videoUrl,
+                            videoTitle: videoObj.title,
+                            videoOrder: 3,
+                            notes: videoObj.notes,
+                            bookmarks: videoObj.bookmarks
+                        };
+                        console.log("\nputUpdate: username = " + username + ", label: " + label + ", video URL: " + videoObj.videoUrl);
+                        return [4 /*yield*/, collection.updateOne({ 'username': 'eric',
+                                'categories.0.categoryName': category,
+                                'categories.0.labels': { $elemMatch: { "labelName": label } } }, { $set: { 'categories.0.labels.$.videos.0': insertVideoObj } }, { 'upsert': true })];
+                    case 1:
+                        result = _a.sent();
+                        console.log("\nresult = " + result);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Database.prototype.getAll = function (username) {
         return __awaiter(this, void 0, void 0, function () {
             var db, collection, result;

@@ -71,9 +71,11 @@ export class MyServer {
 	}
 
 	private async updateVideoHandler(request, response) : Promise<void> {
+		console.log("in updateVideoHandler");
 		let username = request.params['username'];
+		let videoId = request.params['videoId'];
 		let videoObj = request.body.videoObj;
-		await this.updateVideo(username, videoObj, response);
+		await this.updateVideo(username, videoId, videoObj, response);
 	}
 	
 	private async deleteVideoHandler(request, response) : Promise<void> {
@@ -139,14 +141,17 @@ export class MyServer {
 		return labelVideos;
 	}
 
-	public async updateVideo(username : string, videoObj : object, response) : Promise<void> {
+	public async updateVideo(username : string, videoId : string, videoObj : object, response) : Promise<void> {
 		console.log("updating video...");
-		await this.theDatabase.put(username, videoObj);
+		await this.theDatabase.putUpdate(username, videoObj);
+
+		console.log("INSERTED UPDATED VID INTO DB");
 
 		response.write(JSON.stringify(
 			{
 				'result' : 'updated',
 				'username' : username,
+				'video ID' : videoId,
 				'updatedVideoData' : videoObj
 			}
 		))
