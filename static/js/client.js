@@ -124,6 +124,7 @@ $(document).ready(function () {
             addOldVideoBookmarks(videoIdx, oldNumBookmarks);
             addNewVideoBookmarks(videoIdx, oldNumBookmarks);
             addVideoSubmitBtn(videoIdx);
+            addDeleteButton(videoIdx);
         }
     }
     function insertBookMarkData(videoNum, oldBookmarks) {
@@ -168,16 +169,22 @@ $(document).ready(function () {
         },
         text: false
     });
-    $(".videoDeleteButtons").click(function () {
-        confirm("Are you sure you want to delete this book?");
-        var videoNum = 300;
-        var videoDeleteId = "#video-" + videoNum + "-submit-book";
-        $(videoDeleteId).click(function () {
-            alert("Deleting book.");
-            videoUpdate(videoNum);
+    /*$( ".videoDeleteButtons" ).click(function() {
+       confirm("Are you sure you want to delete this book?");
+       let videoNum = 300;
+       let videoDeleteId = `#video-${videoNum}-submit-book`
+       $(videoDeleteId).click(function() {
+           alert("Deleting book.");
+           videoDelete(videoNum);
         });
-        videoDelete(videoNum);
-    });
+    }); */
+    function addDeleteButton(videoNum) {
+        var videoDeleteId = "#video-" + videoNum + "-delete-book";
+        $(videoDeleteId).click(function () {
+            alert("Book deleting...");
+            videoDelete(videoNum);
+        });
+    }
     // ---------------------  init Video Data  -------------------------
     function addOldVideoBookmarks(videoNum, oldNumBookmarks) {
         for (var i = 1; i < oldNumBookmarks + 1; i++) {
