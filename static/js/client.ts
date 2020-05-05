@@ -473,7 +473,7 @@ $(document).ready(function() {
             console.log("VIDEO TITLE: " + videoTitle);
             console.log("VIDEO URL: " + videoURL);
 
-            const newURL : string = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
+            const newURL : string = url + "/video" + `/${username}` + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
             let notes : any = $(`#video-${videoNum}-notes`).val();
            // let timestampDiv = `#video-${videoNum}-time-`;
            // let timestampNotes = `#video-${videoNum}-bm-`;

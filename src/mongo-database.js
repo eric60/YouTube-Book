@@ -111,7 +111,7 @@ var Database = /** @class */ (function () {
                             bookmarks: videoObj.bookmarks
                         };
                         console.log("\nputUpdate: username = " + username + ", label: " + label + ", video URL: " + videoObj.videoUrl);
-                        return [4 /*yield*/, collection.updateOne({ 'username': 'eric',
+                        return [4 /*yield*/, collection.updateOne({ 'username': username,
                                 'categories.0.categoryName': category,
                                 'categories.0.labels': { $elemMatch: { "labelName": label } } }, { $set: { 'categories.0.labels.$.videos.0': insertVideoObj } }, { 'upsert': true })];
                     case 1:

@@ -66,7 +66,7 @@ public async putUpdate(username: string, videoObj) : Promise<void> {
     }
 
     console.log("\nputUpdate: username = " + username + ", label: " + label + ", video URL: " + videoObj.videoUrl);
-    let result = await collection.updateOne({'username': 'eric', 
+    let result = await collection.updateOne({'username': username, 
                                             'categories.0.categoryName' : category, 
                                             'categories.0.labels' : {$elemMatch: {"labelName" : label}}}, 
                                             {$set: {'categories.0.labels.$.videos.0': insertVideoObj}}, 

@@ -423,7 +423,6 @@ $(document).ready(function () {
                 switch (_a.label) {
                     case 0:
                         videoId = $("#video-" + videoNum + "-vid").text();
-<<<<<<< HEAD
                         console.log("----------- Video Id: " + videoId + " for video number: " + videoNum);
                         category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
                         label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
@@ -431,14 +430,7 @@ $(document).ready(function () {
                         videoURL = "https://www.youtube.com/watch?v=" + videoId;
                         console.log("VIDEO TITLE: " + videoTitle);
                         console.log("VIDEO URL: " + videoURL);
-                        newURL = url + "/video" + "/eric" + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
-=======
-                        console.log("----------- Video Id: " + videoId + " for : " + videoNum);
-                        category = document.getElementsByClassName("video-" + videoNum + "-category")[0].id.substring(9).replace(/-/g, " ");
-                        ;
-                        label = document.getElementsByClassName("video-" + videoNum + "-label")[0].id.substring(6).replace(/-/g, " ");
-                        newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label;
->>>>>>> 39c2f7b86008da4fc9f9e7315859f9f9742116ab
+                        newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label + '&videoId=' + videoId;
                         notes = $("#video-" + videoNum + "-notes").val();
                         bookmarks = [];
                         data = {
