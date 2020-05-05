@@ -90,7 +90,7 @@ export default class VideoInserter {
                             </div>
                         </div>
 
-                        <button onClick="deleteVideo()" id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
+                        <button id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
                     </div>                                   
                 </div>
             </div>

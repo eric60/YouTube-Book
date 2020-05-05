@@ -116,10 +116,9 @@ public async del(username: string, videoObj) : Promise<void> {
 
     console.log("\ndelete: username = " + username + ", title: " + title);
 
-    let result = await collection.deleteOne({'username': username, 'categories.0.categoryName' : category, 
-                                            'categories.0.labels': { $elemMatch: {"labelName": label}} },
-                                            {'categories.0.labels.$.videos': { $elemMatch: {"videoUrl": url}}
-                                            });
+    let result = await collection.deleteOne({'username' : username, 'categories.0.categoryName' 
+    : category, 'categories.0.labels' : {$elemMatch: {"labelName" : label}}}, {$unset : 
+        {'categories.0.labels.$.videos.0' : ""}}, {'upsert' : true});
 
                                     
 
