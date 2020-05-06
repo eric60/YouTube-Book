@@ -354,8 +354,8 @@ $(document).ready(function () {
                             alert("Your book was successfully added.");
                         }
                         else {
-                            window.location.reload();
                             alert("Sorry your book was not added because a book with that video already exists in your library.");
+                            window.location.reload();
                         }
                         return [2 /*return*/];
                 }
