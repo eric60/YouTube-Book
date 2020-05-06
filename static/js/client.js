@@ -77,7 +77,7 @@ $(document).ready(function () {
         5) initVideoData onto the divs - title, notes, bookmarks
      */
     readAll(processLabelVideosHtml);
-    // --------------------
+    // -----------------------------------------------------------
     function processLabelVideosHtml() {
         console.log("--------- Label Videos Array ---------");
         console.log(labelVideos);
@@ -660,6 +660,7 @@ $(document).ready(function () {
         if (lastVideo) {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion');
             initAccordion();
+            $('.Label-Video').show();
         }
     }
     function addTimeStamp(videoNum, timestampBtn, time) {

@@ -55,15 +55,12 @@ $(document).ready(function() {
         5) initVideoData onto the divs - title, notes, bookmarks
      */
      readAll(processLabelVideosHtml);
+     // -----------------------------------------------------------
 
-     
-
-     // --------------------
-
-     function processLabelVideosHtml() {
-         console.log("--------- Label Videos Array ---------")
-         console.log(labelVideos);
-      
+    function processLabelVideosHtml() {
+        console.log("--------- Label Videos Array ---------")
+        console.log(labelVideos);
+        
         label1Videos = labelVideos.videoData[0].videos; // 2 videos
         TOTAL_VIDEO_CNT = label1Videos.length;
         console.log("TOTAL_VIDEO_CNT: " + TOTAL_VIDEO_CNT)
@@ -73,15 +70,12 @@ $(document).ready(function() {
             if (!currVideoUrl) {
                 continue;
             }
-
-
             let oldNumBookmarks = label1Videos[i-1].bookmarks.length;
             console.log("----- Inserting labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
             videoInserter.insertVideoDiv(i, oldNumBookmarks, currVideoUrl);
-
         }
         checkYoutubePlayerReady()
-     }
+    }
 
     function initYtVideos() {
         console.log("In initYtVideos()")
@@ -705,6 +699,7 @@ $(document).ready(function() {
         if (lastVideo) {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion')
             initAccordion();
+            $('.Label-Video').show();
         }
       }
 

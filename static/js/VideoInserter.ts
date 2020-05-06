@@ -55,7 +55,7 @@ export default class VideoInserter {
         let bookmarksDiv : String = this.getBookmarksDiv(oldNumBookmarks, videoNum);
 
         $(divInsert).append(`
-            <div class="Label-Video">
+            <div class="Label-Video" hidden>
                 <h3 id="video-${videoNum}-title">Placeholder Title for ${videoNum}</h3>   
 
                 <div class="panel-body">
@@ -81,7 +81,7 @@ export default class VideoInserter {
                             </div>
                         
                             <div class="dialog-footer">
-                                <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Submit</button>
+                                <button type="button" id="video-${videoNum}-submit-book" class="submitBtn btn btn-success">Update</button>
                             </div>
                         </div>
 
