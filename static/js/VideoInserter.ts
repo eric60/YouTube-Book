@@ -85,7 +85,7 @@ export default class VideoInserter {
                             </div>
                         </div>
 
-                        <button id ="video-${videoNum}-delete-book" class="videoDeleteButtons">Delete</button>
+                        <button id ="video-${videoNum}-delete-book" class="btn btn-danger videoDeleteButtons">Delete Book</button>
                     </div>                                   
                 </div>
             </div>
