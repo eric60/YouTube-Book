@@ -660,7 +660,6 @@ $(document).ready(function () {
         if (lastVideo) {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion');
             initAccordion();
-            $('.Label-Video').show();
         }
     }
     function addTimeStamp(videoNum, timestampBtn, time) {
@@ -716,6 +715,7 @@ $(document).ready(function () {
                 save_new_order();
             }
         });
+        $('.Label-Video').show();
         function save_new_order() {
             var sortedIds = $(".Label-Body").sortable('toArray');
             console.log("new sortedIds: " + sortedIds);

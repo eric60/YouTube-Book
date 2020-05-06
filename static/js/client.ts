@@ -699,7 +699,7 @@ $(document).ready(function() {
         if (lastVideo) {
             console.log('trigger lastVideo onPlayerReady. Now can call accordion')
             initAccordion();
-            $('.Label-Video').show();
+           
         }
       }
 
@@ -763,6 +763,7 @@ $(document).ready(function() {
                 save_new_order()
             }
         });
+        $('.Label-Video').show();
     
         function save_new_order() {
             let sortedIds = (<any>$( ".Label-Body" )).sortable('toArray');
