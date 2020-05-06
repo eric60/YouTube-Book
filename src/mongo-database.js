@@ -191,18 +191,22 @@ var Database = /** @class */ (function () {
             });
         });
     };
-    Database.prototype.isFound = function (key) {
+    Database.prototype.isFound = function (username, video) {
         return __awaiter(this, void 0, void 0, function () {
-            var v;
+            var url, db, collection, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log("isFound: key = " + key);
-                        return [4 /*yield*/, this.get(key)];
+                        url = video.videoUrl;
+                        console.log("isFound: key = " + url);
+                        db = this.client.db(this.dbName);
+                        collection = db.collection(this.collectionName);
+                        console.log("get: key = " + url);
+                        return [4 /*yield*/, collection.findOne({ 'username': username, 'categories.0.labels.0.videos': { $elemMatch: { "videoUrl": url } } })];
                     case 1:
-                        v = _a.sent();
-                        console.log("is found result = " + v);
-                        if (v === null) {
+                        result = _a.sent();
+                        console.log("is found result = " + result);
+                        if (result === null) {
                             return [2 /*return*/, false];
                         }
                         else {

@@ -94,6 +94,14 @@ export class MyServer {
 
     public async createVideo(username: string, videoObj: object, response) : Promise<void> {
 		console.log("creating video...")
+
+		let found = await this.theDatabase.isFound(username, videoObj);
+		if (found) {
+			alert("Book already exists");
+			console.log("Book already exists");
+			throw "Book with this url already exists";
+		}
+
 		await this.theDatabase.put(username, videoObj);
 
 		response.write(JSON.stringify(
