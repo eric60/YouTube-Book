@@ -134,7 +134,7 @@ public async isFound(username: string, video: any) : Promise<boolean>  {
     console.log("get: key = " + url);
     let result = await collection.findOne({'username': username, 'categories.0.labels.0.videos' : 
                                         {$elemMatch: {"videoUrl" : url }}});
-    console.log("is found result = " + result);
+    console.log("-----> isFound result = " + result);
     if (result === null) {
         return false;
     } else {

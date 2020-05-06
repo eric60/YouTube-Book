@@ -175,7 +175,9 @@ var MyServer = /** @class */ (function () {
                     case 1:
                         found = _a.sent();
                         if (found) {
-                            response.write(JSON.stringify({ 'result': 'Error: Book already exists.' }));
+                            console.log("-----> Video Found. Not adding.");
+                            response.write(JSON.stringify({ 'result': 'Video Found. Not adding.' }));
+                            response.end();
                             return [2 /*return*/];
                         }
                         return [4 /*yield*/, this.theDatabase.put(username, videoObj)];

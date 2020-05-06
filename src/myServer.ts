@@ -97,12 +97,12 @@ export class MyServer {
 
 		let found = await this.theDatabase.isFound(username, videoObj);
 		if (found) {
-			response.write(JSON.stringify({'result' : 'Error: Book already exists.',}));
+			console.log("-----> Video Found. Not adding.")
+			response.write(JSON.stringify({'result' : 'Video Found. Not adding.',}));
+			response.end();
 			return;
 		}
-
 		await this.theDatabase.put(username, videoObj);
-
 		response.write(JSON.stringify(
 						{'result' : 'created',
 						'username' : username,

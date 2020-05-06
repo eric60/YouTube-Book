@@ -148,7 +148,6 @@ $(document).ready(function () {
         if (!checkDialogInputs()) {
         }
         else {
-            alert("Book submitted");
             $("#dialog-add-video").dialog("close");
             videoCreate();
         }
@@ -327,7 +326,6 @@ $(document).ready(function () {
                         label = getDialogLabel();
                         notes = $('#dialog-Notes').val();
                         bookmarks = getDialogBookmarks();
-                        console.log("url: " + videoUrl + "\n title: " + title + "\n category: " + category + "\n label: " + label + "\n notes: " + notes + "\n bookmarks:");
                         newUrl = url + "/video/" + username + "/create";
                         console.log(newUrl);
                         data = {
@@ -340,7 +338,7 @@ $(document).ready(function () {
                                 notes: notes
                             }
                         };
-                        console.log('in videoCreate video obj: ');
+                        console.log('Video object sent: ');
                         console.log(data);
                         return [4 /*yield*/, postData(newUrl, data)];
                     case 1:
@@ -348,16 +346,14 @@ $(document).ready(function () {
                         return [4 /*yield*/, resp.json()];
                     case 2:
                         j = _a.sent();
-                        if (j['result'] !== 'Error: Book already exists.') {
+                        console.log("Here");
+                        console.log(j);
+                        if (j.result !== 'Video Found. Not adding.') {
                             console.log("Video created. Data: " + JSON.stringify(j));
-                            // window.location.reload();
+                            window.location.reload();
                         }
                         else {
-<<<<<<< HEAD
                             alert("Book not added. Book with that url already exists.");
-=======
-                            console.log("error, video could not be created");
->>>>>>> 0526e777c1b42ebff9cea38e1fd4434ae65e3dac
                         }
                         return [2 /*return*/];
                 }

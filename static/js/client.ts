@@ -149,7 +149,6 @@ $(document).ready(function() {
         if (!checkDialogInputs()) {
         } 
         else {
-            alert("Book submitted");
             (<any>$("#dialog-add-video")).dialog("close");
             videoCreate();           
         }
@@ -382,19 +381,13 @@ $(document).ready(function() {
     function videoCreate() {
         (async() => {
             console.log('----- In videoCreate -------')
-
             let videoUrl : any = $('#dialog-url').val();
             let title : any = getDialogTitle();
             let category = getDialogCategory();
             let label : string = getDialogLabel();
             let notes : any = $('#dialog-Notes').val();
-
             let bookmarks : Array<Object> = getDialogBookmarks();
          
-
-            console.log(`url: ${videoUrl}\n title: ${title}\n category: ${category}\n label: ${label}\n notes: ${notes}\n bookmarks:`)
-
-    
             const newUrl : string = `${url}/video/${username}/create`
             console.log(newUrl);
 
@@ -408,17 +401,17 @@ $(document).ready(function() {
                     notes: notes
                 }
             }
-
-            console.log('in videoCreate video obj: ')
+            console.log('Video object sent: ')
             console.log(data);
-
 
             const resp = await postData(newUrl, data);
             const j = await resp.json();
 
-            if (j['result'] !== 'Error: Book already exists.'){
+            console.log("Here")
+            console.log(j);
+            if (j.result !== 'Video Found. Not adding.'){
                 console.log("Video created. Data: " + JSON.stringify(j));
-                // window.location.reload();
+                window.location.reload();
             } else {
                 alert("Book not added. Book with that url already exists.")
             }

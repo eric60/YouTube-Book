@@ -205,7 +205,7 @@ var Database = /** @class */ (function () {
                         return [4 /*yield*/, collection.findOne({ 'username': username, 'categories.0.labels.0.videos': { $elemMatch: { "videoUrl": url } } })];
                     case 1:
                         result = _a.sent();
-                        console.log("is found result = " + result);
+                        console.log("-----> isFound result = " + result);
                         if (result === null) {
                             return [2 /*return*/, false];
                         }
