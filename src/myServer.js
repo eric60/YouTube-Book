@@ -166,12 +166,19 @@ var MyServer = /** @class */ (function () {
     // ---------------------------- CRUD functions -------------------------------------
     MyServer.prototype.createVideo = function (username, videoObj, response) {
         return __awaiter(this, void 0, void 0, function () {
+            var found;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log("creating video...");
-                        return [4 /*yield*/, this.theDatabase.put(username, videoObj)];
+                        return [4 /*yield*/, this.theDatabase.isFound(username, videoObj)];
                     case 1:
+                        found = _a.sent();
+                        if (found) {
+                            throw "Book with this url already exists";
+                        }
+                        return [4 /*yield*/, this.theDatabase.put(username, videoObj)];
+                    case 2:
                         _a.sent();
                         response.write(JSON.stringify({ 'result': 'created',
                             'username': username,

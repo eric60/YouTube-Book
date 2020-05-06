@@ -125,12 +125,17 @@ let result = await collection.updateOne({'username': username,
 
     console.log("\nresult = " + result);
 }
-    
-public async isFound(key: string) : Promise<boolean>  {
-    console.log("isFound: key = " + key);
-    let v = await this.get(key);
-    console.log("is found result = " + v);
-    if (v === null) {
+
+public async isFound(username: string, video: any) : Promise<boolean>  { 
+    let url = video.videoUrl;
+    console.log("isFound: key = " + url);
+    let db = this.client.db(this.dbName); // this.level(this.dbFile);
+    let collection = db.collection(this.collectionName);
+    console.log("get: key = " + url);
+    let result = await collection.findOne({'username': username, 'categories.0.labels.0.videos' : 
+                                        {$elemMatch: {"videoUrl" : url }}});
+    console.log("is found result = " + result);
+    if (result === null) {
         return false;
     } else {
         return true;
