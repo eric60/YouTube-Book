@@ -556,7 +556,8 @@ $(document).ready(function () {
             console.log('timestampdiv:' + timestampDiv + "\ntimestampNotesDiv: " + timestampNotesDiv);
             var timestampVal = $(timestampDiv).val();
             var timestampNotesVal = $(timestampNotesDiv).val();
-            if (timestampVal != "00:00:00") {
+            var emptyBookmark = timestampVal == "00:00:00" && timestampNotesVal == "";
+            if (!emptyBookmark) {
                 bookmarks[i] = {
                     timestamp: timestampVal,
                     timestampNotes: timestampNotesVal
