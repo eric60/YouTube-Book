@@ -151,7 +151,6 @@ $(document).ready(function () {
             alert("Book submitted");
             $("#dialog-add-video").dialog("close");
             videoCreate();
-            window.location.reload();
         }
     });
     $('#readTestBtn').click(function () {
@@ -349,11 +348,12 @@ $(document).ready(function () {
                         return [4 /*yield*/, resp.json()];
                     case 2:
                         j = _a.sent();
-                        if (j['result'] !== 'error') {
+                        if (j['result'] !== 'Error: Book already exists.') {
                             console.log("Video created. Data: " + JSON.stringify(j));
+                            // window.location.reload();
                         }
                         else {
-                            console.log("Error; video not created.");
+                            alert("Book not added. Book with that url already exists.");
                         }
                         return [2 /*return*/];
                 }

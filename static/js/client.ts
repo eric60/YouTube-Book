@@ -151,8 +151,7 @@ $(document).ready(function() {
         else {
             alert("Book submitted");
             (<any>$("#dialog-add-video")).dialog("close");
-            videoCreate();
-            window.location.reload();
+            videoCreate();           
         }
      })
 
@@ -416,12 +415,11 @@ $(document).ready(function() {
             const resp = await postData(newUrl, data);
             const j = await resp.json();
 
-
-
-            if (j['result'] !== 'error'){
+            if (j['result'] !== 'Error: Book already exists.'){
                 console.log("Video created. Data: " + JSON.stringify(j));
+                // window.location.reload();
             } else {
-                console.log("Error; video not created.");
+                alert("Book not added. Book with that url already exists.")
             }
 
         })();
