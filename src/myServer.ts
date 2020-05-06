@@ -97,6 +97,8 @@ export class MyServer {
 
 		let found = await this.theDatabase.isFound(username, videoObj);
 		if (found) {
+			alert("Book already exists");
+			console.log("Book already exists");
 			throw "Book with this url already exists";
 		}
 

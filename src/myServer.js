@@ -175,6 +175,8 @@ var MyServer = /** @class */ (function () {
                     case 1:
                         found = _a.sent();
                         if (found) {
+                            alert("Book already exists");
+                            console.log("Book already exists");
                             throw "Book with this url already exists";
                         }
                         return [4 /*yield*/, this.theDatabase.put(username, videoObj)];
