@@ -353,7 +353,7 @@ $(document).ready(function () {
                             console.log("Video created. Data: " + JSON.stringify(j));
                         }
                         else {
-                            console.log("Error; video not created.");
+                            console.log("error, video could not be created");
                         }
                         return [2 /*return*/];
                 }
@@ -424,7 +424,7 @@ $(document).ready(function () {
     function videoUpdate(videoNum) {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var htmlVideoUrl, category, label, videoTitle, videoURL, newURL, notes, bookmarks, data, resp, j;
+            var htmlVideoUrl, category, label, videoTitle, videoURL, newURL, notes, stopAt, i, bookmarks, data, resp, j;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -438,7 +438,18 @@ $(document).ready(function () {
                         console.log("VIDEO URL: " + videoURL);
                         newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label + '&videoId=' + videoURL;
                         notes = $("#video-" + videoNum + "-notes").val();
-                        bookmarks = [];
+                        stopAt = 0;
+                        i = 1;
+                        while (true) {
+                            if ($("#video-" + videoNum + "-bm-" + i).length > 0) {
+                                i++;
+                            }
+                            else {
+                                stopAt = i - 1;
+                                break;
+                            }
+                        }
+                        bookmarks = getBookmarks("#video-" + videoNum + "-time-", "#video-" + videoNum + "-bm-", stopAt);
                         data = {
                             videoObj: {
                                 category: category,
@@ -547,12 +558,12 @@ $(document).ready(function () {
         }
     }
     // general use for both CREATE and UPDATE
-    function getBookmarks(timestamp, timestampNotes, bookmarksCnt) {
+    function getBookmarks(timestampHtml, timestampNotesHtml, bookmarksCnt) {
         var bookmarks = [];
         for (var i = 0; i < bookmarksCnt; i++) {
             var bookmarkIdx = i + 1;
-            var timestampDiv = timestamp + bookmarkIdx;
-            var timestampNotesDiv = timestampNotes + bookmarkIdx;
+            var timestampDiv = timestampHtml + bookmarkIdx;
+            var timestampNotesDiv = timestampNotesHtml + bookmarkIdx;
             console.log('timestampdiv:' + timestampDiv + "\ntimestampNotesDiv: " + timestampNotesDiv);
             var timestampVal = $(timestampDiv).val();
             var timestampNotesVal = $(timestampNotesDiv).val();
@@ -567,11 +578,6 @@ $(document).ready(function () {
             }
         }
         return bookmarks;
-    }
-    // --------------------  UPDATE TODO - get data from main screen ------------------------------
-    //gets data for current video based on the submit button id - e.g. the 1 from
-    // video-1-submit-book
-    function getMainPageVideoData(videoNum) {
     }
     // ---------------------  Add-video dialog functions  -------------------------------------------
     function handlePaste(callback) {

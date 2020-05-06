@@ -413,15 +413,13 @@ $(document).ready(function() {
             console.log('in videoCreate video obj: ')
             console.log(data);
 
+
             const resp = await postData(newUrl, data);
             const j = await resp.json();
-
-
-
             if (j['result'] !== 'error'){
                 console.log("Video created. Data: " + JSON.stringify(j));
             } else {
-                console.log("Error; video not created.");
+                console.log("error, video could not be created");
             }
 
         })();
@@ -483,10 +481,20 @@ $(document).ready(function() {
 
             const newURL : string = url + "/video" + `/${username}` + "/update?category=" + category + "&label=" + label + '&videoId=' + videoURL;
             let notes : any = $(`#video-${videoNum}-notes`).val();
-           // let timestampDiv = `#video-${videoNum}-time-`;
-           // let timestampNotes = `#video-${videoNum}-bm-`;
+           let stopAt = 0; //the number to stop inserting bookmarks at
+           let i = 1;
+           while(true){
+               if($(`#video-${videoNum}-bm-${i}`).length > 0){
+                   i++;
+               }
+               else{
+                   stopAt = i - 1;
+                   break;
+               }
+            }
 
-           let bookmarks : Array<Object> = [];
+           let bookmarks : Array<Object> = getBookmarks(`#video-${videoNum}-time-`, `#video-${videoNum}-bm-`, stopAt);
+        
             const data = {
                 videoObj: {
                     category: category,
@@ -586,14 +594,14 @@ $(document).ready(function() {
     }
 
     // general use for both CREATE and UPDATE
-    function getBookmarks(timestamp : string, timestampNotes: string, bookmarksCnt : number) {
+    function getBookmarks(timestampHtml : string, timestampNotesHtml: string, bookmarksCnt : number) {
         let bookmarks = [];
         
         for (let i = 0; i < bookmarksCnt; i++) {
             let bookmarkIdx = i + 1;
 
-            let timestampDiv = timestamp + bookmarkIdx;
-            let timestampNotesDiv = timestampNotes + bookmarkIdx;
+            let timestampDiv = timestampHtml + bookmarkIdx;
+            let timestampNotesDiv = timestampNotesHtml + bookmarkIdx;
             console.log('timestampdiv:' + timestampDiv + "\ntimestampNotesDiv: " + timestampNotesDiv)
 
             let timestampVal =  $(timestampDiv).val()
@@ -609,14 +617,6 @@ $(document).ready(function() {
             }
         }
         return bookmarks;
-    }
-
-   
-    // --------------------  UPDATE TODO - get data from main screen ------------------------------
-    //gets data for current video based on the submit button id - e.g. the 1 from
-    // video-1-submit-book
-    function getMainPageVideoData(videoNum : number) { 
-        
     }
 
    

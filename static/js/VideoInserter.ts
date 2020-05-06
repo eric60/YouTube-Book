@@ -41,7 +41,7 @@ export default class VideoInserter {
                 <button id="video-${videoNum}-link-${i}" class="timestampBtn" >hh:mm:ss</button>  
 
                 <input id="video-${videoNum}-time-${i}" type='time' class="without_ampm" step="1" required value="00:00:00"> 
-                <div>
+                <div id="video-${videoNum}-bookmark-container">
                 <textarea class="bookmark-notes" id="video-${videoNum}-bm-${i}" cols="35"></textarea>
                 </div>
             `
