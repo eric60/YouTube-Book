@@ -351,9 +351,11 @@ $(document).ready(function () {
                         if (j.result !== 'Video Found. Not adding.') {
                             console.log("Video created. Data: " + JSON.stringify(j));
                             window.location.reload();
+                            alert("Your book was successfully added.");
                         }
                         else {
-                            alert("Book not added. Book with that url already exists.");
+                            window.location.reload();
+                            alert("Sorry your book was not added because a book with that video already exists in your library.");
                         }
                         return [2 /*return*/];
                 }
