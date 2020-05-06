@@ -58,7 +58,7 @@ $(document).ready(function () {
     var videoWidth = dialogWidth * 0.85; // 1000
     var videoHeight = videoWidth * .5; // 500
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
-    var videoInserter = new VideoInserter_1["default"](1);
+    var videoInserter = new VideoInserter_1["default"]();
     // --------------------- TODO: Initial Screen Trigger -----------------
     var TOTAL_VIDEO_CNT;
     var DIALOG_BOOKMARK_CNT = 1;

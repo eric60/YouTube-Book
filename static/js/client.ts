@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 
     // let ytLoader = new YouTubeLoader(TOTAL_VIDEO_CNT, videoWidth, videoHeight);
-    let videoInserter = new VideoInserter(1);
+    let videoInserter = new VideoInserter();
   
     
      // --------------------- TODO: Initial Screen Trigger -----------------

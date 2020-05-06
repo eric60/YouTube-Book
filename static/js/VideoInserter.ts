@@ -1,10 +1,6 @@
 export default class VideoInserter {
-    private videoNum : number;
-    categories : Array<any> = [];
-
-
-    constructor(videoNum : number) {
-        this.videoNum = videoNum;
+    
+    constructor() {
     }
 
 
@@ -38,15 +34,15 @@ export default class VideoInserter {
         });
     } */
     
-    private getBookmarksDiv(oldNumBookmarks: number) : string {
+    private getBookmarksDiv(oldNumBookmarks: number, videoNum: number) : string {
         let div = ""
         for (let i = 1; i < oldNumBookmarks + 1; i++) {
             div += `
-                <button id="video-${this.videoNum}-link-${i}" class="timestampBtn" >hh:mm:ss</button>  
+                <button id="video-${videoNum}-link-${i}" class="timestampBtn" >hh:mm:ss</button>  
 
-                <input id="video-${this.videoNum}-time-${i}" type='time' class="without_ampm" step="1" required value="00:00:00"> 
+                <input id="video-${videoNum}-time-${i}" type='time' class="without_ampm" step="1" required value="00:00:00"> 
                 <div>
-                <textarea class="bookmark-notes" id="video-${this.videoNum}-bm-${i}" cols="35"></textarea>
+                <textarea class="bookmark-notes" id="video-${videoNum}-bm-${i}" cols="35"></textarea>
                 </div>
             `
         }
@@ -55,9 +51,8 @@ export default class VideoInserter {
 
     public insertVideoDiv(videoNum : number, oldNumBookmarks: number, videoUrl: string) {
         console.log("In Video Inserter insertVideoDiv for: " + videoNum);
-        this.videoNum = videoNum;
         let divInsert = '.Label-Body';
-        let bookmarksDiv : String = this.getBookmarksDiv(oldNumBookmarks);
+        let bookmarksDiv : String = this.getBookmarksDiv(oldNumBookmarks, videoNum);
 
         $(divInsert).append(`
             <div class="Label-Video">
