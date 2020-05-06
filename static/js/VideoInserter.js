@@ -34,7 +34,7 @@ var VideoInserter = /** @class */ (function () {
     VideoInserter.prototype.getBookmarksDiv = function (oldNumBookmarks, videoNum) {
         var div = "";
         for (var i = 1; i < oldNumBookmarks + 1; i++) {
-            div += "\n                <button id=\"video-" + videoNum + "-link-" + i + "\" class=\"timestampBtn\" >hh:mm:ss</button>  \n\n                <input id=\"video-" + videoNum + "-time-" + i + "\" type='time' class=\"without_ampm\" step=\"1\" required value=\"00:00:00\"> \n                <div>\n                <textarea class=\"bookmark-notes\" id=\"video-" + videoNum + "-bm-" + i + "\" cols=\"35\"></textarea>\n                </div>\n            ";
+            div += "\n                <button id=\"video-" + videoNum + "-link-" + i + "\" class=\"timestampBtn\" >hh:mm:ss</button>  \n\n                <input id=\"video-" + videoNum + "-time-" + i + "\" type='time' class=\"without_ampm\" step=\"1\" required value=\"00:00:00\"> \n                <div id=\"video-" + videoNum + "-bookmark-container\">\n                <textarea class=\"bookmark-notes\" id=\"video-" + videoNum + "-bm-" + i + "\" cols=\"35\"></textarea>\n                </div>\n            ";
         }
         return div;
     };
