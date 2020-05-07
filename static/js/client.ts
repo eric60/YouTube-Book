@@ -66,10 +66,11 @@ $(document).ready(function() {
         console.log("TOTAL_VIDEO_CNT: " + TOTAL_VIDEO_CNT)
 
         for (let i = 1; i < TOTAL_VIDEO_CNT + 1; i++) {
-            let currVideoUrl = label1Videos[i-1].videoUrl
+            let currVideoUrl = label1Videos[i-1].videoUrl;
             if (!currVideoUrl) {
                 continue;
             }
+            currVideoUrl = "Youtube.com/watch?v=" + currVideoUrl;
             let oldNumBookmarks = label1Videos[i-1].bookmarks.length;
             console.log("----- Inserting labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
             videoInserter.insertVideoDiv(i, oldNumBookmarks, currVideoUrl);
@@ -84,8 +85,9 @@ $(document).ready(function() {
             console.log(divInsert)
             
             let currVideoUrl = label1Videos[i-1].videoUrl
-            let videoId = parseYoutubeUrl(currVideoUrl)
-           
+            // let videoId = parseYoutubeUrl(currVideoUrl)
+           let videoId = currVideoUrl;
+
             let lastVideo = false
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;
@@ -375,7 +377,8 @@ $(document).ready(function() {
     function videoCreate() {
         (async() => {
             console.log('----- In videoCreate -------')
-            let videoUrl : any = $('#dialog-url').val();
+            // @ts-ignore
+            let videoUrl : any = parseYoutubeUrl($('#dialog-url').val());
             let title : any = getDialogTitle();
             let category = getDialogCategory();
             let label : string = getDialogLabel();
@@ -405,8 +408,8 @@ $(document).ready(function() {
             console.log(j);
             if (j.result !== 'Video Found. Not adding.'){
                 console.log("Video created. Data: " + JSON.stringify(j));
-                window.location.reload();
                 alert("Your book was successfully added.")
+                window.location.reload();
             } else {
                 alert("Sorry your book was not added because a book with that video already exists in your library.")
                 window.location.reload();
@@ -464,7 +467,7 @@ $(document).ready(function() {
 
             let videoTitle = $(`#video-${videoNum}-title`).text();
 
-            let videoURL = htmlVideoUrl;
+            let videoURL = parseYoutubeUrl(htmlVideoUrl);
 
             console.log("VIDEO TITLE: " + videoTitle);
             console.log("VIDEO URL: " + videoURL);
@@ -510,7 +513,7 @@ $(document).ready(function() {
     function videoDelete(videoNum) {
         (async() => {
 
-            let videoURL = $(`.video-${videoNum}-vid`).attr('id'); //gets URL of the video in question
+            let videoURL = parseYoutubeUrl($(`.video-${videoNum}-vid`).attr('id')); 
             console.log("----------- Video Id: " + videoURL + " for video number: " + videoNum);
 
             const newURL : string = url + "/video" + `/${username}` + "/delete?videoId=" + videoURL;
