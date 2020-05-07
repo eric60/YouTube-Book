@@ -58,6 +58,8 @@ var MyServer = /** @class */ (function () {
         this.server.use('/', express.static('../static'));
         this.server.use(express.json());
         this.server.use('/', this.router);
+        this.router.all('/user/signup');
+        this.router.all('user/signin');
         this.router.post('/video/:username/create', this.createVideoHandler.bind(this));
         this.router.all('/video/:username/read', this.readVideoHandler.bind(this));
         this.router.all('/video/:username/readAll', this.readAllVideoHandler.bind(this));
