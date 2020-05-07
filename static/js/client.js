@@ -89,6 +89,7 @@ $(document).ready(function () {
             if (!currVideoUrl) {
                 continue;
             }
+            currVideoUrl = "Youtube.com/watch?v=" + currVideoUrl;
             var oldNumBookmarks = label1Videos[i - 1].bookmarks.length;
             console.log("----- Inserting labelvideo: " + i + ", Old bookmarks length: " + oldNumBookmarks);
             videoInserter.insertVideoDiv(i, oldNumBookmarks, currVideoUrl);
@@ -101,7 +102,8 @@ $(document).ready(function () {
             var divInsert = "video-" + i;
             console.log(divInsert);
             var currVideoUrl = label1Videos[i - 1].videoUrl;
-            var videoId = parseYoutubeUrl(currVideoUrl);
+            // let videoId = parseYoutubeUrl(currVideoUrl)
+            var videoId = currVideoUrl;
             var lastVideo = false;
             if (i == TOTAL_VIDEO_CNT) {
                 lastVideo = true;
@@ -320,7 +322,7 @@ $(document).ready(function () {
                 switch (_a.label) {
                     case 0:
                         console.log('----- In videoCreate -------');
-                        videoUrl = $('#dialog-url').val();
+                        videoUrl = parseYoutubeUrl($('#dialog-url').val());
                         title = getDialogTitle();
                         category = getDialogCategory();
                         label = getDialogLabel();
@@ -350,8 +352,8 @@ $(document).ready(function () {
                         console.log(j);
                         if (j.result !== 'Video Found. Not adding.') {
                             console.log("Video created. Data: " + JSON.stringify(j));
-                            window.location.reload();
                             alert("Your book was successfully added.");
+                            window.location.reload();
                         }
                         else {
                             alert("Sorry your book was not added because a book with that video already exists in your library.");
@@ -435,7 +437,7 @@ $(document).ready(function () {
                         category = $(".Category").attr('id').substring(9).replace(/-/g, " ");
                         label = $(".label-btn").attr('id').substring(6).replace(/-/g, " ");
                         videoTitle = $("#video-" + videoNum + "-title").text();
-                        videoURL = htmlVideoUrl;
+                        videoURL = parseYoutubeUrl(htmlVideoUrl);
                         console.log("VIDEO TITLE: " + videoTitle);
                         console.log("VIDEO URL: " + videoURL);
                         newURL = url + "/video" + ("/" + username) + "/update?category=" + category + "&label=" + label + '&videoId=' + videoURL;
@@ -488,7 +490,7 @@ $(document).ready(function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        videoURL = $(".video-" + videoNum + "-vid").attr('id');
+                        videoURL = parseYoutubeUrl($(".video-" + videoNum + "-vid").attr('id'));
                         console.log("----------- Video Id: " + videoURL + " for video number: " + videoNum);
                         newURL = url + "/video" + ("/" + username) + "/delete?videoId=" + videoURL;
                         data = {
