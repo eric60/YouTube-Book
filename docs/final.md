@@ -6,9 +6,9 @@
 YouTube Book is a website where users can create YouTube Books with notes and “bookmarks” or timestamps of their video that they can take notes on and jump to. This is innovative because it can help people break down their favorite videos either fun or educational for future use, just like a book that they can flip to their favorite bookmarked pages. Users can create, read, update, and delete their books.
 
 ### 5) Team Members
-Eric Shi: eric60
-John: johnathancampana
-Trent: tbourgoin1
+* Eric Shi: eric60
+* John: johnathancampana
+* Trent: tbourgoin1
 
 
 ### 6) User Interface
@@ -45,7 +45,7 @@ Trent: tbourgoin1
 ### 8) Database
 **The following is our database structure:**
 
-![Database](m3_images/database-document.png)
+![Database](m3_images/database-document.jpg)
 
 
 User document {  
@@ -75,16 +75,16 @@ User document {
 
 ### 9) URL Routes
 **/video/:username/create**
-Maps to createVideo function that creates a new video for the specified user
+* Maps to createVideo function that creates a new video for the specified user
 
 **/video/:username/readAll**
-Maps to readAll function that reads all the videos saved to the user’s profile
+* Maps to readAll function that reads all the videos saved to the user’s profile
 
 **/video/:username/update**
-Maps to updateVideo function that updates changes that the user makes (in title, notes, or bookmarks) 
+* Maps to updateVideo function that updates changes that the user makes (in title, notes, or bookmarks) 
 
 **/video/:username/delete**
-Maps to deleteVideo function that deletes the specified video for the current user
+* Maps to deleteVideo function that deletes the specified video for the current user
 
 
 
