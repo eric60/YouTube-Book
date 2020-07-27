@@ -13,3 +13,6 @@ YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 
 2. **Changing Server ts files**
     * Type `tsc` in src whenever changing server ts files.
+    
+## Screenshots    
+![Screenshot](docs/Youtube_Book_Screenshot.jpg)      
