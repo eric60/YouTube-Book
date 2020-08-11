@@ -1,7 +1,9 @@
 # [Youtube Book](https://cryptic-basin-95763.herokuapp.com/)
 
+![Screenshot](docs/Youtube_Book_Screenshot.jpg)  
+
 ## Description
-YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
+YouTube Book lets you upload YouTube videos as books with bookmark timestamp links and notes.
 
 ## To Run the server - Just do this once
 * In root type `npm run start-dev` and go to localhost:8080
@@ -13,6 +15,5 @@ YouTube Book lets you upload YouTube videos as books with bookmarks and notes.
 
 2. **Changing Server ts files**
     * Type `tsc` in src whenever changing server ts files.
-    
-![Screenshot](docs/Youtube_Book_Screenshot.jpg)     
+       
      
