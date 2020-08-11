@@ -1,7 +1,6 @@
 # [Youtube Book](https://cryptic-basin-95763.herokuapp.com/)
 
 ![Screenshot](docs/Youtube_Book_Screenshot.jpg)  
-
 ## Description
 YouTube Book lets you upload YouTube videos as books with bookmark timestamp links and notes.
 
